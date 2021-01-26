@@ -1,0 +1,91 @@
+<div class="sudoku-grid">
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="sudoku-grid__navigation">
+    <button
+      mat-icon-button
+      color="primary"
+      type="button"
+      matTooltip="Share sudoku"
+      (click)="shareGrid()"
+    >
+      <mat-icon>share</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      color="primary"
+      type="button"
+      matTooltip="Lock values"
+      (click)="onChangeLockValues()"
+    >
+      <mat-icon *ngIf="!lockValues">lock_open</mat-icon>
+      <mat-icon *ngIf="lockValues">lock</mat-icon>
+    </button>
+  </div>
+
+  <!-- grid -->
+  <div class="sudoku-grid__grid-wrapper">
+    <mat-grid-list cols="9" rowHeight="9:9">
+      <ng-container *ngFor="let row of grid; let rowIndex = index">
+        <mat-grid-tile
+          *ngFor="let value of row; let colIndex = index"
+          class="sudoku-grid__item-wrapper"
+          [class.sudoku-grid__item-wrapper--group-top]="isGroupTop(rowIndex)"
+          [class.sudoku-grid__item-wrapper--group-end]="isGroupEnd(colIndex)"
+          [class.sudoku-grid__item-wrapper--grid-bottom]="isGridBottom(rowIndex)"
+          [class.sudoku-grid__item-wrapper--grid-end]="isGridEnd(colIndex)"
+          (click)="toogleSelectedItem(rowIndex, colIndex, false)"
+          (dblclick)="toogleSelectedItem(rowIndex, colIndex, true)"
+        >
+          <app-sudoku-grid-item
+            fxFlexFill
+            [value]="value"
+            [nomineeValue]="nomineeValueSubject"
+            [isSelected]="isItemSelected(rowIndex, colIndex)"
+            [isReadOnly]="isItemReadOnly(rowIndex, colIndex)"
+            [hasError]="isHelpEnabled && hasItemError(rowIndex, colIndex, value)"
+            [showNominees]="showNominees"
+            (onChange)="onValueChange(rowIndex, colIndex, $event)"
+          ></app-sudoku-grid-item>
+        </mat-grid-tile>
+      </ng-container>
+    </mat-grid-list>
+  </div>
+
+  <!-- navigation -->
+  <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="sudoku-grid__navigation">
+    <button
+      class="sudoku-grid__navigation-button"
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="deleteSelectedItem()"
+    >Delete number</button>
+
+    <button
+      class="sudoku-grid__navigation-button"
+      [class.sudoku-grid__navigation-button--active]="showNominees"
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="showNominees = !showNominees"
+    >Nominees</button>
+
+    <mat-slide-toggle
+      color="primary"
+      [checked]="isHelpEnabled"
+      (change)="onHelpChange($event)"
+    >Help</mat-slide-toggle>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutAlign="start start" class="sudoku-grid__navigation">
+    <button
+      class="sudoku-grid__navigation-button"
+      *ngFor="let touchValue of touchValues"
+      mat-mini-fab
+      color="primary"
+      type="button"
+      (click)="onSelectValue(touchValue)"
+    >{{touchValue}}</button>
+  </div>
+</div>
+

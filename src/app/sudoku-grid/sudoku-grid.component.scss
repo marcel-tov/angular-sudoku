@@ -1,0 +1,39 @@
+.sudoku-grid {
+  &__grid-wrapper {
+    color: var(--primary-color);
+  }
+
+  &__item-wrapper {
+    border: 2px solid var(--light-border-color);
+
+    &--group-top {
+      border-top: 2px solid var(--border-color);
+    }
+
+    &--group-end {
+      border-left: 2px solid var(--border-color);
+    }
+
+    &--grid-bottom {
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    &--grid-end {
+      border-right: 2px solid var(--border-color);
+    }
+  }
+
+  &__navigation {
+    margin: 20px;
+  }
+
+  &__navigation-button {
+    color: white;
+    margin: 5px;
+
+    &--active {
+      background: var(--secondary-color);
+    }
+  }
+}
+

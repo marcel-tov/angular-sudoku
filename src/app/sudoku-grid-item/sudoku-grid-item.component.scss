@@ -1,0 +1,42 @@
+.sudoku-grid-item {
+  background: white;
+  user-select: none;
+  color: var(--font-color);
+  font-size: calc(100% + 1vw);
+
+  &--clickable {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &--readonly {
+    background: var(--primary-color);
+  }
+
+  &--selected {
+    background-color: var(--secondary-color);
+  }
+
+  &--error {
+    color: var(--error-color);
+  }
+
+  &--nominees {
+      box-shadow: inset 0 0 10px #000000;
+  }
+
+  &__nominees-grid {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-gap: 0px;
+    font-size: calc(100% - 1.3vw);
+    justify-content: center;
+    text-align: center;
+  }
+}
