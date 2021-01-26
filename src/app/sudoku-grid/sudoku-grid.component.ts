@@ -21,6 +21,7 @@ class SudokuGridComponent implements OnChanges {
   public lockValues: boolean = true;
   public readonly touchValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   @Output() private onShareGrid: EventEmitter<SudokuGrid> = new EventEmitter();
+  @Output() private onCreateGrid: EventEmitter<void> = new EventEmitter();
   private iterations: number = 0;
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -149,6 +150,10 @@ class SudokuGridComponent implements OnChanges {
 
   public trackByIndex(index: number) {
     return index;
+  }
+
+  public createGrid(): void {
+    this.onCreateGrid.emit();
   }
 
   private usedInSquare(row: number, col: number, value: SudokuItem): boolean {

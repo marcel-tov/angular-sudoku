@@ -2,6 +2,7 @@
   <app-sudoku-grid
     class="app"
     [grid]="sudokuGrid"
+    (onCreateGrid)="onCreateGrid()"
     (onShareGrid)="onShareGrid($event)"
   ></app-sudoku-grid>
 </div>

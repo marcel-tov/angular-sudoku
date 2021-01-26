@@ -3,6 +3,9 @@ import { SudokuGrid, SudokuRow, SudokuItem } from './sudoku-grid/sudoku-grid.com
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
+import {
+  getSudoku,
+} from "fake-sudoku-puzzle-generator";
 
 @Component({
   selector: 'app-root',
@@ -55,6 +58,13 @@ export class AppComponent implements OnInit {
         });
 
       this.clipboard.copy(window.location.href);
+  }
+
+  public onCreateGrid(): void {
+    // @ts-ignore
+    this.sudokuGrid = getSudoku('Medium');
+
+    this.changeDetector.detectChanges();
   }
 }
 
