@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { SudokuItem } from '../sudoku-grid/sudoku-grid.component';
 
 @Component({
@@ -8,7 +8,7 @@ import { SudokuItem } from '../sudoku-grid/sudoku-grid.component';
   styleUrls: ['./sudoku-grid-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SudokuGridItemComponent implements OnInit {
+export class SudokuGridItemComponent implements OnChanges {
   @Input() public value: SudokuItem = null;
   @Input() public nomineeValue: ReplaySubject<SudokuItem> = new ReplaySubject();
   @Input() public isSelected: boolean = false;
@@ -16,48 +16,25 @@ export class SudokuGridItemComponent implements OnInit {
   @Input() public hasError: boolean = false;
   @Input() public showNominees: boolean = false;
   public nominees: Array<SudokuItem> = [];
-  @Output() private onChange: EventEmitter<SudokuItem> = new EventEmitter();
+  public subscription: Subscription | null = null
 
-  constructor(
-    private changeDetector: ChangeDetectorRef,
-  ) { }
+  constructor(private changeDetector: ChangeDetectorRef) { }
 
-  public ngOnInit(): void {
-    this.initializeNominees();
-
-    this.nomineeValue.subscribe((nomineeValue: SudokuItem) => {
-      if (this.isSelected && this.showNominees) {
-        this.toggleNomineeValue(nomineeValue);
-
-        this.changeDetector.detectChanges();
-      }
-    });
-  }
-
-  /**
-   * @deprecated https://developer.mozilla.org/de/docs/Web/API/KeyboardEvent/keyCode
-   * @param event
-   */
-  @HostListener('window:keydown', ['$event'])
-  private onKeydown(event: KeyboardEvent) {
-    if (!this.isSelected) {
-      return;
-    }
-
-    const value: number = Number(event.key);
-    if (value > 0 && value <= 9) {
-      if (this.showNominees) {
-        this.toggleNomineeValue(value);
-
-        return;
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes.nomineeValue && changes.nomineeValue.currentValue !== undefined) {
+      if (this.subscription) {
+        this.subscription.unsubscribe();
       }
 
-      this.initializeNominees(); // reset nominees
-      this.onChange.emit(value);
-    }
+      this.initializeNominees();
 
-    if (event.key === 'Backspace' || event.key === 'Delete') {
-      this.onChange.emit(null);
+      this.subscription = this.nomineeValue.subscribe((nomineeValue: SudokuItem) => {
+        if (this.isSelected && this.showNominees) {
+          this.toggleNomineeValue(nomineeValue);
+
+          this.changeDetector.detectChanges();
+        }
+      });
     }
   }
 

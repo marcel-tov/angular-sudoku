@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { cloneDeep } from 'lodash';
 import { ReplaySubject } from 'rxjs';
@@ -27,6 +27,7 @@ class SudokuGridComponent implements OnChanges {
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
       this.grid = cloneDeep(this.originalGrid);
+      this.initalizeGrid();
     }
   }
 
@@ -54,14 +55,6 @@ class SudokuGridComponent implements OnChanges {
 
   public isGridEnd(col: number): boolean {
     return col  === 8;
-  }
-
-  public onValueChange(row: number, col: number, value: SudokuItem): void {
-    value = Number(value);
-
-    this.grid[row][col] = (value > 0 && value <= 9)
-      ? value
-      : null;
   }
 
   /**
@@ -138,9 +131,8 @@ class SudokuGridComponent implements OnChanges {
     this.lockValues = !this.lockValues;
 
     if (this.lockValues) {
-      this.selectedRowIndex = null;
-      this.selectedColIndex = null;
       this.originalGrid = cloneDeep(this.grid);
+      this.initalizeGrid();
     }
   }
 
@@ -154,6 +146,38 @@ class SudokuGridComponent implements OnChanges {
 
   public createGrid(): void {
     this.onCreateGrid.emit();
+  }
+
+  private initalizeGrid(): void {
+    this.nomineeValueSubject = new ReplaySubject();
+    this.selectedRowIndex = null;
+    this.selectedColIndex = null;
+    this.showNominees = false;
+    this.isHelpEnabled = false;
+  }
+
+  private onValueChange(row: number, col: number, value: SudokuItem): void {
+    value = Number(value);
+
+    this.grid[row][col] = (value > 0 && value <= 9)
+      ? value
+      : null;
+  }
+
+  /**
+   * @deprecated https://developer.mozilla.org/de/docs/Web/API/KeyboardEvent/keyCode
+   * @param event
+   */
+  @HostListener('window:keydown', ['$event'])
+  private onKeydown(event: KeyboardEvent) {
+    const value: number = Number(event.key);
+    if (value > 0 && value <= 9) {
+      this.onSelectValue(value);
+    }
+
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+      this.onSelectValue(null);
+    }
   }
 
   private usedInSquare(row: number, col: number, value: SudokuItem): boolean {

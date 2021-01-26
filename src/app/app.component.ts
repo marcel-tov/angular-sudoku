@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { SudokuGrid, SudokuRow, SudokuItem } from './sudoku-grid/sudoku-grid.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 import {
   getSudoku,
 } from "fake-sudoku-puzzle-generator";
