@@ -1,0 +1,23 @@
+<div
+  fxFlexFill
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  class="sudoku-grid-item"
+  [ngClass]="{
+    'sudoku-grid-item--readonly': isReadOnly,
+    'sudoku-grid-item--clickable': !isReadOnly,
+    'sudoku-grid-item--selected': isSelected,
+    'sudoku-grid-item--error': hasError && !isReadOnly && value,
+    'sudoku-grid-item--nominees': isSelected && showNominees
+  }"
+>
+    <span *ngIf="value">{{value}}</span>
+
+    <!-- Nominees -->
+    <div class="sudoku-grid-item__nominees-grid" *ngIf="!value">
+      <span
+        *ngFor="let nomineeValue of nominees"
+      >{{nomineeValue}}</span>
+    </div>
+</div>
+
