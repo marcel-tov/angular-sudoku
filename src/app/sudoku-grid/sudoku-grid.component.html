@@ -25,9 +25,9 @@
   <!-- grid -->
   <div class="sudoku-grid__grid-wrapper">
     <mat-grid-list cols="9" rowHeight="9:9">
-      <ng-container *ngFor="let row of grid; let rowIndex = index">
+      <ng-container *ngFor="let row of grid; let rowIndex = index; trackBy:trackByIndex">
         <mat-grid-tile
-          *ngFor="let value of row; let colIndex = index"
+          *ngFor="let value of row; let colIndex = index; trackBy:trackByIndex"
           class="sudoku-grid__item-wrapper"
           [class.sudoku-grid__item-wrapper--group-top]="isGroupTop(rowIndex)"
           [class.sudoku-grid__item-wrapper--group-end]="isGroupEnd(colIndex)"
@@ -43,7 +43,7 @@
             [isSelected]="isItemSelected(rowIndex, colIndex)"
             [isReadOnly]="isItemReadOnly(rowIndex, colIndex)"
             [hasError]="isHelpEnabled && hasItemError(rowIndex, colIndex, value)"
-            [showNominees]="showNominees"
+            [showNominees]="isItemSelected(rowIndex, colIndex) && showNominees"
             (onChange)="onValueChange(rowIndex, colIndex, $event)"
           ></app-sudoku-grid-item>
         </mat-grid-tile>

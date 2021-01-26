@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { SudokuItem } from '../sudoku-grid/sudoku-grid.component';
 
@@ -39,7 +39,7 @@ export class SudokuGridItemComponent implements OnInit {
    * @param event
    */
   @HostListener('window:keydown', ['$event'])
-  private onKeydown(event: any) {
+  private onKeydown(event: KeyboardEvent) {
     if (!this.isSelected) {
       return;
     }

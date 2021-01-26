@@ -147,6 +147,10 @@ class SudokuGridComponent implements OnChanges {
     this.onShareGrid.emit(this.originalGrid);
   }
 
+  public trackByIndex(index: number) {
+    return index;
+  }
+
   private usedInSquare(row: number, col: number, value: SudokuItem): boolean {
     row -= row % 3;
     col -= col % 3;
