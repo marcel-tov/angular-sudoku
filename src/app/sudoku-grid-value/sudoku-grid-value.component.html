@@ -8,6 +8,7 @@
     'sudoku-grid-value--clickable': !isReadOnly,
     'sudoku-grid-value--selected': isSelected,
     'sudoku-grid-value--error': hasError && !isReadOnly && value,
+    'sudoku-grid-value--success': hasSuccess && !isReadOnly && value,
     'sudoku-grid-value--nominees': isSelected && showNominees
   }"
 >
@@ -16,7 +17,7 @@
     <!-- Nominees -->
     <div class="sudoku-grid-value__nominees-grid" *ngIf="!value">
       <span
-        *ngFor="let nomineeValue of nominees"
+        *ngFor="let nomineeValue of nomineeValues"
       >{{nomineeValue}}</span>
     </div>
 </div>

@@ -18,7 +18,7 @@ class SudokuGridComponent implements OnChanges {
   public selectedRowIndex: number | null = null;
   public selectedColIndex: number | null = null;
   public isHelpEnabled: boolean = false;
-  public nomineeValueSubject: ReplaySubject<SudokuValue> = new ReplaySubject();
+  public gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
   public lockValues: boolean = true;
   public sudokuHelper: SudokuHelper = new SudokuHelper(this.grid);
   public readonly touchValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -90,7 +90,7 @@ class SudokuGridComponent implements OnChanges {
     }
 
     if (this.showNominees) {
-      this.nomineeValueSubject.next(null);
+      this.toggleNomineeValue(this.selectedRowIndex, this.selectedColIndex, null);
     } else {
       this.onValueChange(this.selectedRowIndex, this.selectedColIndex, null);
     }
@@ -118,9 +118,13 @@ class SudokuGridComponent implements OnChanges {
     }
 
     if (this.showNominees) {
-      this.nomineeValueSubject.next(value);
+      this.toggleNomineeValue(this.selectedRowIndex, this.selectedColIndex, value);
     } else {
       this.onValueChange(this.selectedRowIndex, this.selectedColIndex, value);
+
+      if (value > 0) {
+        this.updateAffectedNomineeValue(value);
+      }
     }
   }
 
@@ -146,7 +150,16 @@ class SudokuGridComponent implements OnChanges {
   }
 
   private initalizeGrid(): void {
-    this.nomineeValueSubject = new ReplaySubject();
+    for (const row of Object.keys(this.grid)) {
+      for (const col of Object.keys(this.grid[row])) {
+        if (!this.gridNomineeValues[row]) {
+          this.gridNomineeValues[row] = [];
+        }
+
+        this.gridNomineeValues[row][col] = [null, null, null, null, null, null, null, null, null];
+      }
+    }
+
     this.selectedRowIndex = null;
     this.selectedColIndex = null;
     this.showNominees = false;
@@ -159,6 +172,40 @@ class SudokuGridComponent implements OnChanges {
     this.grid[row][col] = (value > 0 && value <= 9)
       ? value
       : null;
+  }
+
+  private toggleNomineeValue(row: number, col: number, value: SudokuValue): void {
+    let modifiedNomineeValue: Array<SudokuValue> = cloneDeep(this.gridNomineeValues[row][col]);
+
+    if (value === null) {
+      modifiedNomineeValue = getEmptyRow();
+    } else {
+      value = Number(value);
+      const indexValue: number = value - 1;
+
+      modifiedNomineeValue[indexValue] = modifiedNomineeValue[indexValue] === null
+        ? value
+        : null;
+    }
+
+    this.gridNomineeValues[row][col] = modifiedNomineeValue;
+  }
+
+  private removeNomineeValue(row: number, col: number, value: SudokuValue): void {
+    if (value === null) {
+      return;
+    }
+
+    let modifiedNomineeValue: Array<SudokuValue> = cloneDeep(this.gridNomineeValues[row][col]);
+
+    value = Number(value);
+    if (modifiedNomineeValue.includes(value)) {
+      const indexValue: number = value - 1;
+
+      modifiedNomineeValue[indexValue] = null;
+
+      this.gridNomineeValues[row][col] = modifiedNomineeValue;
+    }
   }
 
   /**
@@ -176,10 +223,43 @@ class SudokuGridComponent implements OnChanges {
       this.onSelectValue(null);
     }
   }
+
+  private updateAffectedNomineeValue(value: SudokuValue): void {
+    if (!this.hasSelectedValue()) {
+      return;
+    }
+
+    // Empty nominees of selected value
+    this.gridNomineeValues[this.selectedRowIndex][this.selectedColIndex] = getEmptyRow();
+
+    // Remove same nominee values of same row
+    for (const col of Object.keys(this.grid[this.selectedRowIndex])) {
+      this.removeNomineeValue(this.selectedRowIndex, Number(col), value);
+    }
+
+    // Remove same nominee values of same col
+    for (const row of Object.keys(this.grid)) {
+      this.removeNomineeValue(Number(row), this.selectedColIndex, value);
+    }
+
+    // Remove same nominee values of same square
+    const row: number = this.selectedRowIndex - this.selectedRowIndex % 3;
+    const col: number = this.selectedColIndex - this.selectedColIndex % 3;
+
+    for (let x = 0; x < 3; x++) {
+      for (let y = 0; y < 3; y++) {
+        this.removeNomineeValue(x + row, y + col, value);
+      }
+    }
+  }
+}
+
+function getEmptyRow(): Array<SudokuValue> {
+  return [null, null, null, null, null, null, null, null, null];
 }
 
 type SudokuGrid = Array<SudokuRow>;
 type SudokuRow = Array<SudokuValue>;
 type SudokuValue = number | null;
 
-export { SudokuGridComponent, SudokuGrid, SudokuRow, SudokuValue }
+export { SudokuGridComponent, SudokuGrid, SudokuRow, SudokuValue, getEmptyRow }

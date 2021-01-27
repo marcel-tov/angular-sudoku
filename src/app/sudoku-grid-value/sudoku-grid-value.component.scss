@@ -22,6 +22,10 @@
     color: var(--error-color);
   }
 
+  &--success {
+    color: var(--success-color);
+  }
+
   &--nominees {
       box-shadow: inset 0 0 10px #000000;
   }
@@ -35,8 +39,9 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     grid-gap: 0px;
-    font-size: calc(100% - 1.3vw);
+    font-size: calc(100% - 2.4vw);
     justify-content: center;
     text-align: center;
+    color: var(--light-font-color);
   }
 }

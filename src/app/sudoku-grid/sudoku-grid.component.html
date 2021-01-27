@@ -49,10 +49,11 @@
           <app-sudoku-grid-value
             fxFlexFill
             [value]="value"
-            [nomineeValue]="nomineeValueSubject"
+            [nomineeValues]="gridNomineeValues[rowIndex][colIndex]"
             [isSelected]="isValueSelected(rowIndex, colIndex)"
             [isReadOnly]="isValueReadOnly(rowIndex, colIndex)"
             [hasError]="isHelpEnabled && isValueErroneous(rowIndex, colIndex, value)"
+            [hasSuccess]="isHelpEnabled && !isValueErroneous(rowIndex, colIndex, value)"
             [showNominees]="isValueSelected(rowIndex, colIndex) && showNominees"
           ></app-sudoku-grid-value>
         </mat-grid-tile>

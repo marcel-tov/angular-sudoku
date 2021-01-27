@@ -30,9 +30,11 @@ $app-theme: mat-light-theme((
   --primary-color: #{map-get($mat-grey, 200)};
   --secondary-color: #{map-get($mat-lime, 300)};
   --error-color: #{map-get($app-warn, A400)};
+  --success-color: #{map-get($mat-green, 400)};
   --border-color: #{map-get($mat-grey, 400)};
   --light-border-color: #{map-get($mat-grey, 300)};
   --font-color: #{map-get($mat-grey, 700)};
+  --light-font-color: #{map-get($mat-grey, 600)};
 }
 
 
