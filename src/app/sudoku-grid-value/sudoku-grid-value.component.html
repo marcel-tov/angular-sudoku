@@ -18,6 +18,8 @@
     <div class="sudoku-grid-value__nominees-grid" *ngIf="!value">
       <span
         *ngFor="let nomineeValue of nomineeValues"
+        fxLayout="row"
+        fxLayoutAlign="center center"
       >{{nomineeValue}}</span>
     </div>
 </div>
