@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { SudokuGrid, SudokuRow, SudokuItem } from './sudoku-grid/sudoku-grid.component';
+import { SudokuGrid, SudokuRow, SudokuValue } from './sudoku-grid/sudoku-grid.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Clipboard } from '@angular/cdk/clipboard';
-import {
-  getSudoku,
-} from "fake-sudoku-puzzle-generator";
+import { getSudoku } from "fake-sudoku-puzzle-generator";
 
 @Component({
   selector: 'app-root',
@@ -60,9 +58,7 @@ export class AppComponent implements OnInit {
   }
 
   public onCreateGrid(): void {
-    // @ts-ignore
     this.sudokuGrid = getSudoku('Medium');
-
     this.changeDetector.detectChanges();
   }
 }
@@ -71,9 +67,7 @@ function gridToConfig(grid: SudokuGrid): string {
   return grid.reduce((value: string, row: SudokuRow) => {
 
     value += row
-      .map((item: SudokuItem) => {
-        return item === null ? '.' : item;
-      })
+      .map((value: SudokuValue) => value === null ? '.' : value)
       .join('');
 
     return value;
@@ -81,14 +75,12 @@ function gridToConfig(grid: SudokuGrid): string {
 }
 
 function configToGrid(value: string): SudokuGrid {
-  // @ts-ignore
   return value
     .match(/.{1,9}/g)
     .reduce((list: SudokuGrid, value: string) => {
-      // @ts-ignore
       const row: SudokuRow = value
         .split('')
-        .map((item: string) => Number(item) || null);
+        .map((value: string) => Number(value) || null);
 
       list.push(row);
 

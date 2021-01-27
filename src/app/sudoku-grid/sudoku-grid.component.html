@@ -38,22 +38,22 @@
       <ng-container *ngFor="let row of grid; let rowIndex = index; trackBy:trackByIndex">
         <mat-grid-tile
           *ngFor="let value of row; let colIndex = index; trackBy:trackByIndex"
-          class="sudoku-grid__item-wrapper"
-          [class.sudoku-grid__item-wrapper--group-top]="isGroupTop(rowIndex)"
-          [class.sudoku-grid__item-wrapper--group-end]="isGroupEnd(colIndex)"
-          [class.sudoku-grid__item-wrapper--grid-bottom]="isGridBottom(rowIndex)"
-          [class.sudoku-grid__item-wrapper--grid-end]="isGridEnd(colIndex)"
-          (click)="toogleSelectedItem(rowIndex, colIndex, false)"
-          (dblclick)="toogleSelectedItem(rowIndex, colIndex, true)"
+          class="sudoku-grid__value-wrapper"
+          [class.sudoku-grid__value-wrapper--group-top]="isGroupTop(rowIndex)"
+          [class.sudoku-grid__value-wrapper--group-end]="isGroupEnd(colIndex)"
+          [class.sudoku-grid__value-wrapper--grid-bottom]="isGridBottom(rowIndex)"
+          [class.sudoku-grid__value-wrapper--grid-end]="isGridEnd(colIndex)"
+          (click)="toogleSelectedValue(rowIndex, colIndex, false)"
+          (dblclick)="toogleSelectedValue(rowIndex, colIndex, true)"
         >
           <app-sudoku-grid-item
             fxFlexFill
             [value]="value"
             [nomineeValue]="nomineeValueSubject"
-            [isSelected]="isItemSelected(rowIndex, colIndex)"
-            [isReadOnly]="isItemReadOnly(rowIndex, colIndex)"
-            [hasError]="isHelpEnabled && hasItemError(rowIndex, colIndex, value)"
-            [showNominees]="isItemSelected(rowIndex, colIndex) && showNominees"
+            [isSelected]="isValueSelected(rowIndex, colIndex)"
+            [isReadOnly]="isValueReadOnly(rowIndex, colIndex)"
+            [hasError]="isHelpEnabled && isValueErroneous(rowIndex, colIndex, value)"
+            [showNominees]="isValueSelected(rowIndex, colIndex) && showNominees"
           ></app-sudoku-grid-item>
         </mat-grid-tile>
       </ng-container>
@@ -67,8 +67,8 @@
       mat-raised-button
       color="primary"
       type="button"
-      [disabled]="!hasSelectedItem()"
-      (click)="deleteSelectedItem()"
+      [disabled]="!hasSelectedValue()"
+      (click)="deleteSelectedValue()"
     >Delete number</button>
 
     <button
@@ -77,7 +77,7 @@
       mat-raised-button
       color="primary"
       type="button"
-      [disabled]="!hasSelectedItem()"
+      [disabled]="!hasSelectedValue()"
       (click)="showNominees = !showNominees"
     >Nominees</button>
 

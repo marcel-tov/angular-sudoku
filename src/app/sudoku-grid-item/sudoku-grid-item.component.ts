@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ReplaySubject, Subscription } from 'rxjs';
-import { SudokuItem } from '../sudoku-grid/sudoku-grid.component';
+import { SudokuValue } from '../sudoku-grid/sudoku-grid.component';
 
 @Component({
   selector: 'app-sudoku-grid-item',
@@ -9,13 +9,13 @@ import { SudokuItem } from '../sudoku-grid/sudoku-grid.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SudokuGridItemComponent implements OnChanges {
-  @Input() public value: SudokuItem = null;
-  @Input() public nomineeValue: ReplaySubject<SudokuItem> = new ReplaySubject();
+  @Input() public value: SudokuValue = null;
+  @Input() public nomineeValue: ReplaySubject<SudokuValue> = new ReplaySubject();
   @Input() public isSelected: boolean = false;
   @Input() public isReadOnly: boolean = false;
   @Input() public hasError: boolean = false;
   @Input() public showNominees: boolean = false;
-  public nominees: Array<SudokuItem> = [];
+  public nominees: Array<SudokuValue> = [];
   public subscription: Subscription | null = null
 
   constructor(private changeDetector: ChangeDetectorRef) { }
@@ -28,9 +28,13 @@ export class SudokuGridItemComponent implements OnChanges {
 
       this.initializeNominees();
 
-      this.subscription = this.nomineeValue.subscribe((nomineeValue: SudokuItem) => {
+      this.subscription = this.nomineeValue.subscribe((nomineeValue: SudokuValue) => {
         if (this.isSelected && this.showNominees) {
-          this.toggleNomineeValue(nomineeValue);
+          if (nomineeValue === null) {
+            this.initializeNominees();
+          } else {
+            this.toggleNomineeValue(nomineeValue);
+          }
 
           this.changeDetector.detectChanges();
         }
@@ -38,7 +42,7 @@ export class SudokuGridItemComponent implements OnChanges {
     }
   }
 
-  private toggleNomineeValue(value: SudokuItem): void {
+  private toggleNomineeValue(value: SudokuValue): void {
     value = Number(value);
     const indexValue: number = value - 1;
 
@@ -48,7 +52,7 @@ export class SudokuGridItemComponent implements OnChanges {
   }
 
   private initializeNominees(): void {
-    const nominees: Array<SudokuItem> = [];
+    const nominees: Array<SudokuValue> = [];
     for (let i: number = 0; i < 9; i++) {
       nominees.push(null);
     }

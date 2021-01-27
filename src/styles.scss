@@ -26,8 +26,6 @@ $app-theme: mat-light-theme((
 // that you are using.
 @include angular-material-theme($app-theme);
 
-@debug #{map-get($app-primary, 300)};
-
 * {
   --primary-color: #{map-get($mat-grey, 200)};
   --secondary-color: #{map-get($mat-lime, 300)};
