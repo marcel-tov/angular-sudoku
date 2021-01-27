@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SudokuGridItemComponent } from './sudoku-grid-item.component';
+import { SudokuGridValueComponent } from './sudoku-grid-value.component';
 
-describe('SudokuGridItemComponent', () => {
-  let component: SudokuGridItemComponent;
-  let fixture: ComponentFixture<SudokuGridItemComponent>;
+describe('SudokuGridValueComponent', () => {
+  let component: SudokuGridValueComponent;
+  let fixture: ComponentFixture<SudokuGridValueComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SudokuGridItemComponent ]
+      declarations: [ SudokuGridValueComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SudokuGridItemComponent);
+    fixture = TestBed.createComponent(SudokuGridValueComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

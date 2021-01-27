@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { SudokuGridItemModule } from '../sudoku-grid-item/sudoku-grid-item.module';
+import { SudokuGridValueModule } from '../sudoku-grid-value/sudoku-grid-value.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -20,7 +20,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     CommonModule,
     MatButtonModule,
     MatSlideToggleModule,
-    SudokuGridItemModule,
+    SudokuGridValueModule,
     FlexLayoutModule,
     MatIconModule,
     MatTooltipModule,

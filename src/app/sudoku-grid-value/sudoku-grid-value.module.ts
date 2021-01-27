@@ -1,18 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SudokuGridItemComponent } from './sudoku-grid-item.component';
+import { SudokuGridValueComponent } from './sudoku-grid-value.component';
 
 @NgModule({
   declarations: [
-    SudokuGridItemComponent,
+    SudokuGridValueComponent,
   ],
   exports: [
-    SudokuGridItemComponent,
+    SudokuGridValueComponent,
   ],
   imports: [
     CommonModule,
     FlexLayoutModule,
   ],
 })
-export class SudokuGridItemModule { }
+export class SudokuGridValueModule { }

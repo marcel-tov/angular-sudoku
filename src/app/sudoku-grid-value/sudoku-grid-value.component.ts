@@ -3,12 +3,12 @@ import { ReplaySubject, Subscription } from 'rxjs';
 import { SudokuValue } from '../sudoku-grid/sudoku-grid.component';
 
 @Component({
-  selector: 'app-sudoku-grid-item',
-  templateUrl: './sudoku-grid-item.component.html',
-  styleUrls: ['./sudoku-grid-item.component.scss'],
+  selector: 'app-sudoku-grid-value',
+  templateUrl: './sudoku-grid-value.component.html',
+  styleUrls: ['./sudoku-grid-value.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SudokuGridItemComponent implements OnChanges {
+export class SudokuGridValueComponent implements OnChanges {
   @Input() public value: SudokuValue = null;
   @Input() public nomineeValue: ReplaySubject<SudokuValue> = new ReplaySubject();
   @Input() public isSelected: boolean = false;

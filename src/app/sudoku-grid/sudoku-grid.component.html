@@ -46,7 +46,7 @@
           (click)="toogleSelectedValue(rowIndex, colIndex, false)"
           (dblclick)="toogleSelectedValue(rowIndex, colIndex, true)"
         >
-          <app-sudoku-grid-item
+          <app-sudoku-grid-value
             fxFlexFill
             [value]="value"
             [nomineeValue]="nomineeValueSubject"
@@ -54,7 +54,7 @@
             [isReadOnly]="isValueReadOnly(rowIndex, colIndex)"
             [hasError]="isHelpEnabled && isValueErroneous(rowIndex, colIndex, value)"
             [showNominees]="isValueSelected(rowIndex, colIndex) && showNominees"
-          ></app-sudoku-grid-item>
+          ></app-sudoku-grid-value>
         </mat-grid-tile>
       </ng-container>
     </mat-grid-list>
