@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { getSudoku, Difficulty } from "fake-sudoku-puzzle-generator";
 import { MatDialog } from '@angular/material/dialog';
-import { ISudokuDialogData, SudokuDialogComponent } from './sudoku-dialog/sudoku-dialog.component';
+import { ISudokuFinishDialogData, SudokuFinishDialogComponent } from './sudoku-finish-dialog/sudoku-finish-dialog.component';
 import { ISudokuCreationDialogData, SudokuCreationDialogComponent } from './sudoku-creation-dialog/sudoku-creation-dialog.component';
 
 @Component({
@@ -84,8 +84,8 @@ export class AppComponent implements OnInit {
       : `You did not solve the puzzle in ${time}`
 
     this.dialog
-      .open<SudokuDialogComponent, ISudokuDialogData>(
-        SudokuDialogComponent,
+      .open<SudokuFinishDialogComponent, ISudokuFinishDialogData>(
+        SudokuFinishDialogComponent,
         {
           data: {
             title: event.isGridValid

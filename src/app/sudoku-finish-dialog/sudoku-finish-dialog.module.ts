@@ -4,14 +4,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { SudokuDialogComponent } from './sudoku-dialog.component';
+import { SudokuFinishDialogComponent } from './sudoku-finish-dialog.component';
 
 @NgModule({
   declarations: [
-    SudokuDialogComponent,
+    SudokuFinishDialogComponent,
   ],
   exports: [
-    SudokuDialogComponent,
+    SudokuFinishDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -21,4 +21,4 @@ import { SudokuDialogComponent } from './sudoku-dialog.component';
     FlexLayoutModule,
   ],
 })
-export class SudokuDialogModule { }
+export class SudokuFinishDialogModule { }

@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { SudokuDialogModule } from './sudoku-dialog/sudoku-dialog.module';
+import { SudokuFinishDialogModule } from './sudoku-finish-dialog/sudoku-finish-dialog.module';
 import { SudokuCreationDialogModule } from './sudoku-creation-dialog/sudoku-creation-dialog.module';
 
 const routes: Routes = [];
@@ -24,7 +24,7 @@ const routes: Routes = [];
     AppRoutingModule,
     ClipboardModule,
     FlexLayoutModule,
-    SudokuDialogModule,
+    SudokuFinishDialogModule,
     SudokuCreationDialogModule,
   ],
   bootstrap: [AppComponent]
