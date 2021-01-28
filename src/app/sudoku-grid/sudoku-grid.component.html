@@ -47,8 +47,7 @@
           [class.sudoku-grid__value-wrapper--group-end]="isGroupEnd(colIndex)"
           [class.sudoku-grid__value-wrapper--grid-bottom]="isGridBottom(rowIndex)"
           [class.sudoku-grid__value-wrapper--grid-end]="isGridEnd(colIndex)"
-          (click)="toogleSelectedValue(rowIndex, colIndex, false)"
-          (dblclick)="toogleSelectedValue(rowIndex, colIndex, true)"
+          (click)="toogleSelectedValue(rowIndex, colIndex)"
         >
           <app-sudoku-grid-value
             fxFlexFill

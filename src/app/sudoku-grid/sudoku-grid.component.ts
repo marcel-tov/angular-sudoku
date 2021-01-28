@@ -75,14 +75,17 @@ class SudokuGridComponent implements OnChanges {
     return !!(this.selectedRowIndex === row && this.selectedColIndex === col);
   }
 
-  public toogleSelectedValue(row: number, col: number, showNominees: boolean = false): void {
+  public toogleSelectedValue(row: number, col: number): void {
     if (this.isValueReadOnly(row, col)) {
       return;
     }
 
+    if (this.isValueSelected(row, col)) {
+      this.showNominees = !this.showNominees;
+    }
+
     this.selectedRowIndex = row;
     this.selectedColIndex = col;
-    this.showNominees = showNominees;
   }
 
   public hasSelectedValue(): boolean {
