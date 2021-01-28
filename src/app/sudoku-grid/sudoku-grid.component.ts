@@ -165,7 +165,7 @@ class SudokuGridComponent implements OnChanges {
           this.gridNomineeValues[row] = [];
         }
 
-        this.gridNomineeValues[row][col] = [null, null, null, null, null, null, null, null, null];
+        this.gridNomineeValues[row][col] = getEmptyRow();
       }
     }
 
