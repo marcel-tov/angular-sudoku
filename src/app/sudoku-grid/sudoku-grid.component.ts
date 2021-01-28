@@ -280,7 +280,7 @@ class SudokuGridComponent implements OnChanges {
     let isGridValid: boolean = true;
     for (const row of Object.keys(this.grid)) {
       for (const col of Object.keys(this.grid[row])) {
-        if (!this.isValueErroneous(Number(row), Number(col), this.grid[row][col])) {
+        if (this.isValueErroneous(Number(row), Number(col), this.grid[row][col])) {
           isGridValid = false;
         }
       }
