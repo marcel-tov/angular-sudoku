@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { SudokuGrid, SudokuRow, SudokuValue } from './sudoku-grid/sudoku-grid.component';
+import { SudokuGrid, SudokuRow, SudokuValue, IOnFinishGridEvent, timerFormatter } from './sudoku-grid/sudoku-grid.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { getSudoku } from "fake-sudoku-puzzle-generator";
+import { MatDialog } from '@angular/material/dialog';
+import { ISudokuDialogData, SudokuDialogComponent } from './sudoku-dialog/sudoku-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +30,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private clipboard: Clipboard,
     private changeDetector: ChangeDetectorRef,
+    private dialog: MatDialog,
   ) { }
 
   public ngOnInit(): void {
@@ -60,6 +63,32 @@ export class AppComponent implements OnInit {
   public onCreateGrid(): void {
     this.sudokuGrid = getSudoku('Medium');
     this.changeDetector.detectChanges();
+  }
+
+  public showFinishDialog(event: IOnFinishGridEvent): void {
+    const time: string = timerFormatter(event.time);
+    const description: string = event.isGridValid
+      ? `You solved the puzzle in ${time}`
+      : `You did not solve the puzzle in ${time}`
+
+    this.dialog
+      .open<SudokuDialogComponent, ISudokuDialogData>(
+        SudokuDialogComponent,
+        {
+          data: {
+            title: event.isGridValid
+              ? 'Skrrr skrrr'
+              : 'Dang',
+            description,
+            icon: event.isGridValid
+              ? 'sentiment_very_satisfied'
+              : 'sentiment_dissatisfied',
+          }
+        })
+        .afterClosed()
+        .subscribe(() => {
+          // do nothing
+        });
   }
 }
 

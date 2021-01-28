@@ -1,8 +1,9 @@
-<div fxLayout="row wrap" fxLayoutAlign="center center">
+<div class="app" fxLayout="row wrap" fxLayoutAlign="center center">
   <app-sudoku-grid
-    class="app"
+    class="app__grid"
     [grid]="sudokuGrid"
-    (onCreateGrid)="onCreateGrid()"
-    (onShareGrid)="onShareGrid($event)"
+    (onCreate)="onCreateGrid()"
+    (onShare)="onShareGrid($event)"
+    (onFinish)="showFinishDialog($event)"
   ></app-sudoku-grid>
 </div>

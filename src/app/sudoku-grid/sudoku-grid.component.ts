@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { cloneDeep } from 'lodash';
-import { ReplaySubject } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { SudokuHelper } from './sudoku-helper';
 
 @Component({
@@ -22,8 +22,13 @@ class SudokuGridComponent implements OnChanges {
   public lockValues: boolean = true;
   public sudokuHelper: SudokuHelper = new SudokuHelper(this.grid);
   public readonly touchValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  @Output() private onShareGrid: EventEmitter<SudokuGrid> = new EventEmitter();
-  @Output() private onCreateGrid: EventEmitter<void> = new EventEmitter();
+  private time: number = 0;
+  private subsription: Subscription | null = null;
+  @Output() private onShare: EventEmitter<SudokuGrid> = new EventEmitter();
+  @Output() private onCreate: EventEmitter<void> = new EventEmitter();
+  @Output() private onFinish: EventEmitter<IOnFinishGridEvent> = new EventEmitter();
+
+  constructor(private changeDetector: ChangeDetectorRef) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
@@ -102,14 +107,6 @@ class SudokuGridComponent implements OnChanges {
 
   public onHelpChange(event: MatSlideToggleChange): void {
     this.isHelpEnabled = event.checked;
-
-    if (!this.isHelpEnabled) {
-      return;
-    }
-
-    const sudokuHelper: SudokuHelper = new SudokuHelper(cloneDeep(this.originalGrid))
-    sudokuHelper.solve();
-    this.solvedGrid = sudokuHelper.sudoku;
   }
 
   public onSelectValue(value: SudokuValue): void {
@@ -125,6 +122,11 @@ class SudokuGridComponent implements OnChanges {
       if (value > 0) {
         this.updateAffectedNomineeValue(value);
       }
+
+      // If the last value was added
+      if (this.isGridFinish()) {
+        this.onFinishGrid();
+      }
     }
   }
 
@@ -137,16 +139,20 @@ class SudokuGridComponent implements OnChanges {
     }
   }
 
-  public shareGrid(): void {
-    this.onShareGrid.emit(this.originalGrid);
+  public onShareGrid(): void {
+    this.onShare.emit(this.originalGrid);
   }
 
   public trackByIndex(index: number) {
     return index;
   }
 
-  public createGrid(): void {
-    this.onCreateGrid.emit();
+  public onCreateGrid(): void {
+    this.onCreate.emit();
+  }
+
+  public timeFormatter(): string {
+    return timerFormatter(this.time);
   }
 
   private initalizeGrid(): void {
@@ -164,6 +170,18 @@ class SudokuGridComponent implements OnChanges {
     this.selectedColIndex = null;
     this.showNominees = false;
     this.isHelpEnabled = false;
+    this.time = 0;
+
+    const sudokuHelper: SudokuHelper = new SudokuHelper(cloneDeep(this.originalGrid))
+    sudokuHelper.solve();
+    this.solvedGrid = sudokuHelper.sudoku;
+
+    this.cancelTimer();
+    this.subsription = timer(0, 1000).subscribe(() => {
+      this.time++;
+
+      this.changeDetector.detectChanges();
+    });
   }
 
   private onValueChange(row: number, col: number, value: SudokuValue): void {
@@ -252,14 +270,76 @@ class SudokuGridComponent implements OnChanges {
       }
     }
   }
+
+  private onFinishGrid(): void {
+    this.cancelTimer();
+
+    let isGridValid: boolean = true;
+    for (const row of Object.keys(this.grid)) {
+      for (const col of Object.keys(this.grid[row])) {
+        if (!this.isValueErroneous(Number(row), Number(col), this.grid[row][col])) {
+          isGridValid = false;
+        }
+      }
+    }
+
+    this.onFinish.emit({
+      grid: this.grid,
+      isGridValid,
+      time: this.time,
+    });
+  }
+
+  private cancelTimer(): void {
+    if (this.subsription) {
+      this.subsription.unsubscribe();
+    }
+  }
+
+  private isGridFinish(): boolean {
+    for (const row of Object.keys(this.grid)) {
+      for (const col of Object.keys(this.grid[row])) {
+        const value: SudokuValue = this.grid[row][col];
+
+        if (value === null) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
 }
 
 function getEmptyRow(): Array<SudokuValue> {
   return [null, null, null, null, null, null, null, null, null];
 }
 
+function timerFormatter(time: number): string {
+  const hours: string = Math
+    .floor(time / 3600)
+    .toString()
+    .padStart(2, '0');
+  const minutes: string = Math
+    .floor(time % 3600 / 60)
+    .toString()
+    .padStart(2, '0');
+  const seconds: string = Math
+    .floor(time % 3600 % 60)
+    .toString()
+    .padStart(2, '0');
+
+  return `${hours}:${minutes}:${seconds}`;
+}
+
 type SudokuGrid = Array<SudokuRow>;
 type SudokuRow = Array<SudokuValue>;
 type SudokuValue = number | null;
 
-export { SudokuGridComponent, SudokuGrid, SudokuRow, SudokuValue, getEmptyRow }
+interface IOnFinishGridEvent {
+  grid: SudokuGrid;
+  isGridValid: boolean;
+  time: number;
+}
+
+export { SudokuGridComponent, SudokuGrid, SudokuRow, SudokuValue, getEmptyRow, IOnFinishGridEvent, timerFormatter }

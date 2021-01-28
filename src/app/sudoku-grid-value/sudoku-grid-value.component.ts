@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { getEmptyRow, SudokuValue } from '../sudoku-grid/sudoku-grid.component';
 
 @Component({

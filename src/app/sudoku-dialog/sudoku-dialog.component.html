@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <div fxLayout="column" fxLayoutAlign="start center">
+    <p>{{data.description}}</p>
+    <mat-icon>{{data.icon}}</mat-icon>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" type="button" (click)="close()">
+    OK
+  </button>
+</div>
