@@ -2,7 +2,7 @@
   <app-sudoku-grid
     class="app__grid"
     [grid]="sudokuGrid"
-    (onCreate)="onCreateGrid()"
+    (onCreate)="showCreationDialog()"
     (onShare)="onShareGrid($event)"
     (onFinish)="showFinishDialog($event)"
   ></app-sudoku-grid>

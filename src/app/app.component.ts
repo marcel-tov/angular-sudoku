@@ -2,9 +2,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { SudokuGrid, SudokuRow, SudokuValue, IOnFinishGridEvent, timerFormatter } from './sudoku-grid/sudoku-grid.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { getSudoku } from "fake-sudoku-puzzle-generator";
+import { getSudoku, Difficulty } from "fake-sudoku-puzzle-generator";
 import { MatDialog } from '@angular/material/dialog';
 import { ISudokuDialogData, SudokuDialogComponent } from './sudoku-dialog/sudoku-dialog.component';
+import { ISudokuCreationDialogData, SudokuCreationDialogComponent } from './sudoku-creation-dialog/sudoku-creation-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -60,9 +61,20 @@ export class AppComponent implements OnInit {
       this.clipboard.copy(window.location.href);
   }
 
-  public onCreateGrid(): void {
-    this.sudokuGrid = getSudoku('Medium');
-    this.changeDetector.detectChanges();
+  public showCreationDialog(): void {
+    this.dialog
+      .open<SudokuCreationDialogComponent, ISudokuCreationDialogData>(
+        SudokuCreationDialogComponent,
+        {
+          data: {},
+        })
+      .afterClosed()
+      .subscribe((difficulty: Difficulty | undefined) => {
+          if (difficulty) {
+            this.sudokuGrid = getSudoku(difficulty);
+            this.changeDetector.detectChanges();
+          }
+      });
   }
 
   public showFinishDialog(event: IOnFinishGridEvent): void {
@@ -85,10 +97,10 @@ export class AppComponent implements OnInit {
               : 'sentiment_dissatisfied',
           }
         })
-        .afterClosed()
-        .subscribe(() => {
-          // do nothing
-        });
+      .afterClosed()
+      .subscribe(() => {
+        // do nothing
+      });
   }
 }
 
