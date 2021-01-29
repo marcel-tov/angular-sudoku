@@ -1,6 +1,7 @@
 .sudoku-grid {
   &__grid-wrapper {
     color: var(--primary-color);
+    margin-bottom: 4px;
   }
 
   &__value-wrapper {
@@ -24,7 +25,7 @@
   }
 
   &__navigation {
-    margin: 20px;
+    margin: 0px 10px;
   }
 
   &__navigation-button {
@@ -33,6 +34,10 @@
 
     &--active {
       background: var(--secondary-color);
+    }
+
+    &--narrow {
+      margin: 2px;
     }
   }
 }

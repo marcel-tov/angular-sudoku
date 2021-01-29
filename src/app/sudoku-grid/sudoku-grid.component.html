@@ -65,7 +65,11 @@
   </div>
 
   <!-- navigation -->
-  <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="sudoku-grid__navigation">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    class="sudoku-grid__navigation"
+  >
     <button
       class="sudoku-grid__navigation-button"
       mat-raised-button
@@ -92,9 +96,9 @@
     >Help</mat-slide-toggle>
   </div>
 
-  <div fxLayout="row wrap" fxLayoutAlign="start start" class="sudoku-grid__navigation">
+  <div fxLayout="row" fxLayoutAlign="center start" class="sudoku-grid__navigation">
     <button
-      class="sudoku-grid__navigation-button"
+      class="sudoku-grid__navigation-button sudoku-grid__navigation-button--narrow"
       *ngFor="let touchValue of touchValues"
       mat-mini-fab
       color="primary"
