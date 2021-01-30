@@ -103,7 +103,10 @@
 
   <div fxLayout="row" fxLayoutAlign="center start" class="sudoku-grid__navigation">
     <button
-      class="sudoku-grid__navigation-button sudoku-grid__navigation-button--narrow"
+      class="sudoku-grid__navigation-button"
+      [ngClass.lt-sm]="{
+        'sudoku-grid__navigation-button--narrow': true
+      }"
       *ngFor="let touchValue of touchValues"
       mat-mini-fab
       color="primary"
