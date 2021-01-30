@@ -6,6 +6,7 @@
       type="button"
       matTooltip="Share sudoku"
       (click)="onShareGrid()"
+      aria-label="Share sudoku by url"
     >
       <mat-icon>share</mat-icon>
     </button>
@@ -17,6 +18,7 @@
         type="button"
         matTooltip="Start a new game"
         (click)="onCreateGrid()"
+        aria-label="Start a new game"
       >
         <mat-icon>autorenew</mat-icon>
       </button>
@@ -30,6 +32,7 @@
       type="button"
       matTooltip="Lock values"
       (click)="onChangeLockValues()"
+      aria-label="Make locked fields editable"
     >
       <mat-icon *ngIf="!lockValues">lock_open</mat-icon>
       <mat-icon *ngIf="lockValues">lock</mat-icon>
@@ -77,6 +80,7 @@
       type="button"
       [disabled]="!hasSelectedValue()"
       (click)="deleteSelectedValue()"
+      aria-label="Delete a selected value"
     >Delete number</button>
 
     <button
@@ -86,12 +90,14 @@
       color="primary"
       type="button"
       (click)="showNominees = !showNominees"
+      aria-label="Toggle field edit nominees"
     >Nominees</button>
 
     <mat-slide-toggle
       color="primary"
       [checked]="isHelpEnabled"
       (change)="onHelpChange($event)"
+      aria-label="Enable help"
     >Help</mat-slide-toggle>
   </div>
 
