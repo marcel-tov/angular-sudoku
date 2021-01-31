@@ -103,16 +103,17 @@
 
   <div fxLayout="row" fxLayoutAlign="center start" class="sudoku-grid__navigation">
     <button
-      class="sudoku-grid__navigation-button"
+      class="sudoku-grid__navigation-button sudoku-grid__navigation-button--nominee"
       [ngClass.lt-sm]="{
         'sudoku-grid__navigation-button--narrow': true
       }"
-      *ngFor="let touchValue of touchValues"
-      mat-mini-fab
+      *ngFor="let nomineeValue of nomineeValues"
+      mat-icon-button
       color="primary"
       type="button"
-      (click)="onSelectValue(touchValue)"
-    >{{touchValue}}</button>
+      (click)="onSelectValue(nomineeValue)"
+      [attr.aria-label]="'Select nominee value ' + nomineeValue"
+    >{{nomineeValue}}</button>
   </div>
 </div>
 

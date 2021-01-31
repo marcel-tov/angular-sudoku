@@ -25,15 +25,20 @@
   }
 
   &__navigation {
-    margin: 0px 10px;
+    margin: 0px;
   }
 
   &__navigation-button {
     color: white;
-    margin: 5px;
+    margin: 5px 0;
 
     &--active {
       background: var(--secondary-color);
+    }
+
+    &--nominee {
+      color: var(--font-color);
+      font-weight: bold;
     }
 
     &--narrow {
