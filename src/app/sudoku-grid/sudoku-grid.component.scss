@@ -31,6 +31,11 @@
   &__navigation-button {
     color: white;
     margin: 5px 0;
+    /**
+     * Disables pinch zoom on iphone safari
+     * https://stackoverflow.com/a/60802252/3303652
+     */
+    touch-action: none;
 
     &--active {
       background: var(--secondary-color);
