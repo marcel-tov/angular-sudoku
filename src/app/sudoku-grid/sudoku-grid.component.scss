@@ -1,3 +1,5 @@
+@import "mixins.scss";
+
 .sudoku-grid {
   &__grid-wrapper {
     color: var(--primary-color);
@@ -6,6 +8,7 @@
 
   &__value-wrapper {
     border: 2px solid var(--light-border-color);
+    @include disablePinchZoom();
 
     &--group-top {
       border-top: 2px solid var(--border-color);
@@ -31,11 +34,7 @@
   &__navigation-button {
     color: white;
     margin: 5px 0;
-    /**
-     * Disables pinch zoom on iphone safari
-     * https://stackoverflow.com/a/60802252/3303652
-     */
-    touch-action: none;
+    @include disablePinchZoom();
 
     &--active {
       background: var(--secondary-color);

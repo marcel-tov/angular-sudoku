@@ -1,0 +1,7 @@
+/**
+  * Disables pinch zoom on iphone safari
+  * https://stackoverflow.com/a/60802252/3303652
+  */
+@mixin disablePinchZoom() {
+     touch-action: none;
+}
