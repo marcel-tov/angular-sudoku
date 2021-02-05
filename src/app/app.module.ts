@@ -2,16 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { SudokuGridModule } from './sudoku-grid/sudoku-grid.module';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
-import { ClipboardModule } from '@angular/cdk/clipboard';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { SudokuFinishDialogModule } from './sudoku-finish-dialog/sudoku-finish-dialog.module';
-import { SudokuCreationDialogModule } from './sudoku-creation-dialog/sudoku-creation-dialog.module';
-import { SudokuShareDialogModule } from './sudoku-share-dialog/sudoku-share-dialog.module';
+import { HomeModule } from './home/home.module';
+import { HomeComponent } from './home/home.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+];
 
 @NgModule({
   declarations: [
@@ -21,13 +19,8 @@ const routes: Routes = [];
     RouterModule.forRoot(routes),
     BrowserModule,
     BrowserAnimationsModule,
-    SudokuGridModule,
     AppRoutingModule,
-    ClipboardModule,
-    FlexLayoutModule,
-    SudokuFinishDialogModule,
-    SudokuCreationDialogModule,
-    SudokuShareDialogModule,
+    HomeModule,
   ],
   bootstrap: [AppComponent]
 })

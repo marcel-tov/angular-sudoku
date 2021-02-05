@@ -1,9 +1,3 @@
-<div class="app" fxLayout="row wrap" fxLayoutAlign="center center">
-  <app-sudoku-grid
-    class="app__grid"
-    [grid]="sudokuGrid"
-    (onCreate)="openCreationDialog()"
-    (onShare)="openShareDialog($event)"
-    (onFinish)="openFinishDialog($event)"
-  ></app-sudoku-grid>
+<div class="app">
+  <router-outlet></router-outlet>
 </div>
