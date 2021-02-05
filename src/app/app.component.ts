@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SudokuGrid, SudokuRow, SudokuValue, IOnFinishGridEvent, timerFormatter } from './sudoku-grid/sudoku-grid.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Clipboard } from '@angular/cdk/clipboard';
 import { getSudoku, Difficulty } from "fake-sudoku-puzzle-generator";
 import { MatDialog } from '@angular/material/dialog';
 import { ISudokuFinishDialogData, SudokuFinishDialogComponent } from './sudoku-finish-dialog/sudoku-finish-dialog.component';
 import { ISudokuCreationDialogData, SudokuCreationDialogComponent } from './sudoku-creation-dialog/sudoku-creation-dialog.component';
+import { ISudokuShareDialogData, SudokuShareDialogComponent } from './sudoku-share-dialog/sudoku-share-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private clipboard: Clipboard,
     private changeDetector: ChangeDetectorRef,
     private dialog: MatDialog,
   ) { }
@@ -35,23 +34,23 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public onShareGrid(grid: SudokuGrid): void {
-      const queryParams: Params = {
-        grid: gridToConfig(grid),
-      };
+  public openShareDialog(grid: SudokuGrid): void {
 
-      this.router.navigate(
-        [],
+    this.dialog
+      .open<SudokuShareDialogComponent, ISudokuShareDialogData>(
+        SudokuShareDialogComponent,
         {
-          relativeTo: this.activatedRoute,
-          queryParams: queryParams,
-          queryParamsHandling: 'merge', // remove to replace all query params by provided
-        });
-
-      this.clipboard.copy(window.location.href);
+          data: {
+            grid,
+          },
+        })
+      .afterClosed()
+      .subscribe(() => {
+          // do nothing
+      });
   }
 
-  public showCreationDialog(): void {
+  public openCreationDialog(): void {
     this.dialog
       .open<SudokuCreationDialogComponent, ISudokuCreationDialogData>(
         SudokuCreationDialogComponent,
@@ -67,7 +66,7 @@ export class AppComponent implements OnInit {
       });
   }
 
-  public showFinishDialog(event: IOnFinishGridEvent): void {
+  public openFinishDialog(event: IOnFinishGridEvent): void {
     const time: string = timerFormatter(event.time);
     const description: string = event.isGridValid
       ? `You solved the puzzle in ${time}`
@@ -92,17 +91,6 @@ export class AppComponent implements OnInit {
         // do nothing
       });
   }
-}
-
-function gridToConfig(grid: SudokuGrid): string {
-  return grid.reduce((value: string, row: SudokuRow) => {
-
-    value += row
-      .map((value: SudokuValue) => value === null ? '.' : value)
-      .join('');
-
-    return value;
-  }, '');
 }
 
 function configToGrid(value: string): SudokuGrid {

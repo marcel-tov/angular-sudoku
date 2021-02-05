@@ -9,6 +9,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SudokuFinishDialogModule } from './sudoku-finish-dialog/sudoku-finish-dialog.module';
 import { SudokuCreationDialogModule } from './sudoku-creation-dialog/sudoku-creation-dialog.module';
+import { SudokuShareDialogModule } from './sudoku-share-dialog/sudoku-share-dialog.module';
 
 const routes: Routes = [];
 
@@ -26,6 +27,7 @@ const routes: Routes = [];
     FlexLayoutModule,
     SudokuFinishDialogModule,
     SudokuCreationDialogModule,
+    SudokuShareDialogModule,
   ],
   bootstrap: [AppComponent]
 })

@@ -2,8 +2,8 @@
   <app-sudoku-grid
     class="app__grid"
     [grid]="sudokuGrid"
-    (onCreate)="showCreationDialog()"
-    (onShare)="onShareGrid($event)"
-    (onFinish)="showFinishDialog($event)"
+    (onCreate)="openCreationDialog()"
+    (onShare)="openShareDialog($event)"
+    (onFinish)="openFinishDialog($event)"
   ></app-sudoku-grid>
 </div>
