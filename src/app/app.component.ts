@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,16 +6,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private changeDetector: ChangeDetectorRef,
-  ) { }
-
-  public ngOnInit(): void {
-
-  }
+export class AppComponent {
+  constructor() {}
 }
 
 

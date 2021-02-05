@@ -6,10 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeModule } from './home/home.module';
 import { HomeComponent } from './home/home.component';
+import { PageNotFoundModule } from './page-not-found/page-not-found.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: ':grid', component: HomeComponent },
+  // Wildcard route for a 404 page
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
@@ -22,6 +26,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     AppRoutingModule,
     HomeModule,
+    PageNotFoundModule,
   ],
   bootstrap: [AppComponent]
 })
