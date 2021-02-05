@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { SudokuGrid, SudokuRow, SudokuValue } from '../sudoku-grid/sudoku-grid.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sudoku-share-dialog',
@@ -15,9 +16,11 @@ class SudokuShareDialogComponent {
     public dialogRef: MatDialogRef<SudokuShareDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ISudokuShareDialogData,
     private clipboard: Clipboard,
+    private router: Router,
   ) {
-    const url: string = location.protocol + '//' + location.host + location.pathname;
-    this.shareLink = `${url}?grid=${gridToConfig(this.data.grid)}`;
+    const gridParam: string = this.router.createUrlTree(['/', gridToConfig(this.data.grid)]).toString();
+    const domain: string = window.location.origin;
+    this.shareLink = `${domain}${gridParam}`;
   }
 
   public close(): void {

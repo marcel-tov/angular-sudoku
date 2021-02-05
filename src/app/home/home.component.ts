@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Difficulty, getSudoku } from 'fake-sudoku-puzzle-generator';
 import { ISudokuCreationDialogData, SudokuCreationDialogComponent } from '../sudoku-creation-dialog/sudoku-creation-dialog.component';
 import { ISudokuFinishDialogData, SudokuFinishDialogComponent } from '../sudoku-finish-dialog/sudoku-finish-dialog.component';
@@ -17,26 +17,24 @@ class HomeComponent {
   public sudokuGrid: SudokuGrid = getSudoku('Medium');
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
+    private route: ActivatedRoute,
     private changeDetector: ChangeDetectorRef,
     private dialog: MatDialog,
   ) { }
 
 
   public ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      if (params.grid) {
-        const grid: SudokuGrid = configToGrid(params.grid);
-        this.sudokuGrid = grid;
+    // Load sudoku by share link
+    if (this.route.snapshot.paramMap.has('grid')) {
+      const gridString = this.route.snapshot.paramMap.get('grid');
+      const grid: SudokuGrid = urlParamToGrid(gridString);
 
-        this.changeDetector.detectChanges();
-      }
-    });
+      this.sudokuGrid = grid;
+      this.changeDetector.detectChanges();
+    }
   }
 
   public openShareDialog(grid: SudokuGrid): void {
-
     this.dialog
       .open<SudokuShareDialogComponent, ISudokuShareDialogData>(
         SudokuShareDialogComponent,
@@ -94,7 +92,7 @@ class HomeComponent {
   }
 }
 
-function configToGrid(value: string): SudokuGrid {
+function urlParamToGrid(value: string): SudokuGrid {
   return value
     .match(/.{1,9}/g)
     .reduce((list: SudokuGrid, value: string) => {
