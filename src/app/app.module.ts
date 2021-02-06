@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
@@ -26,7 +26,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     AppRoutingModule,
     HomeModule,
-    PageNotFoundModule,
+    PageNotFoundModule
   ],
   bootstrap: [AppComponent]
 })

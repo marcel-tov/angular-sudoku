@@ -42,3 +42,12 @@ $app-theme: mat-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.notification-wrapper {
+  &--error {
+    background-color: var(--error-color);
+  }
+  &--success {
+    background-color: var(--success-color);
+  }
+}

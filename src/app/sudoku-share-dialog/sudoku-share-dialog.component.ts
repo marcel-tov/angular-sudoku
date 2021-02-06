@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { SudokuGrid, SudokuRow, SudokuValue } from '../sudoku-grid/sudoku-grid.component';
 import { Router } from '@angular/router';
+import { NotificationService } from '../notification/notification.service';
 
 @Component({
   selector: 'app-sudoku-share-dialog',
@@ -17,6 +18,7 @@ class SudokuShareDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: ISudokuShareDialogData,
     private clipboard: Clipboard,
     private router: Router,
+    private notificationService: NotificationService,
   ) {
     const gridParam: string = this.router.createUrlTree(['/', gridToConfig(this.data.grid)]).toString();
     const domain: string = window.location.origin;
@@ -29,6 +31,7 @@ class SudokuShareDialogComponent {
 
   public copyLink(): void {
     this.clipboard.copy(this.shareLink);
+    this.notificationService.showSuccess('Share link was copied successfully');
   }
 }
 

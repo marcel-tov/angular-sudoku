@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NotificationModule } from '../notification/notification.module';
 import { SudokuShareDialogComponent } from './sudoku-share-dialog.component';
 
 @NgModule({
@@ -21,6 +22,7 @@ import { SudokuShareDialogComponent } from './sudoku-share-dialog.component';
     MatIconModule,
     FlexLayoutModule,
     MatTooltipModule,
+    NotificationModule,
   ],
 })
 export class SudokuShareDialogModule { }
