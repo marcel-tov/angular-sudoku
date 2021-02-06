@@ -1,7 +1,6 @@
 import { SudokuGrid, SudokuValue } from './sudoku-grid.component';
 
 export class SudokuHelper {
-  private iterations: number = 0;
   constructor(private grid: SudokuGrid) { }
 
   get sudoku() {
@@ -19,26 +18,24 @@ export class SudokuHelper {
         && !this.usedInSquare(row, col, value);
   }
 
-  public solve(): boolean | SudokuGrid {
-    this.iterations++;
-
+  public solve(iterations: number = 0): boolean | SudokuGrid {
     // Find the next empty cell
-    let [row, column] = this.findEmptyCell();
+    const [row, column] = this.findEmptyCell();
     // If no empty cell was found then the sudoku has been solved
     if (row === -1 && column === -1) {
       return true;
     }
 
     // Try numbers from 1 to 9
-    for (let number = 1; number <= 9; number++) {
+    for (let num = 1; num <= 9; num++) {
       // Make sure the location is safe for the current number
-      if (this.isValueValid(row, column, number)) {
+      if (this.isValueValid(row, column, num)) {
         // Seems good! Store the number in the grid
-        this.grid[row][column] = number;
+        this.grid[row][column] = num;
 
         // Recursively try the next cell with numbers from 1 to 9
         // If it returns true, the sudoku has been solved
-        if (this.solve()) {
+        if (this.solve(iterations + 1)) {
           return this.grid;
         }
 
@@ -84,7 +81,7 @@ export class SudokuHelper {
     }
 
     private findEmptyCell(): [SudokuValue, SudokuValue] {
-      let coords: [SudokuValue, SudokuValue] = [-1, -1];
+      const coords: [SudokuValue, SudokuValue] = [-1, -1];
       for (let x = 0; x < 9; x++) {
         for (let y = 0; y < 9; y++) {
           if (this.grid[x][y] === null) {

@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { NotificationComponent, INotificationData } from './notification.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+enum NotificationType {
+  Error = 'Error',
+  Success = 'Success',
+}
+
 @Injectable()
 export class NotificationService {
     private readonly durationInSeconds: number = 5;
@@ -47,7 +52,3 @@ export class NotificationService {
     }
 }
 
-enum NotificationType {
-    Error = 'Error',
-    Success = 'Success',
-}

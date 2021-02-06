@@ -10,9 +10,9 @@ import { getEmptyRow, SudokuValue } from '../sudoku-grid/sudoku-grid.component';
 export class SudokuGridValueComponent {
   @Input() public value: SudokuValue = null;
   @Input() public nomineeValues: Array<SudokuValue> = getEmptyRow();
-  @Input() public isSelected: boolean = false;
-  @Input() public isReadOnly: boolean = false;
-  @Input() public hasError: boolean = false;
-  @Input() public hasSuccess: boolean = false;
-  @Input() public showNominees: boolean = false;
+  @Input() public isSelected = false;
+  @Input() public isReadOnly = false;
+  @Input() public hasError = false;
+  @Input() public hasSuccess = false;
+  @Input() public showNominees = false;
 }

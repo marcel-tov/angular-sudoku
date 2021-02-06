@@ -43,7 +43,7 @@ function gridToConfig(grid: SudokuGrid): string {
   return grid.reduce((value: string, row: SudokuRow) => {
 
     value += row
-      .map((value: SudokuValue) => value === null ? '.' : value)
+      .map((item: SudokuValue) => item === null ? '.' : item)
       .join('');
 
     return value;

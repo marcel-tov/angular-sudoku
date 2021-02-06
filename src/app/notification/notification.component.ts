@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 @Component({
-    selector: 'notification',
+    selector: 'app-notification',
     templateUrl: 'notification.html',
     styleUrls: ['notification.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

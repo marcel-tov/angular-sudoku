@@ -1,19 +1,19 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Difficulty, getSudoku } from 'fake-sudoku-puzzle-generator';
-import { ISudokuCreationDialogData, SudokuCreationDialogComponent } from '../sudoku-creation-dialog/sudoku-creation-dialog.component';
+import { SudokuCreationDialogComponent } from '../sudoku-creation-dialog/sudoku-creation-dialog.component';
 import { ISudokuFinishDialogData, SudokuFinishDialogComponent } from '../sudoku-finish-dialog/sudoku-finish-dialog.component';
 import { IOnFinishGridEvent, SudokuGrid, SudokuRow, timerFormatter } from '../sudoku-grid/sudoku-grid.component';
 import { ISudokuShareDialogData, SudokuShareDialogComponent } from '../sudoku-share-dialog/sudoku-share-dialog.component';
 
 @Component({
-  selector: 'home',
+  selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-class HomeComponent {
+class HomeComponent implements OnInit {
   public sudokuGrid: SudokuGrid = getSudoku('Medium');
 
   constructor(
@@ -51,7 +51,7 @@ class HomeComponent {
 
   public openCreationDialog(): void {
     this.dialog
-      .open<SudokuCreationDialogComponent, ISudokuCreationDialogData>(
+      .open<SudokuCreationDialogComponent, {}>(
         SudokuCreationDialogComponent,
         {
           data: {},
@@ -92,13 +92,13 @@ class HomeComponent {
   }
 }
 
-function urlParamToGrid(value: string): SudokuGrid {
-  return value
+function urlParamToGrid(gridString: string): SudokuGrid {
+  return gridString
     .match(/.{1,9}/g)
     .reduce((list: SudokuGrid, value: string) => {
       const row: SudokuRow = value
         .split('')
-        .map((value: string) => Number(value) || null);
+        .map((item: string) => Number(item) || null);
 
       list.push(row);
 

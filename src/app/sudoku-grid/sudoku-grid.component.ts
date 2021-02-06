@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { cloneDeep } from 'lodash';
 import { Subscription, timer } from 'rxjs';
@@ -11,22 +11,22 @@ import { SudokuHelper } from './sudoku-helper';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class SudokuGridComponent implements OnChanges {
-  @Input('grid') public originalGrid!: SudokuGrid;
+  @Input() public originalGrid!: SudokuGrid;
   public grid!: SudokuGrid;
   public solvedGrid: SudokuGrid | null = null;
-  public showNominees: boolean = false;
+  public showNominees = false;
   public selectedRowIndex: number | null = null;
   public selectedColIndex: number | null = null;
-  public isHelpEnabled: boolean = false;
+  public isHelpEnabled = false;
   public gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
-  public lockValues: boolean = true;
+  public lockValues = true;
   public sudokuHelper: SudokuHelper = new SudokuHelper(this.grid);
   public readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  private time: number = 0;
+  private time = 0;
   private subsription: Subscription | null = null;
-  @Output() private onShare: EventEmitter<SudokuGrid> = new EventEmitter();
-  @Output() private onCreate: EventEmitter<void> = new EventEmitter();
-  @Output() private onFinish: EventEmitter<IOnFinishGridEvent> = new EventEmitter();
+  @Output() private share: EventEmitter<SudokuGrid> = new EventEmitter();
+  @Output() private create: EventEmitter<void> = new EventEmitter();
+  @Output() private finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter();
 
   constructor(private changeDetector: ChangeDetectorRef) {}
 
@@ -143,7 +143,7 @@ class SudokuGridComponent implements OnChanges {
   }
 
   public onShareGrid(): void {
-    this.onShare.emit(this.originalGrid);
+    this.share.emit(this.originalGrid);
   }
 
   public trackByIndex(index: number) {
@@ -151,7 +151,7 @@ class SudokuGridComponent implements OnChanges {
   }
 
   public onCreateGrid(): void {
-    this.onCreate.emit();
+    this.create.emit();
   }
 
   public timeFormatter(): string {
@@ -217,7 +217,7 @@ class SudokuGridComponent implements OnChanges {
       return;
     }
 
-    let modifiedNomineeValue: Array<SudokuValue> = cloneDeep(this.gridNomineeValues[row][col]);
+    const modifiedNomineeValue: Array<SudokuValue> = cloneDeep(this.gridNomineeValues[row][col]);
 
     value = Number(value);
     if (modifiedNomineeValue.includes(value)) {
@@ -231,7 +231,6 @@ class SudokuGridComponent implements OnChanges {
 
   /**
    * @deprecated https://developer.mozilla.org/de/docs/Web/API/KeyboardEvent/keyCode
-   * @param event
    */
   @HostListener('window:keydown', ['$event'])
   private onKeydown(event: KeyboardEvent) {
@@ -254,13 +253,13 @@ class SudokuGridComponent implements OnChanges {
     this.gridNomineeValues[this.selectedRowIndex][this.selectedColIndex] = getEmptyRow();
 
     // Remove same nominee values of same row
-    for (const col of Object.keys(this.grid[this.selectedRowIndex])) {
-      this.removeNomineeValue(this.selectedRowIndex, Number(col), value);
+    for (const colValue of Object.keys(this.grid[this.selectedRowIndex])) {
+      this.removeNomineeValue(this.selectedRowIndex, Number(colValue), value);
     }
 
     // Remove same nominee values of same col
-    for (const row of Object.keys(this.grid)) {
-      this.removeNomineeValue(Number(row), this.selectedColIndex, value);
+    for (const rowValue of Object.keys(this.grid)) {
+      this.removeNomineeValue(Number(rowValue), this.selectedColIndex, value);
     }
 
     // Remove same nominee values of same square
@@ -277,7 +276,7 @@ class SudokuGridComponent implements OnChanges {
   private onFinishGrid(): void {
     this.cancelTimer();
 
-    let isGridValid: boolean = true;
+    let isGridValid = true;
     for (const row of Object.keys(this.grid)) {
       for (const col of Object.keys(this.grid[row])) {
         if (this.isValueErroneous(Number(row), Number(col), this.grid[row][col])) {
@@ -286,7 +285,7 @@ class SudokuGridComponent implements OnChanges {
       }
     }
 
-    this.onFinish.emit({
+    this.finish.emit({
       grid: this.grid,
       isGridValid,
       time: this.time,
