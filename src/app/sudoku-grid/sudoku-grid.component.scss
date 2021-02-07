@@ -32,13 +32,9 @@
   }
 
   &__navigation-button {
-    color: white;
+    color: var(--font-color);
     margin: 5px 0;
     @include disablePinchZoom();
-
-    &--active {
-      background: var(--secondary-color);
-    }
 
     &--nominee {
       color: var(--font-color);

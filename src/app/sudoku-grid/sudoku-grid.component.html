@@ -85,9 +85,8 @@
 
     <button
       class="sudoku-grid__navigation-button"
-      [class.sudoku-grid__navigation-button--active]="showNominees"
       mat-raised-button
-      color="primary"
+      [color]="showNominees ? 'primary' : undefined"
       type="button"
       (click)="showNominees = !showNominees"
       aria-label="Toggle field edit nominees"
