@@ -4,6 +4,7 @@
   &__grid-wrapper {
     color: var(--primary-color);
     margin-bottom: 4px;
+    min-width: 360px;
   }
 
   &__value-wrapper {

@@ -22,6 +22,8 @@ class SudokuGridComponent implements OnChanges {
   public lockValues = true;
   public sudokuHelper: SudokuHelper = new SudokuHelper(this.grid);
   public readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  @Input()  public showTopNavigation = true;
+  @Input()  public showFooterNavigation = true;
   private time = 0;
   private subsription: Subscription | null = null;
   @Output() private share: EventEmitter<SudokuGrid> = new EventEmitter();
