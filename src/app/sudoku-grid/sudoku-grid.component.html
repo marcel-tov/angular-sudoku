@@ -76,7 +76,7 @@
     <button
       class="sudoku-grid__navigation-button"
       mat-raised-button
-      color="primary"
+      [color]="hasSelectedValue() && !showNominees ? 'primary' : undefined"
       type="button"
       [disabled]="!hasSelectedValue()"
       (click)="deleteSelectedValue()"
