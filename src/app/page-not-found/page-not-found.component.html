@@ -4,8 +4,14 @@
   fxLayout="column"
   fxLayoutAlign="center center"
 >
-  <h2>404</h2>
+  <app-sudoku-grid
+    class="page-not-found__grid"
+    [originalGrid]="sudokuGrid"
+    [showTopNavigation]="false"
+    [showFooterNavigation]="false"
+  ></app-sudoku-grid>
+
   <div>
-    Let's go <a href="/">home</a> and try from there
+    Let's go <a class="page-not-found__home-link" href="/">home</a> and try from there
   </div>
 </div>

@@ -47,7 +47,7 @@ class SudokuGridComponent implements OnChanges {
 
     const value: SudokuValue = this.originalGrid[row][col];
 
-    return value > 0;
+    return value !== null;
   }
 
   public isGroupTop(row: number): boolean {
@@ -107,6 +107,12 @@ class SudokuGridComponent implements OnChanges {
   }
 
   public isValueErroneous(row: number, col: number, value: SudokuValue): boolean {
+    if (this.isHelpEnabled && this.solvedGrid === null) {
+      const sudokuHelper: SudokuHelper = new SudokuHelper(cloneDeep(this.originalGrid))
+      sudokuHelper.solve();
+      this.solvedGrid = sudokuHelper.sudoku;
+    }
+
     return this.solvedGrid[row][col] !== value;
   }
 
@@ -176,10 +182,7 @@ class SudokuGridComponent implements OnChanges {
     this.showNominees = false;
     this.isHelpEnabled = false;
     this.time = 0;
-
-    const sudokuHelper: SudokuHelper = new SudokuHelper(cloneDeep(this.originalGrid))
-    sudokuHelper.solve();
-    this.solvedGrid = sudokuHelper.sudoku;
+    this.solvedGrid = null;
 
     this.cancelTimer();
     this.subsription = timer(0, 1000).subscribe(() => {

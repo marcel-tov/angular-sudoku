@@ -1,1 +1,9 @@
-.page-not-found {}
+.page-not-found {
+  &__grid {
+    margin: 10px;
+  }
+
+  &__home-link {
+    color: var(--secondary-color);
+  }
+}
