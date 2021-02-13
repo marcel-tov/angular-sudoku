@@ -31,7 +31,7 @@ class SudokuShareDialogComponent {
 
   public copyLink(): void {
     this.clipboard.copy(this.shareLink);
-    this.notificationService.showSuccess('Link was copied successfully');
+    this.notificationService.showSuccess('Link copied to clipboard');
   }
 }
 

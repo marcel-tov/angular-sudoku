@@ -39,7 +39,8 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     grid-gap: 0px;
-    font-size: calc(100% - 1.9vw);
+    font-size: calc(100% - 1.8vw);
     color: var(--light-font-color);
+    line-height: 0;
   }
 }

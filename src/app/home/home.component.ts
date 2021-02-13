@@ -27,10 +27,11 @@ class HomeComponent implements OnInit {
     // Load sudoku by share link
     if (this.route.snapshot.paramMap.has('grid')) {
       const gridString = this.route.snapshot.paramMap.get('grid');
-      const grid: SudokuGrid = urlParamToGrid(gridString);
-
-      this.sudokuGrid = grid;
-      this.changeDetector.detectChanges();
+      if (gridString.length === 81) {
+        const grid: SudokuGrid = urlParamToGrid(gridString);
+        this.sudokuGrid = grid;
+        this.changeDetector.detectChanges();
+      }
     }
   }
 
