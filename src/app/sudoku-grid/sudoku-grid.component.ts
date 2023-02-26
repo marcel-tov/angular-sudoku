@@ -166,6 +166,17 @@ class SudokuGridComponent implements OnChanges {
     return timerFormatter(this.time);
   }
 
+  public clearAllValues(): void {
+    this.grid = [];
+    for (let i = 0; i < 9; i++) {
+      this.grid[i] = [];
+
+      for (let k = 0; k < 9; k++) {
+        this.grid[i].push(null);
+      }
+    }
+  }
+
   private initalizeGrid(): void {
     for (const row of Object.keys(this.grid)) {
       for (const col of Object.keys(this.grid[row])) {
