@@ -1,7 +1,14 @@
 .page-not-found {
   &__grid {
     margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+}
+
+.page-not-found-link {
+  text-align: center;
 
   &__home-link {
     color: var(--secondary-color);
