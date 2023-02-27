@@ -1,7 +1,4 @@
 <div
-  fxFlexFill
-  fxLayout="row"
-  fxLayoutAlign="center center"
   class="sudoku-grid-value"
   [ngClass]="{
     'sudoku-grid-value--readonly': isReadOnly,
@@ -16,11 +13,7 @@
 
     <!-- Nominees -->
     <div class="sudoku-grid-value__nominees-grid" *ngIf="value === null">
-      <span
-        *ngFor="let nomineeValue of nomineeValues"
-        fxLayout="row"
-        fxLayoutAlign="center center"
-      >{{nomineeValue}}</span>
+      <span *ngFor="let nomineeValue of nomineeValues">{{nomineeValue}}</span>
     </div>
 </div>
 

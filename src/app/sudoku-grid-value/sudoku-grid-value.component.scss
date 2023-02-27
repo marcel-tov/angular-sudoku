@@ -1,4 +1,10 @@
+:host {
+  flex: 1
+}
+
 .sudoku-grid-value {
+  display: grid;
+  justify-content: center;
   background: white;
   user-select: none;
   color: var(--font-color);
