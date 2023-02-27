@@ -30,6 +30,9 @@
 
   &__navigation {
     margin: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   &__navigation-button {
