@@ -1,4 +1,7 @@
 .home {
+  display: flex;
+  justify-content: center;
+
   &__grid {
     margin: 0 10px;
   }
