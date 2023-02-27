@@ -1,5 +1,5 @@
 <div class="sudoku-grid">
-  <div *ngIf="showTopNavigation" fxLayout="row wrap" fxLayoutAlign="space-between center" class="sudoku-grid__navigation">
+  <div *ngIf="showTopNavigation" class="sudoku-grid__navigation">
     <button
       mat-icon-button
       color="primary"
@@ -11,7 +11,7 @@
       <mat-icon>share</mat-icon>
     </button>
 
-    <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <div>
       <button
         mat-icon-button
         color="primary"
@@ -26,7 +26,7 @@
       <div>{{timeFormatter()}}</div>
     </div>
 
-    <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <div>
       <button
         *ngIf="!lockValues"
         mat-icon-button
@@ -67,7 +67,6 @@
           (click)="toogleSelectedValue(rowIndex, colIndex)"
         >
           <app-sudoku-grid-value
-            fxFlexFill
             [value]="value"
             [nomineeValues]="gridNomineeValues[rowIndex][colIndex]"
             [isSelected]="isValueSelected(rowIndex, colIndex)"
@@ -84,8 +83,6 @@
   <!-- navigation -->
   <div
     *ngIf="showFooterNavigation"
-    fxLayout="row"
-    fxLayoutAlign="space-between center"
     class="sudoku-grid__navigation"
   >
     <button
@@ -115,7 +112,7 @@
     >Help</mat-slide-toggle>
   </div>
 
-  <div *ngIf="showFooterNavigation" fxLayout="row" fxLayoutAlign="center start" class="sudoku-grid__navigation">
+  <div *ngIf="showFooterNavigation" class="sudoku-grid__navigation">
     <button
       class="sudoku-grid__navigation-button sudoku-grid__navigation-button--nominee"
       [ngClass.lt-sm]="{

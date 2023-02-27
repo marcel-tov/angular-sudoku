@@ -1,6 +1,5 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {SudokuGridValueComponent} from './sudoku-grid-value.component';
 
 @NgModule({
@@ -12,7 +11,6 @@ import {SudokuGridValueComponent} from './sudoku-grid-value.component';
     ],
     imports: [
         CommonModule,
-        FlexLayoutModule,
     ],
 })
 export class SudokuGridValueModule { }

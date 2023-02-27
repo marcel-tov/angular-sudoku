@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {SudokuGridModule} from '../sudoku-grid/sudoku-grid.module';
 import {PageNotFoundComponent} from './page-not-found.component';
 
@@ -11,7 +10,6 @@ import {PageNotFoundComponent} from './page-not-found.component';
         PageNotFoundComponent,
     ],
     imports: [
-        FlexLayoutModule,
         SudokuGridModule,
     ],
 })

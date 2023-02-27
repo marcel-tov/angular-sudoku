@@ -1,9 +1,4 @@
-<div
-  class="page-not-found"
-  fxFlexFill
-  fxLayout="column"
-  fxLayoutAlign="center center"
->
+<div class="page-not-found">
   <app-sudoku-grid
     class="page-not-found__grid"
     [originalGrid]="sudokuGrid"
@@ -11,7 +6,7 @@
     [showFooterNavigation]="false"
   ></app-sudoku-grid>
 
-  <div>
-    Let's go <a class="page-not-found__home-link" href="/">home</a> and try from there
+  <div class="page-not-found-link">
+    Let's go <a class="page-not-found-link__home-link" href="/">home</a> and try from there
   </div>
 </div>

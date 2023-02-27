@@ -1,7 +1,4 @@
 <div
-  fxFlexFill
-  fxLayout="row"
-  fxLayoutAlign="center center"
   class="sudoku-grid-value"
   [ngClass]="{
     'sudoku-grid-value--readonly': isReadOnly,
@@ -12,14 +9,16 @@
     'sudoku-grid-value--nominees': isSelected && showNominees
   }"
 >
-    <span *ngIf="value !== null">{{value}}</span>
+    <span
+      *ngIf="value !== null"
+      class="sudoku-grid-value__value"
+    >{{value}}</span>
 
     <!-- Nominees -->
-    <div class="sudoku-grid-value__nominees-grid" *ngIf="value === null">
+    <div class="nominees-grid" *ngIf="value === null">
       <span
         *ngFor="let nomineeValue of nomineeValues"
-        fxLayout="row"
-        fxLayoutAlign="center center"
+        class="nominees-grid__value"
       >{{nomineeValue}}</span>
     </div>
 </div>

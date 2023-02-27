@@ -35,87 +35,87 @@ class SudokuGridComponent implements OnChanges {
     constructor(private changeDetector: ChangeDetectorRef) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
-  	if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
-  		this.grid = cloneDeep(this.originalGrid);
-  		this.sudokuHelper = new SudokuHelper(this.grid);
-  		this.initalizeGrid();
-  	}
+        if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
+            this.grid = cloneDeep(this.originalGrid);
+            this.sudokuHelper = new SudokuHelper(this.grid);
+            this.initalizeGrid();
+        }
     }
 
     public isValueReadOnly(row: number, col: number): boolean {
-  	if (!this.lockValues) {
-  		return false;
-  	}
+        if (!this.lockValues) {
+            return false;
+        }
 
-  	const value: SudokuValue = this.originalGrid[row][col];
+        const value: SudokuValue = this.originalGrid[row][col];
 
-  	return value !== null;
+        return value !== null;
     }
 
     public isGroupTop(row: number): boolean {
-  	return row % 3 === 0;
+  		return row % 3 === 0;
     }
 
     public isGroupEnd(col: number): boolean {
-  	return col % 3 === 0;
+  		return col % 3 === 0;
     }
 
     public isGridBottom(row: number): boolean {
-  	return row === 8;
+  		return row === 8;
     }
 
     public isGridEnd(col: number): boolean {
-  	return col  === 8;
+  		return col  === 8;
     }
 
     /**
-   * Checks if a given number can be placed in a row/column.
-   */
+	 * Checks if a given number can be placed in a row/column.
+	 */
     public isValueValid(row: number, col: number, value: SudokuValue): boolean {
-  	return this.sudokuHelper.isValueValid(row, col, value);
+  		return this.sudokuHelper.isValueValid(row, col, value);
     }
 
     public isValueSelected(row: number, col: number): boolean {
-  	return !!(this.selectedRowIndex === row && this.selectedColIndex === col);
+  		return !!(this.selectedRowIndex === row && this.selectedColIndex === col);
     }
 
     public toogleSelectedValue(row: number, col: number): void {
-  	if (this.isValueReadOnly(row, col)) {
-  		return;
-  	}
+        if (this.isValueReadOnly(row, col)) {
+            return;
+        }
 
-  	if (this.isValueSelected(row, col)) {
-  		this.showNominees = !this.showNominees;
-  	}
+        if (this.isValueSelected(row, col)) {
+            this.showNominees = !this.showNominees;
+        }
 
-  	this.selectedRowIndex = row;
-  	this.selectedColIndex = col;
+        this.selectedRowIndex = row;
+        this.selectedColIndex = col;
     }
 
     public hasSelectedValue(): boolean {
-  	return this.selectedRowIndex !== null && this.selectedColIndex !== null;
+  		return this.selectedRowIndex !== null && this.selectedColIndex !== null;
     }
 
     public deleteSelectedValue(): void {
-  	if (!this.hasSelectedValue()) {
-  		return;
-  	}
+        if (!this.hasSelectedValue()) {
+            return;
+        }
 
-  	if (this.showNominees) {
-  		this.toggleNomineeValue(this.selectedRowIndex, this.selectedColIndex, null);
-  	} else {
-  		this.onValueChange(this.selectedRowIndex, this.selectedColIndex, null);
-  	}
+        if (this.showNominees) {
+            this.toggleNomineeValue(this.selectedRowIndex, this.selectedColIndex, null);
+        } else {
+            this.onValueChange(this.selectedRowIndex, this.selectedColIndex, null);
+        }
     }
 
     public isValueErroneous(row: number, col: number, value: SudokuValue): boolean {
-  	if (this.isHelpEnabled && this.solvedGrid === null) {
-  		const sudokuHelper: SudokuHelper = new SudokuHelper(cloneDeep(this.originalGrid));
-  		sudokuHelper.solve();
-  		this.solvedGrid = sudokuHelper.sudoku;
-  	}
+        if (this.isHelpEnabled && this.solvedGrid === null) {
+            const sudokuHelper: SudokuHelper = new SudokuHelper(cloneDeep(this.originalGrid));
+            sudokuHelper.solve();
+            this.solvedGrid = sudokuHelper.sudoku;
+        }
 
-  	return this.solvedGrid[row][col] !== value;
+        return this.solvedGrid[row][col] !== value;
     }
 
     public onHelpChange(event: MatSlideToggleChange): void {
@@ -127,20 +127,20 @@ class SudokuGridComponent implements OnChanges {
             return;
         }
 
-  	if (this.showNominees) {
-  		this.toggleNomineeValue(this.selectedRowIndex, this.selectedColIndex, value);
-  	} else {
-  		this.onValueChange(this.selectedRowIndex, this.selectedColIndex, value);
+        if (this.showNominees) {
+            this.toggleNomineeValue(this.selectedRowIndex, this.selectedColIndex, value);
+        } else {
+            this.onValueChange(this.selectedRowIndex, this.selectedColIndex, value);
 
-  		if (value > 0) {
-  			this.updateAffectedNomineeValue(value);
-  		}
+            if (value > 0) {
+                this.updateAffectedNomineeValue(value);
+            }
 
-  		// If the last value was added
-  		if (this.isGridFinish()) {
-  			this.onFinishGrid();
-  		}
-  	}
+            // If the last value was added
+            if (this.isGridFinish()) {
+                this.onFinishGrid();
+            }
+        }
     }
 
     public onChangeLockValues(): void {
@@ -169,82 +169,82 @@ class SudokuGridComponent implements OnChanges {
     }
 
     public clearAllValues(): void {
-  	this.grid = [];
-  	for (let i: number = 0; i < 9; i++) {
-  		this.grid[i] = [];
+        this.grid = [];
+        for (let i: number = 0; i < 9; i++) {
+            this.grid[i] = [];
 
-  		for (let k: number = 0; k < 9; k++) {
-  			this.grid[i].push(null);
-  		}
-  	}
+            for (let k: number = 0; k < 9; k++) {
+                this.grid[i].push(null);
+            }
+        }
     }
 
     private initalizeGrid(): void {
-  	for (const row of Object.keys(this.grid)) {
-  		for (const col of Object.keys(this.grid[row])) {
-  			if (!this.gridNomineeValues[row]) {
-  				this.gridNomineeValues[row] = [];
-  			}
+        for (const row of Object.keys(this.grid)) {
+            for (const col of Object.keys(this.grid[row])) {
+                if (!this.gridNomineeValues[row]) {
+                    this.gridNomineeValues[row] = [];
+                }
 
-  			this.gridNomineeValues[row][col] = getEmptyRow();
-  		}
-  	}
+                this.gridNomineeValues[row][col] = getEmptyRow();
+            }
+        }
 
-  	this.selectedRowIndex = null;
-  	this.selectedColIndex = null;
-  	this.showNominees = false;
-  	this.isHelpEnabled = false;
-  	this.time = 0;
-  	this.solvedGrid = null;
+        this.selectedRowIndex = null;
+        this.selectedColIndex = null;
+        this.showNominees = false;
+        this.isHelpEnabled = false;
+        this.time = 0;
+        this.solvedGrid = null;
 
-  	this.cancelTimer();
-  	this.subsription = timer(0, 1000).subscribe(() => {
-  		this.time++;
+        this.cancelTimer();
+        this.subsription = timer(0, 1000).subscribe(() => {
+            this.time++;
 
-  		this.changeDetector.detectChanges();
-  	});
+            this.changeDetector.detectChanges();
+        });
     }
 
     private onValueChange(row: number, col: number, value: SudokuValue): void {
-  	value = Number(value);
+        value = Number(value);
 
-  	this.grid[row][col] = (value > 0 && value <= 9)
-  		? value
-  		: null;
+        this.grid[row][col] = (value > 0 && value <= 9)
+            ? value
+            : null;
     }
 
     private toggleNomineeValue(row: number, col: number, value: SudokuValue): void {
-  	let modifiedNomineeValue: Array<SudokuValue> = cloneDeep(this.gridNomineeValues[row][col]);
+        let modifiedNomineeValue: Array<SudokuValue> = cloneDeep(this.gridNomineeValues[row][col]);
 
-  	if (value === null) {
-  		modifiedNomineeValue = getEmptyRow();
-  	} else {
-  		value = Number(value);
-  		const indexValue: number = value - 1;
+        if (value === null) {
+            modifiedNomineeValue = getEmptyRow();
+        } else {
+            value = Number(value);
+            const indexValue: number = value - 1;
 
-  		modifiedNomineeValue[indexValue] = modifiedNomineeValue[indexValue] === null
-  			? value
-  			: null;
-  	}
+            modifiedNomineeValue[indexValue] = modifiedNomineeValue[indexValue] === null
+                ? value
+                : null;
+        }
 
-  	this.gridNomineeValues[row][col] = modifiedNomineeValue;
+        this.gridNomineeValues[row][col] = modifiedNomineeValue;
     }
 
     private removeNomineeValue(row: number, col: number, value: SudokuValue): void {
-  	if (value === null) {
-  		return;
-  	}
+        if (value === null) {
+            return;
+        }
 
-  	const modifiedNomineeValue: Array<SudokuValue> = cloneDeep(this.gridNomineeValues[row][col]);
+        const modifiedNomineeValue: Array<SudokuValue> = cloneDeep(this.gridNomineeValues[row][col]);
 
-  	value = Number(value);
-  	if (modifiedNomineeValue.includes(value)) {
-  		const indexValue: number = value - 1;
+        value = Number(value);
+        if (modifiedNomineeValue.includes(value)) {
+            const indexValue: number = value - 1;
 
-  		modifiedNomineeValue[indexValue] = null;
+            modifiedNomineeValue[indexValue] = null;
 
-  		this.gridNomineeValues[row][col] = modifiedNomineeValue;
-  	}
+            this.gridNomineeValues[row][col] = modifiedNomineeValue;
+        }
     }
 
     /**
@@ -252,82 +252,82 @@ class SudokuGridComponent implements OnChanges {
 	 */
     @HostListener('window:keydown', ['$event'])
     private onKeydown(event: KeyboardEvent): void {
-  	const value: number = Number(event.key);
-  	if (value > 0 && value <= 9) {
-  		this.onSelectValue(value);
-  	}
+        const value: number = Number(event.key);
+        if (value > 0 && value <= 9) {
+            this.onSelectValue(value);
+        }
 
-  	if (event.key === 'Backspace' || event.key === 'Delete') {
-  		this.onSelectValue(null);
-  	}
+        if (event.key === 'Backspace' || event.key === 'Delete') {
+            this.onSelectValue(null);
+        }
     }
 
     private updateAffectedNomineeValue(value: SudokuValue): void {
-  	if (!this.hasSelectedValue()) {
-  		return;
-  	}
+        if (!this.hasSelectedValue()) {
+            return;
+        }
 
-  	// Empty nominees of selected value
-  	this.gridNomineeValues[this.selectedRowIndex][this.selectedColIndex] = getEmptyRow();
+        // Empty nominees of selected value
+        this.gridNomineeValues[this.selectedRowIndex][this.selectedColIndex] = getEmptyRow();
 
-  	// Remove same nominee values of same row
-  	for (const colValue of Object.keys(this.grid[this.selectedRowIndex])) {
-  		this.removeNomineeValue(this.selectedRowIndex, Number(colValue), value);
-  	}
+        // Remove same nominee values of same row
+        for (const colValue of Object.keys(this.grid[this.selectedRowIndex])) {
+            this.removeNomineeValue(this.selectedRowIndex, Number(colValue), value);
+        }
 
-  	// Remove same nominee values of same col
-  	for (const rowValue of Object.keys(this.grid)) {
-  		this.removeNomineeValue(Number(rowValue), this.selectedColIndex, value);
-  	}
+        // Remove same nominee values of same col
+        for (const rowValue of Object.keys(this.grid)) {
+            this.removeNomineeValue(Number(rowValue), this.selectedColIndex, value);
+        }
 
-  	// Remove same nominee values of same square
-  	const row: number = this.selectedRowIndex - this.selectedRowIndex % 3;
-  	const col: number = this.selectedColIndex - this.selectedColIndex % 3;
+        // Remove same nominee values of same square
+        const row: number = this.selectedRowIndex - this.selectedRowIndex % 3;
+        const col: number = this.selectedColIndex - this.selectedColIndex % 3;
 
-  	for (let x: number = 0; x < 3; x++) {
-  		for (let y: number = 0; y < 3; y++) {
-  			this.removeNomineeValue(x + row, y + col, value);
-  		}
-  	}
+        for (let x: number = 0; x < 3; x++) {
+            for (let y: number = 0; y < 3; y++) {
+                this.removeNomineeValue(x + row, y + col, value);
+            }
+        }
     }
 
     private onFinishGrid(): void {
-  	this.cancelTimer();
+        this.cancelTimer();
 
-  	let isGridValid: boolean = true;
-  	for (const row of Object.keys(this.grid)) {
-  		for (const col of Object.keys(this.grid[row])) {
-  			if (this.isValueErroneous(Number(row), Number(col), this.grid[row][col])) {
-  				isGridValid = false;
-  			}
-  		}
-  	}
+        let isGridValid: boolean = true;
+        for (const row of Object.keys(this.grid)) {
+            for (const col of Object.keys(this.grid[row])) {
+                if (this.isValueErroneous(Number(row), Number(col), this.grid[row][col])) {
+                    isGridValid = false;
+                }
+            }
+        }
 
-  	this.finish.emit({
-  		grid: this.grid,
-  		isGridValid,
-  		time: this.time,
-  	});
+        this.finish.emit({
+            grid: this.grid,
+            isGridValid,
+            time: this.time,
+        });
     }
 
     private cancelTimer(): void {
-  	if (this.subsription) {
-  		this.subsription.unsubscribe();
-  	}
+        if (this.subsription) {
+            this.subsription.unsubscribe();
+        }
     }
 
     private isGridFinish(): boolean {
-  	for (const row of Object.keys(this.grid)) {
-  		for (const col of Object.keys(this.grid[row])) {
-  			const value: SudokuValue = this.grid[row][col];
+        for (const row of Object.keys(this.grid)) {
+            for (const col of Object.keys(this.grid[row])) {
+                const value: SudokuValue = this.grid[row][col];
 
-  			if (value === null) {
-  				return false;
-  			}
-  		}
-  	}
+                if (value === null) {
+                    return false;
+                }
+            }
+        }
 
-  	return true;
+        return true;
     }
 }
 

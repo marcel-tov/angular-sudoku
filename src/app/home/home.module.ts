@@ -1,6 +1,5 @@
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {NgModule} from '@angular/core';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {SudokuCreationDialogModule} from '../sudoku-creation-dialog/sudoku-creation-dialog.module';
 import {SudokuFinishDialogModule} from '../sudoku-finish-dialog/sudoku-finish-dialog.module';
 import {SudokuGridModule} from '../sudoku-grid/sudoku-grid.module';
@@ -14,7 +13,6 @@ import {HomeComponent} from './home.component';
     imports: [
         SudokuGridModule,
         ClipboardModule,
-        FlexLayoutModule,
         SudokuFinishDialogModule,
         SudokuCreationDialogModule,
         SudokuShareDialogModule,
