@@ -228,9 +228,9 @@ class SudokuGridComponent implements OnChanges {
 		}
 
 		this.gridNomineeValues[row][col] = modifiedNomineeValue;
-		}
+	}
 
-		private removeNomineeValue(row: number, col: number, value: SudokuValue): void {
+	private removeNomineeValue(row: number, col: number, value: SudokuValue): void {
 		if (value === null) {
 			return;
 		}
