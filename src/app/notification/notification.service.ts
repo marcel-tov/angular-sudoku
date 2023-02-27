@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { NotificationComponent, INotificationData } from './notification.component';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import {Injectable} from '@angular/core';
+import {NotificationComponent, INotificationData} from './notification.component';
+import {MatLegacySnackBar as MatSnackBar} from '@angular/material/legacy-snack-bar';
 
 enum NotificationType {
-  Error = 'Error',
-  Success = 'Success',
+    Error = 'Error',
+    Success = 'Success',
 }
 
 @Injectable()
