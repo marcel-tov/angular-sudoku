@@ -9,11 +9,17 @@
     'sudoku-grid-value--nominees': isSelected && showNominees
   }"
 >
-    <span *ngIf="value !== null">{{value}}</span>
+    <span
+      *ngIf="value !== null"
+      class="sudoku-grid-value__value"
+    >{{value}}</span>
 
     <!-- Nominees -->
-    <div class="sudoku-grid-value__nominees-grid" *ngIf="value === null">
-      <span *ngFor="let nomineeValue of nomineeValues">{{nomineeValue}}</span>
+    <div class="nominees-grid" *ngIf="value === null">
+      <span
+        *ngFor="let nomineeValue of nomineeValues"
+        class="nominees-grid__value"
+      >{{nomineeValue}}</span>
     </div>
 </div>
 
