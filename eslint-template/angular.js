@@ -14,12 +14,13 @@ module.exports = {
             project: 'tsconfig.eslint.json',
         },
         extends: [
-            '../config/typescript',
-            '../config/angular',
+            '../eslint-config/typescript',
+            '../eslint-config/angular',
         ],
         overrides: [{
+            // TODO replace by new test engine
             files: '**/*.spec.ts',
-            extends: '../config/jasmine',
+            // extends: '../eslint-config/jasmine',
         }],
     }, {
         // Typescript root files
@@ -33,8 +34,8 @@ module.exports = {
         extends: [
             'eslint:recommended',
             'plugin:@typescript-eslint/recommended-requiring-type-checking',
-            '../config/typescript',
-            '../config/node',
+            '../eslint-config/typescript',
+            '../eslint-config/node',
         ],
     }, {
         // Javascript root files
@@ -47,12 +48,12 @@ module.exports = {
         },
         extends: [
             'eslint:recommended',
-            '../config/javascript',
-            '../config/node',
+            '../eslint-config/javascript',
+            '../eslint-config/node',
         ],
     }, {
         // Angular templates
         files: '**/*.html',
-        extends: '../config/angular-template',
+        extends: '../eslint-config/angular-template',
     }],
 };
