@@ -18,8 +18,8 @@ module.exports = {
             '../config/angular',
         ],
         overrides: [{
-            files: '**/*.spec.ts',
-            extends: '../config/jasmine',
+            // files: '**/*.spec.ts',
+            // extends: '../config/jasmine',
         }],
     }, {
         // Typescript root files
