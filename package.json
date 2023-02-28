@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "test": "npx cypress run --config-file cypress.config.ts --component -q",
     "eslint": "eslint --cache '**/*.{js,ts,html}'",
     "lint": "npm run eslint -- --quiet",
     "fmt": "npm run eslint -- --fix"
@@ -43,7 +44,9 @@
     "@typescript-eslint/eslint-plugin": "5.53.0",
     "@typescript-eslint/parser": "5.53.0",
     "codelyzer": "6.0.1",
+    "cypress": "12.7.0",
     "eslint": "8.35.0",
+    "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-rxjs": "^5.0.2",
     "ts-node": "9.1.1",

@@ -48,7 +48,6 @@ module.exports = {
         'import/exports-last': 'error',
         'import/group-exports': 'error',
         'import/namespace': 'off', // Is very slow, and I don't think this rule is very important.
-        'import/no-default-export': 'error',
         'import/no-deprecated': 'off', // Is very slow and doesn't work and the IDE shows already a warning.
         'import/no-duplicates': 'off', // Is very slow and already covered by no-duplicate-imports.
         'import/no-unresolved': 'off',
