@@ -1,14 +1,15 @@
 import {AppComponent} from './app.component';
 
 describe('AppComponent', () => {
-    it('should be created', () => {
+    beforeEach(() => {
         cy.mount(AppComponent);
+    });
+
+    it('should be created', () => {
         cy.get('div').should('have.class', 'app');
-        cy.get('router-outlet').should('exist');
     });
 
     it('should contain router-outlet', () => {
-        cy.mount(AppComponent);
         cy.get('div > router-outlet').should('exist');
     });
 });
