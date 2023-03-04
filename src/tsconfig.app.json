@@ -6,6 +6,6 @@
   },
   "exclude": [
     // "test.ts",
-    "**/*.cy.ts"
+    // "**/*.cy.ts"
   ]
 }
