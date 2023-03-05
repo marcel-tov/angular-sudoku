@@ -4,7 +4,10 @@ import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spect
 
 describe('AppComponent', () => {
     let spectator: Spectator<AppComponent>;
-    const createComponent: SpectatorFactory<AppComponent> = createComponentFactory(AppComponent);
+    const createComponent: SpectatorFactory<AppComponent> = createComponentFactory({
+        component: AppComponent,
+        shallow: true,
+    });
 
     beforeEach(() => spectator = createComponent());
 

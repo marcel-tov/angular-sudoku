@@ -10,7 +10,7 @@ import {SudokuCreationDialogComponent} from '../sudoku-creation-dialog/sudoku-cr
 import {Difficulty} from 'fake-sudoku-puzzle-generator';
 import {SudokuFinishDialogComponent} from '../sudoku-finish-dialog/sudoku-finish-dialog.component';
 
-fdescribe('HomeComponent', () => {
+describe('HomeComponent', () => {
     const grid: SudokuGrid = [
         getEmptyRow(),
         getEmptyRow(),
