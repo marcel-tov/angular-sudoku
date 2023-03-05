@@ -15,6 +15,7 @@ import {ISudokuShareDialogData, SudokuShareDialogComponent} from '../sudoku-shar
 })
 class HomeComponent implements OnInit {
     public sudokuGrid: SudokuGrid = getSudoku('Medium');
+    private readonly lengthOfGridParameter: number = 81;
 
     constructor(
         private route: ActivatedRoute,
@@ -26,7 +27,7 @@ class HomeComponent implements OnInit {
         // Load sudoku by share link
         if (this.route.snapshot.paramMap.has('grid')) {
             const gridString: string | null = this.route.snapshot.paramMap.get('grid');
-            if (gridString.length === 81) {
+            if (gridString.length === this.lengthOfGridParameter) {
                 const grid: SudokuGrid = urlParamToGrid(gridString);
                 this.sudokuGrid = grid;
                 this.changeDetector.detectChanges();
@@ -51,17 +52,14 @@ class HomeComponent implements OnInit {
 
     public openCreationDialog(): void {
         this.dialog
-            .open<SudokuCreationDialogComponent, {}>(
+            .open<SudokuCreationDialogComponent>(
             SudokuCreationDialogComponent,
             {
                 data: {},
             })
             .afterClosed()
             .subscribe((difficulty: Difficulty | undefined) => {
-                if (difficulty) {
-                    this.sudokuGrid = getSudoku(difficulty);
-                    this.changeDetector.detectChanges();
-                }
+                this.createRandomSudoku(difficulty);
             });
     }
 
@@ -89,6 +87,15 @@ class HomeComponent implements OnInit {
             .subscribe(() => {
                 // do nothing
             });
+    }
+
+    public createRandomSudoku(difficulty: Difficulty | undefined): void {
+        if (!difficulty) {
+            return;
+        }
+
+        this.sudokuGrid = getSudoku(difficulty);
+        this.changeDetector.detectChanges();
     }
 }
 
