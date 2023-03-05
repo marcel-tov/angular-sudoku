@@ -2,13 +2,11 @@
 import {HomeComponent} from './home.component';
 import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator';
 import {RouterModule} from '@angular/router';
-// import {MatLegacyDialogModule as MatDialogModule} from '@angular/material/legacy-dialog';
 import {SudokuGrid, getEmptyRow} from '../sudoku-grid/sudoku-grid.component';
-import {MatLegacyDialogModule as MatDialogModule, MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
+import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
 import {of} from 'rxjs';
-import {ISudokuShareDialogData, SudokuShareDialogComponent} from '../sudoku-share-dialog/sudoku-share-dialog.component';
+import {SudokuShareDialogComponent} from '../sudoku-share-dialog/sudoku-share-dialog.component';
 import {SudokuCreationDialogComponent} from '../sudoku-creation-dialog/sudoku-creation-dialog.component';
-import * as exp from 'constants';
 import {Difficulty} from 'fake-sudoku-puzzle-generator';
 import {SudokuFinishDialogComponent} from '../sudoku-finish-dialog/sudoku-finish-dialog.component';
 
