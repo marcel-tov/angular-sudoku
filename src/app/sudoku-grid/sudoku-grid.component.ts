@@ -352,6 +352,7 @@ function timerFormatter(time: number): string {
     return `${hours}:${minutes}:${seconds}`;
 }
 
+// TODO: https://stackoverflow.com/questions/41139763/how-to-declare-a-fixed-length-array-in-typescript
 type SudokuGrid = Array<SudokuRow>;
 type SudokuRow = Array<SudokuValue>;
 type SudokuValue = number | null;
