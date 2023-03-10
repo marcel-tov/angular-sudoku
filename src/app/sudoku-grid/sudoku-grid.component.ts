@@ -26,11 +26,11 @@ class SudokuGridComponent implements OnChanges {
     public readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     @Input() public showTopNavigation: boolean = true;
     @Input() public showFooterNavigation: boolean = true;
+    @Output() public share: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
+    @Output() public create: EventEmitter<void> = new EventEmitter<void>();
+    @Output() public finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter<IOnFinishGridEvent>();
     private time: number = 0;
     private subsription: Subscription | null = null;
-    @Output() private share: EventEmitter<SudokuGrid> = new EventEmitter();
-    @Output() private create: EventEmitter<void> = new EventEmitter();
-    @Output() private finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter();
 
     constructor(private changeDetector: ChangeDetectorRef) {}
 
