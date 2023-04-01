@@ -30,7 +30,7 @@ class SudokuGridComponent implements OnChanges {
     @Output() public create: EventEmitter<void> = new EventEmitter<void>();
     @Output() public finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter<IOnFinishGridEvent>();
     private time: number = 0;
-    private subsription: Subscription | null = null;
+    private subscription: Subscription | null = null;
 
     constructor(private changeDetector: ChangeDetectorRef) {}
 
@@ -198,7 +198,7 @@ class SudokuGridComponent implements OnChanges {
         this.solvedGrid = null;
 
         this.cancelTimer();
-        this.subsription = timer(0, 1000).subscribe(() => {
+        this.subscription = timer(0, 1000).subscribe(() => {
             this.time++;
 
             this.changeDetector.detectChanges();
@@ -311,8 +311,8 @@ class SudokuGridComponent implements OnChanges {
     }
 
     private cancelTimer(): void {
-        if (this.subsription) {
-            this.subsription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 

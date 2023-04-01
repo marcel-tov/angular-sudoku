@@ -4,7 +4,6 @@ import {Spectator, createComponentFactory, SpectatorFactory, byTextContent, DOMS
 import {
     MatLegacyDialogModule as MatDialogModule,
     MatLegacyDialogRef as MatDialogRef,
-    MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
 } from '@angular/material/legacy-dialog';
 
 describe('SudokuGridComponent', () => {
@@ -16,9 +15,6 @@ describe('SudokuGridComponent', () => {
         ],
         mocks: [
             MatDialogRef,
-        ],
-        providers: [
-            // {provide: MAT_DIALOG_DATA, useValue: data},
         ],
         detectChanges: false,
         shallow: true,
@@ -74,5 +70,14 @@ describe('SudokuGridComponent', () => {
         expect(spectator.component.lockValues).toBe(false);
         spectator.click(byTextContent('lock_open', {selector: 'button'}));
         expect(spectator.component.lockValues).toBe(true);
+    });
+
+    it('On click nominees button changes nominees value', () => {
+        spectator.detectChanges();
+        expect(spectator.component.showNominees).toBe(false);
+        spectator.click(byTextContent('Nominees', {selector: 'button'}));
+        expect(spectator.component.showNominees).toBe(true);
+        spectator.click(byTextContent('Nominees', {selector: 'button'}));
+        expect(spectator.component.showNominees).toBe(false);
     });
 });
