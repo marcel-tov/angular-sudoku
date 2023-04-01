@@ -18,9 +18,8 @@ module.exports = {
             '../eslint-config/angular',
         ],
         overrides: [{
-            // TODO replace by new test engine
             files: '**/*.spec.ts',
-            // extends: '../eslint-config/jasmine',
+            extends: '../eslint-config/jasmine',
         }],
     }, {
         // Typescript root files
