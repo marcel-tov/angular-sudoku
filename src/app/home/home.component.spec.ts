@@ -56,7 +56,7 @@ describe('HomeComponent', () => {
 
     it('should open creation dialog', () => {
         const difficulty: Difficulty = 'Easy';
-        const createRandomSudokuSpy: jasmine.Spy = spyOn(spectator.component, 'createRandomSudoku').and.callThrough();
+        const createRandomSudokuSpy: jest.SpyInstance = jest.spyOn(spectator.component, 'createRandomSudoku');
         spectator.inject(MatDialog).open.andReturn({afterClosed: () => of(difficulty)});
         spectator.component.openCreationDialog();
         expect(spectator.inject(MatDialog).open).toHaveBeenCalledWith(
