@@ -6,7 +6,6 @@ import {
     MatLegacyDialogModule as MatDialogModule,
     MatLegacyDialogRef as MatDialogRef,
 } from '@angular/material/legacy-dialog';
-import {fakeAsync, flush, flushMicrotasks} from "@angular/core/testing";
 
 describe('SudokuGridComponent', () => {
     const grid: SudokuGrid = [
