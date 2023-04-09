@@ -1,6 +1,6 @@
 
 import {SudokuCreationDialogComponent} from './sudoku-creation-dialog.component';
-import {Spectator, createComponentFactory, SpectatorFactory, byTextContent, DOMSelector} from '@ngneat/spectator';
+import {Spectator, createComponentFactory, SpectatorFactory, byTextContent, DOMSelector} from '@ngneat/spectator/jest';
 import {
     MatLegacyDialogModule as MatDialogModule,
     MatLegacyDialogRef as MatDialogRef,

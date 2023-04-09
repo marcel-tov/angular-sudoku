@@ -1,6 +1,6 @@
 
 import {HomeComponent} from './home.component';
-import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator';
+import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
 import {RouterModule} from '@angular/router';
 import {SudokuGrid, getEmptyRow} from '../sudoku-grid/sudoku-grid.component';
 import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';

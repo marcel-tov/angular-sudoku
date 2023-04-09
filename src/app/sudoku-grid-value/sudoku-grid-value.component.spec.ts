@@ -1,6 +1,6 @@
 
 import {SudokuGridValueComponent} from './sudoku-grid-value.component';
-import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator';
+import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
 
 describe('SudokuGridValueComponent', () => {
     let spectator: Spectator<SudokuGridValueComponent>;
