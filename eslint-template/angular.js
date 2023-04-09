@@ -19,7 +19,7 @@ module.exports = {
         ],
         overrides: [{
             files: '**/*.spec.ts',
-            extends: '../eslint-config/jasmine',
+            extends: '../eslint-config/jest',
         }],
     }, {
         // Typescript root files

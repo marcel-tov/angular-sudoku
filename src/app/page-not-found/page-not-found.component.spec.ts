@@ -1,6 +1,6 @@
 
 import {PageNotFoundComponent} from './page-not-found.component';
-import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator';
+import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
 
 describe('PageNotFoundComponent', () => {
     let spectator: Spectator<PageNotFoundComponent>;
