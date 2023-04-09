@@ -9,15 +9,15 @@ import {
 
 describe('SudokuGridComponent', () => {
     const grid: SudokuGrid = [
-      getEmptyRow(),
-      getEmptyRow(),
-      getEmptyRow(),
-      getEmptyRow(),
-      getEmptyRow(),
-      getEmptyRow(),
-      getEmptyRow(),
-      getEmptyRow(),
-      getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
     ];
     let spectator: Spectator<SudokuGridComponent>;
     const createComponent: SpectatorFactory<SudokuGridComponent> = createComponentFactory({
