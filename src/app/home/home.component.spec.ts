@@ -3,7 +3,7 @@ import {HomeComponent} from './home.component';
 import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
 import {RouterModule} from '@angular/router';
 import {SudokuGrid, getEmptyRow} from '../sudoku-grid/sudoku-grid.component';
-import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {of} from 'rxjs';
 import {SudokuShareDialogComponent} from '../sudoku-share-dialog/sudoku-share-dialog.component';
 import {SudokuCreationDialogComponent} from '../sudoku-creation-dialog/sudoku-creation-dialog.component';
