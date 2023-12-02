@@ -1,7 +1,7 @@
 
 import {NotificationService} from './notification.service';
 import {SpectatorService, createServiceFactory, SpectatorServiceFactory} from '@ngneat/spectator/jest';
-import {MatLegacySnackBar as MatSnackBar} from '@angular/material/legacy-snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {NotificationComponent} from './notification.component';
 
 describe('NotificationService', () => {

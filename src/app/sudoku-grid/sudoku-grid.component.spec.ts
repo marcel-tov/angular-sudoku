@@ -3,9 +3,9 @@ import {getEmptyRow, SudokuGrid, SudokuGridComponent} from './sudoku-grid.compon
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
 import {
-    MatLegacyDialogModule as MatDialogModule,
-    MatLegacyDialogRef as MatDialogRef,
-} from '@angular/material/legacy-dialog';
+    MatDialogModule,
+    MatDialogRef,
+} from '@angular/material/dialog';
 
 describe('SudokuGridComponent', () => {
     const grid: SudokuGrid = [

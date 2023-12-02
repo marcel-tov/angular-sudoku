@@ -3,10 +3,10 @@ import {ISudokuShareDialogData, SudokuShareDialogComponent} from './sudoku-share
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
 import {
-    MatLegacyDialogModule as MatDialogModule,
-    MatLegacyDialogRef as MatDialogRef,
-    MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
-} from '@angular/material/legacy-dialog';
+    MatDialogModule,
+    MatDialogRef,
+    MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import {RouterModule} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
 import {getEmptyRow} from '../sudoku-grid/sudoku-grid.component';
