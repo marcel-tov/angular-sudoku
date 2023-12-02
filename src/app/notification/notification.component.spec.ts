@@ -1,7 +1,7 @@
 
 import {INotificationData, NotificationComponent} from './notification.component';
 import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
-import {MAT_LEGACY_SNACK_BAR_DATA as MAT_SNACK_BAR_DATA} from '@angular/material/legacy-snack-bar';
+import {MAT_SNACK_BAR_DATA} from '@angular/material/snack-bar';
 
 describe('NotificationComponent', () => {
     const data: INotificationData = {
