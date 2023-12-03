@@ -4,7 +4,6 @@ import {Clipboard} from '@angular/cdk/clipboard';
 import {SudokuGrid, SudokuRow, SudokuValue} from '../sudoku-grid/sudoku-grid.component';
 import {Router} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
-import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -16,7 +15,6 @@ import {NotificationModule} from '../notification/notification.module';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        CommonModule,
         MatDialogModule,
         MatButtonModule,
         MatIconModule,
