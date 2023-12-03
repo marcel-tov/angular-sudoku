@@ -3,8 +3,8 @@ import {NgModule} from '@angular/core';
 import {SudokuCreationDialogModule} from '../sudoku-creation-dialog/sudoku-creation-dialog.module';
 import {SudokuFinishDialogModule} from '../sudoku-finish-dialog/sudoku-finish-dialog.module';
 import {SudokuGridModule} from '../sudoku-grid/sudoku-grid.module';
-import {SudokuShareDialogModule} from '../sudoku-share-dialog/sudoku-share-dialog.module';
 import {HomeComponent} from './home.component';
+import {SudokuShareDialogComponent} from '../sudoku-share-dialog/sudoku-share-dialog.component';
 
 @NgModule({
     declarations: [
@@ -15,7 +15,7 @@ import {HomeComponent} from './home.component';
         ClipboardModule,
         SudokuFinishDialogModule,
         SudokuCreationDialogModule,
-        SudokuShareDialogModule,
+        SudokuShareDialogComponent,
     ],
 })
 export class HomeModule { }
