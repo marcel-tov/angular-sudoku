@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {SudokuGridModule} from '../sudoku-grid/sudoku-grid.module';
+import {SudokuGridComponent} from '../sudoku-grid/sudoku-grid.component';
 import {PageNotFoundComponent} from './page-not-found.component';
 
 @NgModule({
@@ -10,7 +10,7 @@ import {PageNotFoundComponent} from './page-not-found.component';
         PageNotFoundComponent,
     ],
     imports: [
-        SudokuGridModule,
+      SudokuGridComponent,
     ],
 })
 export class PageNotFoundModule { }
