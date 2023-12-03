@@ -6,7 +6,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeModule} from './home/home.module';
 import {HomeComponent} from './home/home.component';
-import {PageNotFoundModule} from './page-not-found/page-not-found.module';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -26,7 +25,7 @@ const routes: Routes = [
         BrowserAnimationsModule,
         AppRoutingModule,
         HomeModule,
-        PageNotFoundModule,
+        PageNotFoundComponent,
     ],
     bootstrap: [AppComponent],
 })

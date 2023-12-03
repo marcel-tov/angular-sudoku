@@ -1,11 +1,15 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {getEmptyRow, SudokuGrid} from '../sudoku-grid/sudoku-grid.component';
+import {getEmptyRow, SudokuGrid, SudokuGridComponent} from '../sudoku-grid/sudoku-grid.component';
 
 @Component({
     selector: 'app-page-not-found',
     templateUrl: './page-not-found.component.html',
     styleUrls: ['./page-not-found.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        SudokuGridComponent,
+    ],
 })
 export class PageNotFoundComponent {
     public sudokuGrid: SudokuGrid = [
