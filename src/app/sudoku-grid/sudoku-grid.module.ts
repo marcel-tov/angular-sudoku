@@ -5,7 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {SudokuGridValueModule} from '../sudoku-grid-value/sudoku-grid-value.module';
+import {SudokuGridValueComponent} from '../sudoku-grid-value/sudoku-grid-value.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
@@ -19,7 +19,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
         CommonModule,
         MatButtonModule,
         MatSlideToggleModule,
-        SudokuGridValueModule,
+        SudokuGridValueComponent,
         MatIconModule,
         MatTooltipModule,
         MatGridListModule,
