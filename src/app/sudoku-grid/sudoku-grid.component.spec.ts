@@ -28,6 +28,7 @@ describe('SudokuGridComponent', () => {
         mocks: [
             MatDialogRef,
         ],
+        declareComponent: false,
         detectChanges: false,
         shallow: true,
     });

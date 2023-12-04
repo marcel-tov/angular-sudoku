@@ -1,14 +1,26 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {Clipboard} from '@angular/cdk/clipboard';
 import {SudokuGrid, SudokuRow, SudokuValue} from '../sudoku-grid/sudoku-grid.component';
 import {Router} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {NotificationModule} from '../notification/notification.module';
 
 @Component({
     selector: 'app-sudoku-share-dialog',
     templateUrl: './sudoku-share-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        MatDialogModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule,
+        NotificationModule,
+    ],
 })
 class SudokuShareDialogComponent {
     public readonly shareLink: string;

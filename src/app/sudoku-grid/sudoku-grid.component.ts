@@ -1,16 +1,34 @@
 import {
     ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges,
 } from '@angular/core';
-import {MatSlideToggleChange} from '@angular/material/slide-toggle';
+import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {cloneDeep} from 'lodash';
 import {Subscription, timer} from 'rxjs';
 import {SudokuHelper} from './sudoku-helper';
+import {NgClass, NgFor, NgIf} from '@angular/common';
+import {MatButtonModule} from '@angular/material/button';
+import {SudokuGridValueComponent} from '../sudoku-grid-value/sudoku-grid-value.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @Component({
     selector: 'app-sudoku-grid',
     templateUrl: './sudoku-grid.component.html',
     styleUrls: ['./sudoku-grid.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        NgClass,
+        MatButtonModule,
+        MatSlideToggleModule,
+        SudokuGridValueComponent,
+        MatIconModule,
+        MatTooltipModule,
+        MatGridListModule,
+    ],
 })
 class SudokuGridComponent implements OnChanges {
     @Input() public originalGrid!: SudokuGrid;
