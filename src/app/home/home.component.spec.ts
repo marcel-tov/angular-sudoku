@@ -101,7 +101,6 @@ describe('HomeComponent', () => {
     //     );
     // }));
 
-
     it('should open finish dialog with unsolved parameters', () => {
         spectator.inject(MatDialog).open.andReturn({afterClosed: () => of(void 0)});
         spectator.component.openFinishDialog({
