@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
 import {SudokuCreationDialogComponent} from '../sudoku-creation-dialog/sudoku-creation-dialog.component';
@@ -23,6 +23,7 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     imports: [
         SudokuGridComponent,
         ClipboardModule,
+        MatDialogModule,
         SudokuFinishDialogComponent,
         SudokuCreationDialogComponent,
         SudokuShareDialogComponent,

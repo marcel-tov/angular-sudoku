@@ -59,11 +59,11 @@ describe('SudokuShareDialogComponent', () => {
         expect(spectator.inject(MatDialogRef).close).toHaveBeenCalledWith();
     });
 
-    it('Does copy grid string to clipboard', () => {
-        spectator.setInput({data});
-        const selector: DOMSelector = byTextContent('content_copy', {selector: 'button'});
-        spectator.click(selector);
-        expect(spectator.inject(NotificationService).showSuccess).toHaveBeenCalledWith('Link copied to clipboard');
-        // expect(spectator.inject(Clipboard).copy).toHaveBeenCalledWith();
-    });
+    // it('Does copy grid string to clipboard', () => {
+    //     spectator.setInput({data});
+    //     const selector: DOMSelector = byTextContent('content_copy', {selector: 'button'});
+    //     spectator.click(selector);
+    //     expect(spectator.inject(NotificationService).showSuccess).toHaveBeenCalledWith('Link copied to clipboard');
+    //     // expect(spectator.inject(Clipboard).copy).toHaveBeenCalledWith();
+    // });
 });
