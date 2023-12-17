@@ -11,7 +11,7 @@ import {RouterModule} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
 import {getEmptyRow} from '../grid/grid.component';
 import {Clipboard} from '@angular/cdk/clipboard';
-import {NotificationModule} from "../notification/notification.module";
+import {NotificationModule} from '../notification/notification.module';
 
 describe('SudokuShareDialogComponent', () => {
     const data: ISudokuShareDialogData = {
@@ -75,6 +75,7 @@ describe('SudokuShareDialogComponent', () => {
         const selector: DOMSelector = byTextContent('content_copy', {selector: 'button'});
         spectator.click(selector);
         expect(spectator.inject(NotificationService).showSuccess).toHaveBeenCalledWith('Link copied to clipboard');
-        // expect(spectator.inject(Clipboard).copy).toHaveBeenCalledWith();
+        expect(spectator.inject(Clipboard).copy)
+            .toHaveBeenCalledWith(`${window.location.origin}/123456789........................................................................`);
     });
 });
