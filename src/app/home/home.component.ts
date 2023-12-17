@@ -11,7 +11,7 @@ import {
     SudokuRow,
     timerFormatter,
 } from '../grid/grid.component';
-import {ISudokuShareDialogData, ShareDialogComponent} from '../share-dialog/share-dialog.component';
+import {IShareDialogData, ShareDialogComponent} from '../share-dialog/share-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @Component({
@@ -53,7 +53,7 @@ class HomeComponent implements OnInit {
 
     public openShareDialog(grid: SudokuGrid): void {
         this.dialog
-            .open<ShareDialogComponent, ISudokuShareDialogData>(
+            .open<ShareDialogComponent, IShareDialogData>(
             ShareDialogComponent,
             {
                 data: {

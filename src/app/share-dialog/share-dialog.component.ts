@@ -27,7 +27,7 @@ class ShareDialogComponent {
 
     constructor(
         private dialogRef: MatDialogRef<ShareDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: ISudokuShareDialogData,
+        @Inject(MAT_DIALOG_DATA) public data: IShareDialogData,
         private clipboard: Clipboard,
         private router: Router,
         private notificationService: NotificationService,
@@ -47,7 +47,7 @@ class ShareDialogComponent {
     }
 }
 
-interface ISudokuShareDialogData {
+interface IShareDialogData {
     grid: SudokuGrid;
 }
 
@@ -62,4 +62,4 @@ function gridToConfig(grid: SudokuGrid): string {
     }, '');
 }
 
-export {ShareDialogComponent, ISudokuShareDialogData};
+export {ShareDialogComponent, IShareDialogData};

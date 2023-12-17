@@ -1,5 +1,5 @@
 
-import {ISudokuShareDialogData, ShareDialogComponent} from './share-dialog.component';
+import {IShareDialogData, ShareDialogComponent} from './share-dialog.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
 import {
@@ -14,7 +14,7 @@ import {Clipboard} from '@angular/cdk/clipboard';
 import {NotificationModule} from '../notification/notification.module';
 
 describe('ShareDialogComponent', () => {
-    const data: ISudokuShareDialogData = {
+    const data: IShareDialogData = {
         grid: [
             [1, 2, 3, 4, 5, 6, 7, 8, 9],
             getEmptyRow(),
