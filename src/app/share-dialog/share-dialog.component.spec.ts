@@ -11,6 +11,7 @@ import {RouterModule} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
 import {getEmptyRow} from '../grid/grid.component';
 import {Clipboard} from '@angular/cdk/clipboard';
+import {NotificationModule} from "../notification/notification.module";
 
 describe('SudokuShareDialogComponent', () => {
     const data: ISudokuShareDialogData = {
@@ -41,6 +42,16 @@ describe('SudokuShareDialogComponent', () => {
         providers: [
             {provide: MAT_DIALOG_DATA, useValue: data},
         ],
+        overrideComponents: [
+            [
+                ShareDialogComponent,
+                {
+                    remove: {
+                        imports: [NotificationModule],
+                    },
+                },
+            ],
+        ],
         detectChanges: false,
         shallow: true,
     });
@@ -59,11 +70,11 @@ describe('SudokuShareDialogComponent', () => {
         expect(spectator.inject(MatDialogRef).close).toHaveBeenCalledWith();
     });
 
-    // it('Does copy grid string to clipboard', () => {
-    //     spectator.setInput({data});
-    //     const selector: DOMSelector = byTextContent('content_copy', {selector: 'button'});
-    //     spectator.click(selector);
-    //     expect(spectator.inject(NotificationService).showSuccess).toHaveBeenCalledWith('Link copied to clipboard');
-    //     // expect(spectator.inject(Clipboard).copy).toHaveBeenCalledWith();
-    // });
+    it('Does copy grid string to clipboard', () => {
+        spectator.setInput({data});
+        const selector: DOMSelector = byTextContent('content_copy', {selector: 'button'});
+        spectator.click(selector);
+        expect(spectator.inject(NotificationService).showSuccess).toHaveBeenCalledWith('Link copied to clipboard');
+        // expect(spectator.inject(Clipboard).copy).toHaveBeenCalledWith();
+    });
 });
