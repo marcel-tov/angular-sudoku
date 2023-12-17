@@ -11,7 +11,7 @@ import {NotificationModule} from '../notification/notification.module';
 
 @Component({
     selector: 'app-sudoku-share-dialog',
-    templateUrl: './sudoku-share-dialog.component.html',
+    templateUrl: './share-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
@@ -22,11 +22,11 @@ import {NotificationModule} from '../notification/notification.module';
         NotificationModule,
     ],
 })
-class SudokuShareDialogComponent {
+class ShareDialogComponent {
     public readonly shareLink: string;
 
     constructor(
-        public dialogRef: MatDialogRef<SudokuShareDialogComponent>,
+        public dialogRef: MatDialogRef<ShareDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: ISudokuShareDialogData,
         private clipboard: Clipboard,
         private router: Router,
@@ -62,4 +62,4 @@ function gridToConfig(grid: SudokuGrid): string {
     }, '');
 }
 
-export {SudokuShareDialogComponent, ISudokuShareDialogData};
+export {ShareDialogComponent, ISudokuShareDialogData};

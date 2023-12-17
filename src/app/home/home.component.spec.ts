@@ -5,7 +5,7 @@ import {RouterModule} from '@angular/router';
 import {SudokuGrid, getEmptyRow} from '../grid/grid.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {of} from 'rxjs';
-import {SudokuShareDialogComponent} from '../share-dialog/sudoku-share-dialog.component';
+import {ShareDialogComponent} from '../share-dialog/share-dialog.component';
 import {CreationDialogComponent} from '../creation-dialog/creation-dialog.component';
 import {FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
 
@@ -39,7 +39,7 @@ describe('HomeComponent', () => {
                             MatDialogModule,
                             FinishDialogComponent,
                             CreationDialogComponent,
-                            SudokuShareDialogComponent,
+                            ShareDialogComponent,
                         ],
                     },
                 },

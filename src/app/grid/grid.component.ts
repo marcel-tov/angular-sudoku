@@ -7,7 +7,7 @@ import {Subscription, timer} from 'rxjs';
 import {GridHelper} from './grid-helper';
 import {NgClass, NgFor, NgIf} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
-import {SudokuGridValueComponent} from '../grid-value/sudoku-grid-value.component';
+import {GridValueComponent} from '../grid-value/grid-value.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -24,7 +24,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
         NgClass,
         MatButtonModule,
         MatSlideToggleModule,
-        SudokuGridValueComponent,
+        GridValueComponent,
         MatIconModule,
         MatTooltipModule,
         MatGridListModule,
