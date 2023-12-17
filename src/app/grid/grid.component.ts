@@ -13,7 +13,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 @Component({
-    selector: 'app-sudoku-grid',
+    selector: 'grid',
     templateUrl: './grid.component.html',
     styleUrls: ['./grid.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

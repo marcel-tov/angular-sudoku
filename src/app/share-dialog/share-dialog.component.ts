@@ -10,7 +10,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {NotificationModule} from '../notification/notification.module';
 
 @Component({
-    selector: 'app-sudoku-share-dialog',
+    selector: 'share-dialog',
     templateUrl: './share-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,

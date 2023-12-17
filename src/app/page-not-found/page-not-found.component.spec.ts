@@ -17,7 +17,7 @@ describe('PageNotFoundComponent', () => {
     });
 
     it('does show grid', () => {
-        expect(spectator.query('div.page-not-found')).toHaveDescendant('app-sudoku-grid.page-not-found__grid');
+        expect(spectator.query('div.page-not-found')).toHaveDescendant('grid.page-not-found__grid');
     });
 
     it('does show page found link', async () => {

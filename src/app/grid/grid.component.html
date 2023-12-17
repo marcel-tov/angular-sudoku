@@ -66,7 +66,7 @@
           [class.sudoku-grid__value-wrapper--grid-end]="isGridEnd(colIndex)"
           (click)="toogleSelectedValue(rowIndex, colIndex)"
         >
-          <app-sudoku-grid-value
+          <grid-value
             [value]="value"
             [nomineeValues]="gridNomineeValues[rowIndex][colIndex]"
             [isSelected]="isValueSelected(rowIndex, colIndex)"
@@ -74,7 +74,7 @@
             [hasError]="isHelpEnabled && isValueErroneous(rowIndex, colIndex, value)"
             [hasSuccess]="isHelpEnabled && !isValueErroneous(rowIndex, colIndex, value)"
             [showNominees]="isValueSelected(rowIndex, colIndex) && showNominees"
-          ></app-sudoku-grid-value>
+          ></grid-value>
         </mat-grid-tile>
       </ng-container>
     </mat-grid-list>

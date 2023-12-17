@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {getEmptyRow, SudokuGrid, GridComponent} from '../grid/grid.component';
 
 @Component({
-    selector: 'app-page-not-found',
+    selector: 'page-not-found',
     templateUrl: './page-not-found.component.html',
     styleUrls: ['./page-not-found.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -4,7 +4,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
-    selector: 'app-sudoku-finish-dialog',
+    selector: 'finish-dialog',
     templateUrl: './finish-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,

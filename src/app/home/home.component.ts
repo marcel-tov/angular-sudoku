@@ -15,7 +15,7 @@ import {ISudokuShareDialogData, ShareDialogComponent} from '../share-dialog/shar
 import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @Component({
-    selector: 'app-home',
+    selector: 'home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

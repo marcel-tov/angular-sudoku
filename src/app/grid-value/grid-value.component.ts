@@ -3,7 +3,7 @@ import {getEmptyRow, SudokuValue} from '../grid/grid.component';
 import {NgClass, NgFor, NgIf} from '@angular/common';
 
 @Component({
-    selector: 'app-sudoku-grid-value',
+    selector: 'grid-value',
     templateUrl: './grid-value.component.html',
     styleUrls: ['./grid-value.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

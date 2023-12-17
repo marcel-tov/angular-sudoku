@@ -56,7 +56,7 @@ describe('HomeComponent', () => {
     });
 
     it('should contain router-outlet', () => {
-        expect(spectator.query('div.home')).toHaveDescendant('app-sudoku-grid.home__grid');
+        expect(spectator.query('div.home')).toHaveDescendant('grid.home__grid');
     });
 
     // it('should open share dialog', () => {

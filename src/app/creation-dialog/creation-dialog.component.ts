@@ -5,7 +5,7 @@ import {NgFor} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
-    selector: 'app-sudoku-creation-dialog',
+    selector: 'creation-dialog',
     templateUrl: './creation-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
