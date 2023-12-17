@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {Clipboard} from '@angular/cdk/clipboard';
-import {SudokuGrid, SudokuRow, SudokuValue} from '../sudoku-grid/sudoku-grid.component';
+import {SudokuGrid, SudokuRow, SudokuValue} from '../grid/sudoku-grid.component';
 import {Router} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
 import {MatButtonModule} from '@angular/material/button';

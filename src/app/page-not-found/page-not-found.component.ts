@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {getEmptyRow, SudokuGrid, SudokuGridComponent} from '../sudoku-grid/sudoku-grid.component';
+import {getEmptyRow, SudokuGrid, SudokuGridComponent} from '../grid/sudoku-grid.component';
 
 @Component({
     selector: 'app-page-not-found',

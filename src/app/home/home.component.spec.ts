@@ -2,12 +2,12 @@
 import {HomeComponent} from './home.component';
 import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
 import {RouterModule} from '@angular/router';
-import {SudokuGrid, getEmptyRow} from '../sudoku-grid/sudoku-grid.component';
+import {SudokuGrid, getEmptyRow} from '../grid/sudoku-grid.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {of} from 'rxjs';
-import {SudokuShareDialogComponent} from '../sudoku-share-dialog/sudoku-share-dialog.component';
+import {SudokuShareDialogComponent} from '../share-dialog/sudoku-share-dialog.component';
 import {SudokuCreationDialogComponent} from '../creation-dialog/sudoku-creation-dialog.component';
-import {SudokuFinishDialogComponent} from '../sudoku-finish-dialog/sudoku-finish-dialog.component';
+import {SudokuFinishDialogComponent} from '../finish-dialog/sudoku-finish-dialog.component';
 
 describe('HomeComponent', () => {
     const grid: SudokuGrid = [

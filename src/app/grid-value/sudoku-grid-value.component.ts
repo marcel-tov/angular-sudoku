@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {getEmptyRow, SudokuValue} from '../sudoku-grid/sudoku-grid.component';
+import {getEmptyRow, SudokuValue} from '../grid/sudoku-grid.component';
 import {NgClass, NgFor, NgIf} from '@angular/common';
 
 @Component({

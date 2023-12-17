@@ -3,15 +3,15 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
 import {SudokuCreationDialogComponent} from '../creation-dialog/sudoku-creation-dialog.component';
-import {ISudokuFinishDialogData, SudokuFinishDialogComponent} from '../sudoku-finish-dialog/sudoku-finish-dialog.component';
+import {ISudokuFinishDialogData, SudokuFinishDialogComponent} from '../finish-dialog/sudoku-finish-dialog.component';
 import {
     IOnFinishGridEvent,
     SudokuGrid,
     SudokuGridComponent,
     SudokuRow,
     timerFormatter,
-} from '../sudoku-grid/sudoku-grid.component';
-import {ISudokuShareDialogData, SudokuShareDialogComponent} from '../sudoku-share-dialog/sudoku-share-dialog.component';
+} from '../grid/sudoku-grid.component';
+import {ISudokuShareDialogData, SudokuShareDialogComponent} from '../share-dialog/sudoku-share-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @Component({

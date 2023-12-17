@@ -7,7 +7,7 @@ import {Subscription, timer} from 'rxjs';
 import {SudokuHelper} from './sudoku-helper';
 import {NgClass, NgFor, NgIf} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
-import {SudokuGridValueComponent} from '../sudoku-grid-value/sudoku-grid-value.component';
+import {SudokuGridValueComponent} from '../grid-value/sudoku-grid-value.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
