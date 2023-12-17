@@ -23,8 +23,8 @@ class CreationDialogComponent {
         'Hard',
     ];
     constructor(
-        public dialogRef: MatDialogRef<CreationDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: {},
+        private dialogRef: MatDialogRef<CreationDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) private data: {},
     ) { }
 
     public close(): void {

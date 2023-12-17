@@ -12,7 +12,7 @@ import {getEmptyRow, SudokuGrid, GridComponent} from '../grid/grid.component';
     ],
 })
 export class PageNotFoundComponent {
-    public sudokuGrid: SudokuGrid = [
+    protected readonly sudokuGrid: SudokuGrid = [
         getEmptyRow(),
         getEmptyRow(),
         getEmptyRow(),

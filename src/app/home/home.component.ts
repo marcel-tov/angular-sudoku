@@ -30,7 +30,7 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     ],
 })
 class HomeComponent implements OnInit {
-    public sudokuGrid: SudokuGrid = getSudoku('Medium');
+    protected sudokuGrid: SudokuGrid = getSudoku('Medium');
     private readonly lengthOfGridParameter: number = 81;
 
     constructor(

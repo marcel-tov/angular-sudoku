@@ -15,7 +15,7 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class NotificationComponent {
     constructor(
-        @Inject(MAT_SNACK_BAR_DATA) public data: INotificationData,
+        @Inject(MAT_SNACK_BAR_DATA) protected data: INotificationData,
     ) {}
 }
 

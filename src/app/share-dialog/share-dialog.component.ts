@@ -23,11 +23,11 @@ import {NotificationModule} from '../notification/notification.module';
     ],
 })
 class ShareDialogComponent {
-    public readonly shareLink: string;
+    protected readonly shareLink: string;
 
     constructor(
-        public dialogRef: MatDialogRef<ShareDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: ISudokuShareDialogData,
+        private dialogRef: MatDialogRef<ShareDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) protected data: ISudokuShareDialogData,
         private clipboard: Clipboard,
         private router: Router,
         private notificationService: NotificationService,

@@ -31,22 +31,22 @@ import {MatGridListModule} from '@angular/material/grid-list';
     ],
 })
 class GridComponent implements OnChanges {
-    @Input() public originalGrid!: SudokuGrid;
-    public grid!: SudokuGrid;
-    public solvedGrid: SudokuGrid | null = null;
-    public showNominees: boolean = false;
-    public selectedRowIndex: number | null = null;
-    public selectedColIndex: number | null = null;
-    public isHelpEnabled: boolean = false;
-    public gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
-    public lockValues: boolean = true;
-    public sudokuHelper: GridHelper = new GridHelper(this.grid);
-    public readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    @Input() public showTopNavigation: boolean = true;
-    @Input() public showFooterNavigation: boolean = true;
-    @Output() public share: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
-    @Output() public create: EventEmitter<void> = new EventEmitter<void>();
-    @Output() public finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter<IOnFinishGridEvent>();
+    @Input() protected originalGrid!: SudokuGrid;
+    protected grid!: SudokuGrid;
+    protected solvedGrid: SudokuGrid | null = null;
+    protected showNominees: boolean = false;
+    protected selectedRowIndex: number | null = null;
+    protected selectedColIndex: number | null = null;
+    protected isHelpEnabled: boolean = false;
+    protected gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
+    protected lockValues: boolean = true;
+    protected sudokuHelper: GridHelper = new GridHelper(this.grid);
+    protected readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    @Input() protected showTopNavigation: boolean = true;
+    @Input() protected showFooterNavigation: boolean = true;
+    @Output() protected share: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
+    @Output() protected create: EventEmitter<void> = new EventEmitter<void>();
+    @Output() protected finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter<IOnFinishGridEvent>();
     private time: number = 0;
     private subscription: Subscription | null = null;
 
