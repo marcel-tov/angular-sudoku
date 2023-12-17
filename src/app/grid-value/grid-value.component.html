@@ -1,17 +1,17 @@
 <div
-  class="sudoku-grid-value"
+  class="grid-value"
   [ngClass]="{
-    'sudoku-grid-value--readonly': isReadOnly,
-    'sudoku-grid-value--clickable': !isReadOnly,
-    'sudoku-grid-value--selected': isSelected,
-    'sudoku-grid-value--error': hasError && !isReadOnly && value !== null,
-    'sudoku-grid-value--success': hasSuccess && !isReadOnly && value !== null,
-    'sudoku-grid-value--nominees': isSelected && showNominees
+    'grid-value--readonly': isReadOnly,
+    'grid-value--clickable': !isReadOnly,
+    'grid-value--selected': isSelected,
+    'grid-value--error': hasError && !isReadOnly && value !== null,
+    'grid-value--success': hasSuccess && !isReadOnly && value !== null,
+    'grid-value--nominees': isSelected && showNominees
   }"
 >
     <span
       *ngIf="value !== null"
-      class="sudoku-grid-value__value"
+      class="grid-value__value"
     >{{value}}</span>
 
     <!-- Nominees -->
