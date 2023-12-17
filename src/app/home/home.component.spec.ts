@@ -6,7 +6,7 @@ import {SudokuGrid, getEmptyRow} from '../sudoku-grid/sudoku-grid.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {of} from 'rxjs';
 import {SudokuShareDialogComponent} from '../sudoku-share-dialog/sudoku-share-dialog.component';
-import {SudokuCreationDialogComponent} from '../sudoku-creation-dialog/sudoku-creation-dialog.component';
+import {SudokuCreationDialogComponent} from '../creation-dialog/sudoku-creation-dialog.component';
 import {SudokuFinishDialogComponent} from '../sudoku-finish-dialog/sudoku-finish-dialog.component';
 
 describe('HomeComponent', () => {
