@@ -219,7 +219,7 @@ class GridComponent implements OnChanges {
         this.subscription = timer(0, 1000).subscribe(() => {
             this.time++;
 
-            this.changeDetector.detectChanges();
+            this.changeDetector.markForCheck();
         });
     }
 

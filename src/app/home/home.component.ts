@@ -46,7 +46,7 @@ class HomeComponent implements OnInit {
             if (gridString.length === this.lengthOfGridParameter) {
                 const grid: SudokuGrid = urlParamToGrid(gridString);
                 this.sudokuGrid = grid;
-                this.changeDetector.detectChanges();
+                this.changeDetector.markForCheck();
             }
         }
     }
@@ -111,7 +111,7 @@ class HomeComponent implements OnInit {
         }
 
         this.sudokuGrid = getSudoku(difficulty);
-        this.changeDetector.detectChanges();
+        this.changeDetector.markForCheck();
     }
 }
 
