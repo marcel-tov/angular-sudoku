@@ -1,5 +1,5 @@
 
-import {ISudokuFinishDialogData, SudokuFinishDialogComponent} from './sudoku-finish-dialog.component';
+import {ISudokuFinishDialogData, FinishDialogComponent} from './finish-dialog.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
 import {
@@ -14,9 +14,9 @@ describe('SudokuFinishDialogComponent', () => {
         description: 'test-description',
         icon: 'test-icon',
     };
-    let spectator: Spectator<SudokuFinishDialogComponent>;
-    const createComponent: SpectatorFactory<SudokuFinishDialogComponent> = createComponentFactory({
-        component: SudokuFinishDialogComponent,
+    let spectator: Spectator<FinishDialogComponent>;
+    const createComponent: SpectatorFactory<FinishDialogComponent> = createComponentFactory({
+        component: FinishDialogComponent,
         imports: [
             MatDialogModule,
         ],

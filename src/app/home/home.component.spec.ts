@@ -2,12 +2,12 @@
 import {HomeComponent} from './home.component';
 import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
 import {RouterModule} from '@angular/router';
-import {SudokuGrid, getEmptyRow} from '../grid/sudoku-grid.component';
+import {SudokuGrid, getEmptyRow} from '../grid/grid.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {of} from 'rxjs';
 import {SudokuShareDialogComponent} from '../share-dialog/sudoku-share-dialog.component';
-import {SudokuCreationDialogComponent} from '../creation-dialog/sudoku-creation-dialog.component';
-import {SudokuFinishDialogComponent} from '../finish-dialog/sudoku-finish-dialog.component';
+import {CreationDialogComponent} from '../creation-dialog/creation-dialog.component';
+import {FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
 
 describe('HomeComponent', () => {
     const grid: SudokuGrid = [
@@ -37,8 +37,8 @@ describe('HomeComponent', () => {
                     remove: {
                         imports: [
                             MatDialogModule,
-                            SudokuFinishDialogComponent,
-                            SudokuCreationDialogComponent,
+                            FinishDialogComponent,
+                            CreationDialogComponent,
                             SudokuShareDialogComponent,
                         ],
                     },
@@ -74,7 +74,7 @@ describe('HomeComponent', () => {
     //     spectator.inject(MatDialog).open.andReturn({afterClosed: () => of(difficulty)});
     //     spectator.component.openCreationDialog();
     //     expect(spectator.inject(MatDialog).open).toHaveBeenCalledWith(
-    //         SudokuCreationDialogComponent,
+    //         CreationDialogComponent,
     //         {data: {}},
     //     );
     //     expect(createRandomSudokuSpy).toHaveBeenCalledWith(difficulty);
@@ -90,7 +90,7 @@ describe('HomeComponent', () => {
     //     });
     //     spectator.detectChanges();
     //     expect(spectator.inject(MatDialog).open).toHaveBeenCalledWith(
-    //         SudokuFinishDialogComponent,
+    //         FinishDialogComponent,
     //         {
     //             data: {
     //                 title: 'Skrrr skrrr',
@@ -109,7 +109,7 @@ describe('HomeComponent', () => {
             time: 0,
         });
         expect(spectator.inject(MatDialog).open).toHaveBeenCalledWith(
-            SudokuFinishDialogComponent,
+            FinishDialogComponent,
             {
                 data: {
                     title: 'Dang',

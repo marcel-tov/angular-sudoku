@@ -1,5 +1,5 @@
 
-import {getEmptyRow, SudokuGrid, SudokuGridComponent} from './sudoku-grid.component';
+import {getEmptyRow, SudokuGrid, GridComponent} from './grid.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
 import {
@@ -19,9 +19,9 @@ describe('SudokuGridComponent', () => {
         getEmptyRow(),
         getEmptyRow(),
     ];
-    let spectator: Spectator<SudokuGridComponent>;
-    const createComponent: SpectatorFactory<SudokuGridComponent> = createComponentFactory({
-        component: SudokuGridComponent,
+    let spectator: Spectator<GridComponent>;
+    const createComponent: SpectatorFactory<GridComponent> = createComponentFactory({
+        component: GridComponent,
         imports: [
             MatDialogModule,
         ],

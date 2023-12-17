@@ -14,8 +14,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 
 @Component({
     selector: 'app-sudoku-grid',
-    templateUrl: './sudoku-grid.component.html',
-    styleUrls: ['./sudoku-grid.component.scss'],
+    templateUrl: './grid.component.html',
+    styleUrls: ['./grid.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
@@ -30,7 +30,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
         MatGridListModule,
     ],
 })
-class SudokuGridComponent implements OnChanges {
+class GridComponent implements OnChanges {
     @Input() public originalGrid!: SudokuGrid;
     public grid!: SudokuGrid;
     public solvedGrid: SudokuGrid | null = null;
@@ -382,5 +382,5 @@ interface IOnFinishGridEvent {
 }
 
 export {
-    SudokuGridComponent, SudokuGrid, SudokuRow, SudokuValue, getEmptyRow, IOnFinishGridEvent, timerFormatter,
+    GridComponent, SudokuGrid, SudokuRow, SudokuValue, getEmptyRow, IOnFinishGridEvent, timerFormatter,
 };

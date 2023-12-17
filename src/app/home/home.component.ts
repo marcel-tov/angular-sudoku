@@ -2,15 +2,15 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
-import {SudokuCreationDialogComponent} from '../creation-dialog/sudoku-creation-dialog.component';
-import {ISudokuFinishDialogData, SudokuFinishDialogComponent} from '../finish-dialog/sudoku-finish-dialog.component';
+import {CreationDialogComponent} from '../creation-dialog/creation-dialog.component';
+import {ISudokuFinishDialogData, FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
 import {
     IOnFinishGridEvent,
     SudokuGrid,
-    SudokuGridComponent,
+    GridComponent,
     SudokuRow,
     timerFormatter,
-} from '../grid/sudoku-grid.component';
+} from '../grid/grid.component';
 import {ISudokuShareDialogData, SudokuShareDialogComponent} from '../share-dialog/sudoku-share-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 
@@ -21,11 +21,11 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        SudokuGridComponent,
+        GridComponent,
         ClipboardModule,
         MatDialogModule,
-        SudokuFinishDialogComponent,
-        SudokuCreationDialogComponent,
+        FinishDialogComponent,
+        CreationDialogComponent,
         SudokuShareDialogComponent,
     ],
 })
@@ -68,8 +68,8 @@ class HomeComponent implements OnInit {
 
     public openCreationDialog(): void {
         this.dialog
-            .open<SudokuCreationDialogComponent>(
-            SudokuCreationDialogComponent,
+            .open<CreationDialogComponent>(
+            CreationDialogComponent,
             {
                 data: {},
             })
@@ -86,8 +86,8 @@ class HomeComponent implements OnInit {
             : `You did not solve the puzzle in ${time}`;
 
         this.dialog
-            .open<SudokuFinishDialogComponent, ISudokuFinishDialogData>(
-            SudokuFinishDialogComponent,
+            .open<FinishDialogComponent, ISudokuFinishDialogData>(
+            FinishDialogComponent,
             {
                 data: {
                     title: event.isGridValid

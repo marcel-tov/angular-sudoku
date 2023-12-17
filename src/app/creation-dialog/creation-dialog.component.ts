@@ -6,7 +6,7 @@ import {MatButtonModule} from '@angular/material/button';
 
 @Component({
     selector: 'app-sudoku-creation-dialog',
-    templateUrl: './sudoku-creation-dialog.component.html',
+    templateUrl: './creation-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
@@ -15,7 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
         MatButtonModule,
     ],
 })
-class SudokuCreationDialogComponent {
+class CreationDialogComponent {
     public difficulties: Array<Difficulty> = [
         'VeryEasy',
         'Easy',
@@ -23,7 +23,7 @@ class SudokuCreationDialogComponent {
         'Hard',
     ];
     constructor(
-        public dialogRef: MatDialogRef<SudokuCreationDialogComponent>,
+        public dialogRef: MatDialogRef<CreationDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: {},
     ) { }
 
@@ -36,4 +36,4 @@ class SudokuCreationDialogComponent {
     }
 }
 
-export {SudokuCreationDialogComponent};
+export {CreationDialogComponent};
