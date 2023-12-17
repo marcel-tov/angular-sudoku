@@ -13,7 +13,7 @@ import {getEmptyRow} from '../grid/grid.component';
 import {Clipboard} from '@angular/cdk/clipboard';
 import {NotificationModule} from '../notification/notification.module';
 
-describe('SudokuShareDialogComponent', () => {
+describe('ShareDialogComponent', () => {
     const data: ISudokuShareDialogData = {
         grid: [
             [1, 2, 3, 4, 5, 6, 7, 8, 9],

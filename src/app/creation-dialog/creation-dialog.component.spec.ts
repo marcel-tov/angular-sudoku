@@ -8,7 +8,7 @@ import {
     MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 
-describe('SudokuCreationDialogComponent', () => {
+describe('CreationDialogComponent', () => {
     let spectator: Spectator<CreationDialogComponent>;
     const createComponent: SpectatorFactory<CreationDialogComponent> = createComponentFactory({
         component: CreationDialogComponent,

@@ -7,7 +7,7 @@ import {
     MatDialogRef,
 } from '@angular/material/dialog';
 
-describe('SudokuGridComponent', () => {
+describe('GridComponent', () => {
     const grid: SudokuGrid = [
         getEmptyRow(),
         getEmptyRow(),

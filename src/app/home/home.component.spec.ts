@@ -8,7 +8,7 @@ import {of} from 'rxjs';
 import {ShareDialogComponent} from '../share-dialog/share-dialog.component';
 import {CreationDialogComponent} from '../creation-dialog/creation-dialog.component';
 import {FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
-import {Difficulty} from "fake-sudoku-puzzle-generator";
+import {Difficulty} from 'fake-sudoku-puzzle-generator';
 
 describe('HomeComponent', () => {
     const grid: SudokuGrid = [

@@ -8,7 +8,7 @@ import {
     MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 
-describe('SudokuFinishDialogComponent', () => {
+describe('FinishDialogComponent', () => {
     const data: ISudokuFinishDialogData = {
         title: 'test-title',
         description: 'test-description',
