@@ -3,7 +3,7 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
 import {CreationDialogComponent} from '../creation-dialog/creation-dialog.component';
-import {ISudokuFinishDialogData, FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
+import {IFinishDialogData, FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
 import {
     IOnFinishGridEvent,
     SudokuGrid,
@@ -86,7 +86,7 @@ class HomeComponent implements OnInit {
             : `You did not solve the puzzle in ${time}`;
 
         this.dialog
-            .open<FinishDialogComponent, ISudokuFinishDialogData>(
+            .open<FinishDialogComponent, IFinishDialogData>(
             FinishDialogComponent,
             {
                 data: {
