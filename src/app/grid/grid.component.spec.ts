@@ -1,5 +1,5 @@
 
-import {getEmptyRow, SudokuGrid, SudokuGridComponent} from './sudoku-grid.component';
+import {getEmptyRow, SudokuGrid, GridComponent} from './grid.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
 import {
@@ -19,9 +19,9 @@ describe('SudokuGridComponent', () => {
         getEmptyRow(),
         getEmptyRow(),
     ];
-    let spectator: Spectator<SudokuGridComponent>;
-    const createComponent: SpectatorFactory<SudokuGridComponent> = createComponentFactory({
-        component: SudokuGridComponent,
+    let spectator: Spectator<GridComponent>;
+    const createComponent: SpectatorFactory<GridComponent> = createComponentFactory({
+        component: GridComponent,
         imports: [
             MatDialogModule,
         ],
@@ -37,27 +37,27 @@ describe('SudokuGridComponent', () => {
 
     it('Does show grid container', () => {
         spectator.detectChanges();
-        expect(spectator.query('div')).toHaveClass('sudoku-grid');
+        expect(spectator.query('div')).toHaveClass('grid');
     });
 
     it('Does show top navigation', () => {
         spectator.setInput({showTopNavigation: false, showFooterNavigation: false});
         spectator.detectChanges();
-        expect(spectator.query('div.sudoku-grid')).not.toHaveDescendant('.sudoku-grid__navigation');
+        expect(spectator.query('div.grid')).not.toHaveDescendant('.grid__navigation');
 
         spectator.setInput({showTopNavigation: true, showFooterNavigation: false});
         spectator.detectChanges();
-        expect(spectator.query('div.sudoku-grid')).toHaveDescendant('.sudoku-grid__navigation');
+        expect(spectator.query('div.grid')).toHaveDescendant('.grid__navigation');
     });
 
     it('Does show footer navigation', () => {
         spectator.setInput({showTopNavigation: false, showFooterNavigation: false});
         spectator.detectChanges();
-        expect(spectator.query('div.sudoku-grid')).not.toHaveDescendant('.sudoku-grid__navigation');
+        expect(spectator.query('div.grid')).not.toHaveDescendant('.grid__navigation');
 
         spectator.setInput({showTopNavigation: false, showFooterNavigation: true});
         spectator.detectChanges();
-        expect(spectator.query('div.sudoku-grid')).toHaveDescendant('.sudoku-grid__navigation');
+        expect(spectator.query('div.grid')).toHaveDescendant('.grid__navigation');
     });
 
     it('On share button does share grid', () => {

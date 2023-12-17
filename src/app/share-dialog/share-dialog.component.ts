@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {Clipboard} from '@angular/cdk/clipboard';
-import {SudokuGrid, SudokuRow, SudokuValue} from '../sudoku-grid/sudoku-grid.component';
+import {SudokuGrid, SudokuRow, SudokuValue} from '../grid/grid.component';
 import {Router} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
 import {MatButtonModule} from '@angular/material/button';
@@ -10,8 +10,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {NotificationModule} from '../notification/notification.module';
 
 @Component({
-    selector: 'app-sudoku-share-dialog',
-    templateUrl: './sudoku-share-dialog.component.html',
+    selector: 'share-dialog',
+    templateUrl: './share-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
@@ -22,11 +22,11 @@ import {NotificationModule} from '../notification/notification.module';
         NotificationModule,
     ],
 })
-class SudokuShareDialogComponent {
-    public readonly shareLink: string;
+class ShareDialogComponent {
+    protected readonly shareLink: string;
 
     constructor(
-        public dialogRef: MatDialogRef<SudokuShareDialogComponent>,
+        private dialogRef: MatDialogRef<ShareDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: ISudokuShareDialogData,
         private clipboard: Clipboard,
         private router: Router,
@@ -62,4 +62,4 @@ function gridToConfig(grid: SudokuGrid): string {
     }, '');
 }
 
-export {SudokuShareDialogComponent, ISudokuShareDialogData};
+export {ShareDialogComponent, ISudokuShareDialogData};

@@ -2,35 +2,35 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
-import {SudokuCreationDialogComponent} from '../sudoku-creation-dialog/sudoku-creation-dialog.component';
-import {ISudokuFinishDialogData, SudokuFinishDialogComponent} from '../sudoku-finish-dialog/sudoku-finish-dialog.component';
+import {CreationDialogComponent} from '../creation-dialog/creation-dialog.component';
+import {ISudokuFinishDialogData, FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
 import {
     IOnFinishGridEvent,
     SudokuGrid,
-    SudokuGridComponent,
+    GridComponent,
     SudokuRow,
     timerFormatter,
-} from '../sudoku-grid/sudoku-grid.component';
-import {ISudokuShareDialogData, SudokuShareDialogComponent} from '../sudoku-share-dialog/sudoku-share-dialog.component';
+} from '../grid/grid.component';
+import {ISudokuShareDialogData, ShareDialogComponent} from '../share-dialog/share-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @Component({
-    selector: 'app-home',
+    selector: 'home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        SudokuGridComponent,
+        GridComponent,
         ClipboardModule,
         MatDialogModule,
-        SudokuFinishDialogComponent,
-        SudokuCreationDialogComponent,
-        SudokuShareDialogComponent,
+        FinishDialogComponent,
+        CreationDialogComponent,
+        ShareDialogComponent,
     ],
 })
 class HomeComponent implements OnInit {
-    public sudokuGrid: SudokuGrid = getSudoku('Medium');
+    protected sudokuGrid: SudokuGrid = getSudoku('Medium');
     private readonly lengthOfGridParameter: number = 81;
 
     constructor(
@@ -53,8 +53,8 @@ class HomeComponent implements OnInit {
 
     public openShareDialog(grid: SudokuGrid): void {
         this.dialog
-            .open<SudokuShareDialogComponent, ISudokuShareDialogData>(
-            SudokuShareDialogComponent,
+            .open<ShareDialogComponent, ISudokuShareDialogData>(
+            ShareDialogComponent,
             {
                 data: {
                     grid,
@@ -68,8 +68,8 @@ class HomeComponent implements OnInit {
 
     public openCreationDialog(): void {
         this.dialog
-            .open<SudokuCreationDialogComponent>(
-            SudokuCreationDialogComponent,
+            .open<CreationDialogComponent>(
+            CreationDialogComponent,
             {
                 data: {},
             })
@@ -86,8 +86,8 @@ class HomeComponent implements OnInit {
             : `You did not solve the puzzle in ${time}`;
 
         this.dialog
-            .open<SudokuFinishDialogComponent, ISudokuFinishDialogData>(
-            SudokuFinishDialogComponent,
+            .open<FinishDialogComponent, ISudokuFinishDialogData>(
+            FinishDialogComponent,
             {
                 data: {
                     title: event.isGridValid

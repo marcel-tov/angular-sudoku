@@ -4,8 +4,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
-    selector: 'app-sudoku-finish-dialog',
-    templateUrl: './sudoku-finish-dialog.component.html',
+    selector: 'finish-dialog',
+    templateUrl: './finish-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
@@ -14,9 +14,9 @@ import {MatButtonModule} from '@angular/material/button';
         MatButtonModule,
     ],
 })
-class SudokuFinishDialogComponent {
+class FinishDialogComponent {
     constructor(
-        public dialogRef: MatDialogRef<SudokuFinishDialogComponent>,
+        private dialogRef: MatDialogRef<FinishDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: ISudokuFinishDialogData,
     ) { }
 
@@ -31,4 +31,4 @@ interface ISudokuFinishDialogData {
     icon: string;
 }
 
-export {SudokuFinishDialogComponent, ISudokuFinishDialogData};
+export {FinishDialogComponent, ISudokuFinishDialogData};

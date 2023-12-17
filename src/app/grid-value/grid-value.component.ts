@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {getEmptyRow, SudokuValue} from '../sudoku-grid/sudoku-grid.component';
+import {getEmptyRow, SudokuValue} from '../grid/grid.component';
 import {NgClass, NgFor, NgIf} from '@angular/common';
 
 @Component({
-    selector: 'app-sudoku-grid-value',
-    templateUrl: './sudoku-grid-value.component.html',
-    styleUrls: ['./sudoku-grid-value.component.scss'],
+    selector: 'grid-value',
+    templateUrl: './grid-value.component.html',
+    styleUrls: ['./grid-value.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
@@ -14,7 +14,7 @@ import {NgClass, NgFor, NgIf} from '@angular/common';
         NgClass,
     ],
 })
-export class SudokuGridValueComponent {
+export class GridValueComponent {
     @Input() public value: SudokuValue = null;
     @Input() public nomineeValues: Array<SudokuValue> = getEmptyRow();
     @Input() public isSelected: boolean = false;

@@ -4,18 +4,18 @@ import {
 import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {cloneDeep} from 'lodash';
 import {Subscription, timer} from 'rxjs';
-import {SudokuHelper} from './sudoku-helper';
+import {GridHelper} from './grid-helper';
 import {NgClass, NgFor, NgIf} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
-import {SudokuGridValueComponent} from '../sudoku-grid-value/sudoku-grid-value.component';
+import {GridValueComponent} from '../grid-value/grid-value.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 @Component({
-    selector: 'app-sudoku-grid',
-    templateUrl: './sudoku-grid.component.html',
-    styleUrls: ['./sudoku-grid.component.scss'],
+    selector: 'grid',
+    templateUrl: './grid.component.html',
+    styleUrls: ['./grid.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
@@ -24,29 +24,29 @@ import {MatGridListModule} from '@angular/material/grid-list';
         NgClass,
         MatButtonModule,
         MatSlideToggleModule,
-        SudokuGridValueComponent,
+        GridValueComponent,
         MatIconModule,
         MatTooltipModule,
         MatGridListModule,
     ],
 })
-class SudokuGridComponent implements OnChanges {
+class GridComponent implements OnChanges {
     @Input() public originalGrid!: SudokuGrid;
-    public grid!: SudokuGrid;
-    public solvedGrid: SudokuGrid | null = null;
-    public showNominees: boolean = false;
-    public selectedRowIndex: number | null = null;
-    public selectedColIndex: number | null = null;
-    public isHelpEnabled: boolean = false;
-    public gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
-    public lockValues: boolean = true;
-    public sudokuHelper: SudokuHelper = new SudokuHelper(this.grid);
-    public readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     @Input() public showTopNavigation: boolean = true;
     @Input() public showFooterNavigation: boolean = true;
     @Output() public share: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
     @Output() public create: EventEmitter<void> = new EventEmitter<void>();
-    @Output() public finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter<IOnFinishGridEvent>();
+    public lockValues: boolean = true;
+    protected grid!: SudokuGrid;
+    protected solvedGrid: SudokuGrid | null = null;
+    protected showNominees: boolean = false;
+    protected selectedRowIndex: number | null = null;
+    protected selectedColIndex: number | null = null;
+    protected isHelpEnabled: boolean = false;
+    protected gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
+    protected sudokuHelper: GridHelper = new GridHelper(this.grid);
+    protected readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    @Output() protected finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter<IOnFinishGridEvent>();
     private time: number = 0;
     private subscription: Subscription | null = null;
 
@@ -55,7 +55,7 @@ class SudokuGridComponent implements OnChanges {
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
             this.grid = cloneDeep(this.originalGrid);
-            this.sudokuHelper = new SudokuHelper(this.grid);
+            this.sudokuHelper = new GridHelper(this.grid);
             this.initalizeGrid();
         }
     }
@@ -128,7 +128,7 @@ class SudokuGridComponent implements OnChanges {
 
     public isValueErroneous(row: number, col: number, value: SudokuValue): boolean {
         if (this.isHelpEnabled && this.solvedGrid === null) {
-            const sudokuHelper: SudokuHelper = new SudokuHelper(cloneDeep(this.originalGrid));
+            const sudokuHelper: GridHelper = new GridHelper(cloneDeep(this.originalGrid));
             sudokuHelper.solve();
             this.solvedGrid = sudokuHelper.sudoku;
         }
@@ -382,5 +382,5 @@ interface IOnFinishGridEvent {
 }
 
 export {
-    SudokuGridComponent, SudokuGrid, SudokuRow, SudokuValue, getEmptyRow, IOnFinishGridEvent, timerFormatter,
+    GridComponent, SudokuGrid, SudokuRow, SudokuValue, getEmptyRow, IOnFinishGridEvent, timerFormatter,
 };

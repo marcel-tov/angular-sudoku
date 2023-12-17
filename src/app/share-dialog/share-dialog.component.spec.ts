@@ -1,5 +1,5 @@
 
-import {ISudokuShareDialogData, SudokuShareDialogComponent} from './sudoku-share-dialog.component';
+import {ISudokuShareDialogData, ShareDialogComponent} from './share-dialog.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
 import {
@@ -9,7 +9,7 @@ import {
 } from '@angular/material/dialog';
 import {RouterModule} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
-import {getEmptyRow} from '../sudoku-grid/sudoku-grid.component';
+import {getEmptyRow} from '../grid/grid.component';
 import {Clipboard} from '@angular/cdk/clipboard';
 
 describe('SudokuShareDialogComponent', () => {
@@ -26,9 +26,9 @@ describe('SudokuShareDialogComponent', () => {
             getEmptyRow(),
         ],
     };
-    let spectator: Spectator<SudokuShareDialogComponent>;
-    const createComponent: SpectatorFactory<SudokuShareDialogComponent> = createComponentFactory({
-        component: SudokuShareDialogComponent,
+    let spectator: Spectator<ShareDialogComponent>;
+    const createComponent: SpectatorFactory<ShareDialogComponent> = createComponentFactory({
+        component: ShareDialogComponent,
         imports: [
             MatDialogModule,
             RouterModule,

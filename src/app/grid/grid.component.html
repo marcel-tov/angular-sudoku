@@ -1,5 +1,5 @@
-<div class="sudoku-grid">
-  <div *ngIf="showTopNavigation" class="sudoku-grid__navigation">
+<div class="grid">
+  <div *ngIf="showTopNavigation" class="grid__navigation">
     <button
       mat-icon-button
       color="primary"
@@ -54,19 +54,19 @@
   </div>
 
   <!-- grid -->
-  <div class="sudoku-grid__grid-wrapper">
+  <div class="grid__grid-wrapper">
     <mat-grid-list cols="9" rowHeight="9:9">
       <ng-container *ngFor="let row of grid; let rowIndex = index; trackBy:trackByIndex">
         <mat-grid-tile
           *ngFor="let value of row; let colIndex = index; trackBy:trackByIndex"
-          class="sudoku-grid__value-wrapper"
-          [class.sudoku-grid__value-wrapper--group-top]="isGroupTop(rowIndex)"
-          [class.sudoku-grid__value-wrapper--group-end]="isGroupEnd(colIndex)"
-          [class.sudoku-grid__value-wrapper--grid-bottom]="isGridBottom(rowIndex)"
-          [class.sudoku-grid__value-wrapper--grid-end]="isGridEnd(colIndex)"
+          class="grid__value-wrapper"
+          [class.grid__value-wrapper--group-top]="isGroupTop(rowIndex)"
+          [class.grid__value-wrapper--group-end]="isGroupEnd(colIndex)"
+          [class.grid__value-wrapper--grid-bottom]="isGridBottom(rowIndex)"
+          [class.grid__value-wrapper--grid-end]="isGridEnd(colIndex)"
           (click)="toogleSelectedValue(rowIndex, colIndex)"
         >
-          <app-sudoku-grid-value
+          <grid-value
             [value]="value"
             [nomineeValues]="gridNomineeValues[rowIndex][colIndex]"
             [isSelected]="isValueSelected(rowIndex, colIndex)"
@@ -74,7 +74,7 @@
             [hasError]="isHelpEnabled && isValueErroneous(rowIndex, colIndex, value)"
             [hasSuccess]="isHelpEnabled && !isValueErroneous(rowIndex, colIndex, value)"
             [showNominees]="isValueSelected(rowIndex, colIndex) && showNominees"
-          ></app-sudoku-grid-value>
+          ></grid-value>
         </mat-grid-tile>
       </ng-container>
     </mat-grid-list>
@@ -83,10 +83,10 @@
   <!-- navigation -->
   <div
     *ngIf="showFooterNavigation"
-    class="sudoku-grid__navigation"
+    class="grid__navigation"
   >
     <button
-      class="sudoku-grid__navigation-button"
+      class="grid__navigation-button"
       mat-raised-button
       [color]="hasSelectedValue() && !showNominees ? 'primary' : undefined"
       type="button"
@@ -96,7 +96,7 @@
     >Delete number</button>
 
     <button
-      class="sudoku-grid__navigation-button"
+      class="grid__navigation-button"
       mat-raised-button
       [color]="showNominees ? 'primary' : undefined"
       type="button"
@@ -112,11 +112,11 @@
     >Help</mat-slide-toggle>
   </div>
 
-  <div *ngIf="showFooterNavigation" class="sudoku-grid__navigation">
+  <div *ngIf="showFooterNavigation" class="grid__navigation">
     <button
-      class="sudoku-grid__navigation-button sudoku-grid__navigation-button--nominee"
+      class="grid__navigation-button grid__navigation-button--nominee"
       [ngClass.lt-sm]="{
-        'sudoku-grid__navigation-button--narrow': true
+        'grid__navigation-button--narrow': true
       }"
       *ngFor="let nomineeValue of nomineeValues"
       mat-icon-button

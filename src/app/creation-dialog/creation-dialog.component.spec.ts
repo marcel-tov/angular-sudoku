@@ -1,5 +1,5 @@
 
-import {SudokuCreationDialogComponent} from './sudoku-creation-dialog.component';
+import {CreationDialogComponent} from './creation-dialog.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
 import {
@@ -9,9 +9,9 @@ import {
 } from '@angular/material/dialog';
 
 describe('SudokuCreationDialogComponent', () => {
-    let spectator: Spectator<SudokuCreationDialogComponent>;
-    const createComponent: SpectatorFactory<SudokuCreationDialogComponent> = createComponentFactory({
-        component: SudokuCreationDialogComponent,
+    let spectator: Spectator<CreationDialogComponent>;
+    const createComponent: SpectatorFactory<CreationDialogComponent> = createComponentFactory({
+        component: CreationDialogComponent,
         imports: [
             MatDialogModule,
         ],

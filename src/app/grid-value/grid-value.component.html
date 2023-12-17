@@ -1,0 +1,25 @@
+<div
+  class="grid-value"
+  [ngClass]="{
+    'grid-value--readonly': isReadOnly,
+    'grid-value--clickable': !isReadOnly,
+    'grid-value--selected': isSelected,
+    'grid-value--error': hasError && !isReadOnly && value !== null,
+    'grid-value--success': hasSuccess && !isReadOnly && value !== null,
+    'grid-value--nominees': isSelected && showNominees
+  }"
+>
+    <span
+      *ngIf="value !== null"
+      class="grid-value__value"
+    >{{value}}</span>
+
+    <!-- Nominees -->
+    <div class="nominees-grid" *ngIf="value === null">
+      <span
+        *ngFor="let nomineeValue of nomineeValues"
+        class="nominees-grid__value"
+      >{{nomineeValue}}</span>
+    </div>
+</div>
+

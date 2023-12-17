@@ -5,8 +5,8 @@ import {NgFor} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
-    selector: 'app-sudoku-creation-dialog',
-    templateUrl: './sudoku-creation-dialog.component.html',
+    selector: 'creation-dialog',
+    templateUrl: './creation-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
@@ -15,7 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
         MatButtonModule,
     ],
 })
-class SudokuCreationDialogComponent {
+class CreationDialogComponent {
     public difficulties: Array<Difficulty> = [
         'VeryEasy',
         'Easy',
@@ -23,8 +23,8 @@ class SudokuCreationDialogComponent {
         'Hard',
     ];
     constructor(
-        public dialogRef: MatDialogRef<SudokuCreationDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: {},
+        private dialogRef: MatDialogRef<CreationDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) private data: {},
     ) { }
 
     public close(): void {
@@ -36,4 +36,4 @@ class SudokuCreationDialogComponent {
     }
 }
 
-export {SudokuCreationDialogComponent};
+export {CreationDialogComponent};
