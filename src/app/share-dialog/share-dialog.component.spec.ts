@@ -1,5 +1,5 @@
 
-import {ISudokuShareDialogData, ShareDialogComponent} from './share-dialog.component';
+import {IShareDialogData, ShareDialogComponent} from './share-dialog.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
 import {
@@ -11,9 +11,10 @@ import {RouterModule} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
 import {getEmptyRow} from '../grid/grid.component';
 import {Clipboard} from '@angular/cdk/clipboard';
+import {NotificationModule} from '../notification/notification.module';
 
-describe('SudokuShareDialogComponent', () => {
-    const data: ISudokuShareDialogData = {
+describe('ShareDialogComponent', () => {
+    const data: IShareDialogData = {
         grid: [
             [1, 2, 3, 4, 5, 6, 7, 8, 9],
             getEmptyRow(),
@@ -41,6 +42,16 @@ describe('SudokuShareDialogComponent', () => {
         providers: [
             {provide: MAT_DIALOG_DATA, useValue: data},
         ],
+        overrideComponents: [
+            [
+                ShareDialogComponent,
+                {
+                    remove: {
+                        imports: [NotificationModule],
+                    },
+                },
+            ],
+        ],
         detectChanges: false,
         shallow: true,
     });
@@ -59,11 +70,12 @@ describe('SudokuShareDialogComponent', () => {
         expect(spectator.inject(MatDialogRef).close).toHaveBeenCalledWith();
     });
 
-    // it('Does copy grid string to clipboard', () => {
-    //     spectator.setInput({data});
-    //     const selector: DOMSelector = byTextContent('content_copy', {selector: 'button'});
-    //     spectator.click(selector);
-    //     expect(spectator.inject(NotificationService).showSuccess).toHaveBeenCalledWith('Link copied to clipboard');
-    //     // expect(spectator.inject(Clipboard).copy).toHaveBeenCalledWith();
-    // });
+    it('Does copy grid string to clipboard', () => {
+        spectator.setInput({data});
+        const selector: DOMSelector = byTextContent('content_copy', {selector: 'button'});
+        spectator.click(selector);
+        expect(spectator.inject(NotificationService).showSuccess).toHaveBeenCalledWith('Link copied to clipboard');
+        expect(spectator.inject(Clipboard).copy)
+            .toHaveBeenCalledWith(`${window.location.origin}/123456789........................................................................`);
+    });
 });

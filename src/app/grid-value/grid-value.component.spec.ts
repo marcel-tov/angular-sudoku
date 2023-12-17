@@ -2,7 +2,7 @@
 import {GridValueComponent} from './grid-value.component';
 import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
 
-describe('SudokuGridValueComponent', () => {
+describe('GridValueComponent', () => {
     let spectator: Spectator<GridValueComponent>;
     const createComponent: SpectatorFactory<GridValueComponent> = createComponentFactory({
         component: GridValueComponent,

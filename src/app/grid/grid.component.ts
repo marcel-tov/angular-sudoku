@@ -37,9 +37,9 @@ class GridComponent implements OnChanges {
     @Output() public share: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
     @Output() public create: EventEmitter<void> = new EventEmitter<void>();
     public lockValues: boolean = true;
+    public showNominees: boolean = false;
     protected grid!: SudokuGrid;
     protected solvedGrid: SudokuGrid | null = null;
-    protected showNominees: boolean = false;
     protected selectedRowIndex: number | null = null;
     protected selectedColIndex: number | null = null;
     protected isHelpEnabled: boolean = false;
@@ -219,7 +219,7 @@ class GridComponent implements OnChanges {
         this.subscription = timer(0, 1000).subscribe(() => {
             this.time++;
 
-            this.changeDetector.detectChanges();
+            this.changeDetector.markForCheck();
         });
     }
 

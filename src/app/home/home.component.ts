@@ -3,7 +3,7 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
 import {CreationDialogComponent} from '../creation-dialog/creation-dialog.component';
-import {ISudokuFinishDialogData, FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
+import {IFinishDialogData, FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
 import {
     IOnFinishGridEvent,
     SudokuGrid,
@@ -11,7 +11,7 @@ import {
     SudokuRow,
     timerFormatter,
 } from '../grid/grid.component';
-import {ISudokuShareDialogData, ShareDialogComponent} from '../share-dialog/share-dialog.component';
+import {IShareDialogData, ShareDialogComponent} from '../share-dialog/share-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @Component({
@@ -46,14 +46,14 @@ class HomeComponent implements OnInit {
             if (gridString.length === this.lengthOfGridParameter) {
                 const grid: SudokuGrid = urlParamToGrid(gridString);
                 this.sudokuGrid = grid;
-                this.changeDetector.detectChanges();
+                this.changeDetector.markForCheck();
             }
         }
     }
 
     public openShareDialog(grid: SudokuGrid): void {
         this.dialog
-            .open<ShareDialogComponent, ISudokuShareDialogData>(
+            .open<ShareDialogComponent, IShareDialogData>(
             ShareDialogComponent,
             {
                 data: {
@@ -86,7 +86,7 @@ class HomeComponent implements OnInit {
             : `You did not solve the puzzle in ${time}`;
 
         this.dialog
-            .open<FinishDialogComponent, ISudokuFinishDialogData>(
+            .open<FinishDialogComponent, IFinishDialogData>(
             FinishDialogComponent,
             {
                 data: {
@@ -111,7 +111,7 @@ class HomeComponent implements OnInit {
         }
 
         this.sudokuGrid = getSudoku(difficulty);
-        this.changeDetector.detectChanges();
+        this.changeDetector.markForCheck();
     }
 }
 

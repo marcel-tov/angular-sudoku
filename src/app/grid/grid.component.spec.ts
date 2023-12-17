@@ -7,7 +7,7 @@ import {
     MatDialogRef,
 } from '@angular/material/dialog';
 
-describe('SudokuGridComponent', () => {
+describe('GridComponent', () => {
     const grid: SudokuGrid = [
         getEmptyRow(),
         getEmptyRow(),
@@ -33,7 +33,16 @@ describe('SudokuGridComponent', () => {
         shallow: true,
     });
 
-    beforeEach(() => spectator = createComponent());
+    beforeEach(() => {
+        spectator = createComponent();
+        jest.useFakeTimers({
+            legacyFakeTimers: true,
+        });
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
+    });
 
     it('Does show grid container', () => {
         spectator.detectChanges();
@@ -86,13 +95,13 @@ describe('SudokuGridComponent', () => {
         expect(spectator.component.lockValues).toBe(true);
     });
 
-    // it('On click nominees button changes nominees value', () => {
-    //     spectator.setInput('originalGrid', grid);
-    //     spectator.detectChanges();
-    //     expect(spectator.component.showNominees).toBe(false);
-    //     spectator.click(byTextContent('Nominees', {selector: 'button'}));
-    //     expect(spectator.component.showNominees).toBe(true);
-    //     spectator.click(byTextContent('Nominees', {selector: 'button'}));
-    //     expect(spectator.component.showNominees).toBe(false);
-    // });
+    it('On click nominees button changes nominees value', () => {
+        spectator.setInput('originalGrid', grid);
+        spectator.detectChanges();
+        expect(spectator.component.showNominees).toBe(false);
+        spectator.click(byTextContent('Nominees', {selector: 'button'}));
+        expect(spectator.component.showNominees).toBe(true);
+        spectator.click(byTextContent('Nominees', {selector: 'button'}));
+        expect(spectator.component.showNominees).toBe(false);
+    });
 });
