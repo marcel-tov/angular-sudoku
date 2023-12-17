@@ -17,7 +17,7 @@ import {MatButtonModule} from '@angular/material/button';
 class FinishDialogComponent {
     constructor(
         private dialogRef: MatDialogRef<FinishDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) protected data: ISudokuFinishDialogData,
+        @Inject(MAT_DIALOG_DATA) public data: ISudokuFinishDialogData,
     ) { }
 
     public close(): void {

@@ -31,7 +31,12 @@ import {MatGridListModule} from '@angular/material/grid-list';
     ],
 })
 class GridComponent implements OnChanges {
-    @Input() protected originalGrid!: SudokuGrid;
+    @Input() public originalGrid!: SudokuGrid;
+    @Input() public showTopNavigation: boolean = true;
+    @Input() public showFooterNavigation: boolean = true;
+    @Output() public share: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
+    @Output() public create: EventEmitter<void> = new EventEmitter<void>();
+    public lockValues: boolean = true;
     protected grid!: SudokuGrid;
     protected solvedGrid: SudokuGrid | null = null;
     protected showNominees: boolean = false;
@@ -39,13 +44,8 @@ class GridComponent implements OnChanges {
     protected selectedColIndex: number | null = null;
     protected isHelpEnabled: boolean = false;
     protected gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
-    protected lockValues: boolean = true;
     protected sudokuHelper: GridHelper = new GridHelper(this.grid);
     protected readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    @Input() protected showTopNavigation: boolean = true;
-    @Input() protected showFooterNavigation: boolean = true;
-    @Output() protected share: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
-    @Output() protected create: EventEmitter<void> = new EventEmitter<void>();
     @Output() protected finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter<IOnFinishGridEvent>();
     private time: number = 0;
     private subscription: Subscription | null = null;

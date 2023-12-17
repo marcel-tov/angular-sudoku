@@ -15,11 +15,11 @@ import {NgClass, NgFor, NgIf} from '@angular/common';
     ],
 })
 export class GridValueComponent {
-    @Input() protected value: SudokuValue = null;
-    @Input() protected nomineeValues: Array<SudokuValue> = getEmptyRow();
-    @Input() protected isSelected: boolean = false;
-    @Input() protected isReadOnly: boolean = false;
-    @Input() protected hasError: boolean = false;
-    @Input() protected hasSuccess: boolean = false;
-    @Input() protected showNominees: boolean = false;
+    @Input() public value: SudokuValue = null;
+    @Input() public nomineeValues: Array<SudokuValue> = getEmptyRow();
+    @Input() public isSelected: boolean = false;
+    @Input() public isReadOnly: boolean = false;
+    @Input() public hasError: boolean = false;
+    @Input() public hasSuccess: boolean = false;
+    @Input() public showNominees: boolean = false;
 }

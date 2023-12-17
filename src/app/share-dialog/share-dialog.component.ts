@@ -27,7 +27,7 @@ class ShareDialogComponent {
 
     constructor(
         private dialogRef: MatDialogRef<ShareDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) protected data: ISudokuShareDialogData,
+        @Inject(MAT_DIALOG_DATA) public data: ISudokuShareDialogData,
         private clipboard: Clipboard,
         private router: Router,
         private notificationService: NotificationService,
