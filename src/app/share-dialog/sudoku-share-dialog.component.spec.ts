@@ -9,7 +9,7 @@ import {
 } from '@angular/material/dialog';
 import {RouterModule} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
-import {getEmptyRow} from '../grid/sudoku-grid.component';
+import {getEmptyRow} from '../grid/grid.component';
 import {Clipboard} from '@angular/cdk/clipboard';
 
 describe('SudokuShareDialogComponent', () => {
