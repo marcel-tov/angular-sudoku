@@ -4,7 +4,7 @@ import {
 import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {cloneDeep} from 'lodash';
 import {Subscription, timer} from 'rxjs';
-import {SudokuHelper} from './sudoku-helper';
+import {GridHelper} from './grid-helper';
 import {NgClass, NgFor, NgIf} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {SudokuGridValueComponent} from '../grid-value/sudoku-grid-value.component';
@@ -40,7 +40,7 @@ class GridComponent implements OnChanges {
     public isHelpEnabled: boolean = false;
     public gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
     public lockValues: boolean = true;
-    public sudokuHelper: SudokuHelper = new SudokuHelper(this.grid);
+    public sudokuHelper: GridHelper = new GridHelper(this.grid);
     public readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     @Input() public showTopNavigation: boolean = true;
     @Input() public showFooterNavigation: boolean = true;
@@ -55,7 +55,7 @@ class GridComponent implements OnChanges {
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
             this.grid = cloneDeep(this.originalGrid);
-            this.sudokuHelper = new SudokuHelper(this.grid);
+            this.sudokuHelper = new GridHelper(this.grid);
             this.initalizeGrid();
         }
     }
@@ -128,7 +128,7 @@ class GridComponent implements OnChanges {
 
     public isValueErroneous(row: number, col: number, value: SudokuValue): boolean {
         if (this.isHelpEnabled && this.solvedGrid === null) {
-            const sudokuHelper: SudokuHelper = new SudokuHelper(cloneDeep(this.originalGrid));
+            const sudokuHelper: GridHelper = new GridHelper(cloneDeep(this.originalGrid));
             sudokuHelper.solve();
             this.solvedGrid = sudokuHelper.sudoku;
         }
