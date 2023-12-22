@@ -8,7 +8,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     selector: 'host-component',
     template: '',
 })
-export class HostComponent {}
+class HostComponent {}
 
 describe('NotificationService', () => {
     beforeEach(() => {
