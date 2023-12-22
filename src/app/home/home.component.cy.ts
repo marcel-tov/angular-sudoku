@@ -1,6 +1,6 @@
 import {HomeComponent} from './home.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {MatLegacyDialogModule as MatDialogModule} from '@angular/material/legacy-dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 
 describe('HomeComponent', () => {
     beforeEach(() => {

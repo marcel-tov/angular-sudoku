@@ -1,6 +1,5 @@
 import {INotificationData, NotificationComponent} from './notification.component';
-import {MatLegacySnackBarModule as MatSnackBarModule} from '@angular/material/legacy-snack-bar';
-import {MAT_SNACK_BAR_DATA} from '@angular/material/snack-bar';
+import {MAT_SNACK_BAR_DATA, MatSnackBarModule} from '@angular/material/snack-bar';
 
 describe('NotificationComponent', () => {
     beforeEach(() => {
