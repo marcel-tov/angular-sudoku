@@ -1,9 +1,9 @@
 <div class="home">
-  <app-sudoku-grid
+  <grid
     class="home__grid"
     [originalGrid]="sudokuGrid"
     (create)="openCreationDialog()"
     (share)="openShareDialog($event)"
     (finish)="openFinishDialog($event)"
-  ></app-sudoku-grid>
+  ></grid>
 </div>

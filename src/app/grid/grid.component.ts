@@ -1,43 +1,61 @@
 import {
     ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges,
 } from '@angular/core';
-import {MatLegacySlideToggleChange as MatSlideToggleChange} from '@angular/material/legacy-slide-toggle';
+import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {cloneDeep} from 'lodash';
 import {Subscription, timer} from 'rxjs';
-import {SudokuHelper} from './sudoku-helper';
+import {GridHelper} from './grid-helper';
+import {NgClass, NgFor, NgIf} from '@angular/common';
+import {MatButtonModule} from '@angular/material/button';
+import {GridValueComponent} from '../grid-value/grid-value.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @Component({
-    selector: 'app-sudoku-grid',
-    templateUrl: './sudoku-grid.component.html',
-    styleUrls: ['./sudoku-grid.component.scss'],
+    selector: 'grid',
+    templateUrl: './grid.component.html',
+    styleUrls: ['./grid.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        NgClass,
+        MatButtonModule,
+        MatSlideToggleModule,
+        GridValueComponent,
+        MatIconModule,
+        MatTooltipModule,
+        MatGridListModule,
+    ],
 })
-class SudokuGridComponent implements OnChanges {
+class GridComponent implements OnChanges {
     @Input() public originalGrid!: SudokuGrid;
-    public grid!: SudokuGrid;
-    public solvedGrid: SudokuGrid | null = null;
-    public showNominees: boolean = false;
-    public selectedRowIndex: number | null = null;
-    public selectedColIndex: number | null = null;
-    public isHelpEnabled: boolean = false;
-    public gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
-    public lockValues: boolean = true;
-    public sudokuHelper: SudokuHelper = new SudokuHelper(this.grid);
-    public readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     @Input() public showTopNavigation: boolean = true;
     @Input() public showFooterNavigation: boolean = true;
+    @Output() public share: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
+    @Output() public create: EventEmitter<void> = new EventEmitter<void>();
+    public lockValues: boolean = true;
+    public showNominees: boolean = false;
+    protected grid!: SudokuGrid;
+    protected solvedGrid: SudokuGrid | null = null;
+    protected selectedRowIndex: number | null = null;
+    protected selectedColIndex: number | null = null;
+    protected isHelpEnabled: boolean = false;
+    protected gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
+    protected sudokuHelper: GridHelper = new GridHelper(this.grid);
+    protected readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    @Output() protected finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter<IOnFinishGridEvent>();
     private time: number = 0;
-    private subsription: Subscription | null = null;
-    @Output() private share: EventEmitter<SudokuGrid> = new EventEmitter();
-    @Output() private create: EventEmitter<void> = new EventEmitter();
-    @Output() private finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter();
+    private subscription: Subscription | null = null;
 
     constructor(private changeDetector: ChangeDetectorRef) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
             this.grid = cloneDeep(this.originalGrid);
-            this.sudokuHelper = new SudokuHelper(this.grid);
+            this.sudokuHelper = new GridHelper(this.grid);
             this.initalizeGrid();
         }
     }
@@ -110,7 +128,7 @@ class SudokuGridComponent implements OnChanges {
 
     public isValueErroneous(row: number, col: number, value: SudokuValue): boolean {
         if (this.isHelpEnabled && this.solvedGrid === null) {
-            const sudokuHelper: SudokuHelper = new SudokuHelper(cloneDeep(this.originalGrid));
+            const sudokuHelper: GridHelper = new GridHelper(cloneDeep(this.originalGrid));
             sudokuHelper.solve();
             this.solvedGrid = sudokuHelper.sudoku;
         }
@@ -198,10 +216,10 @@ class SudokuGridComponent implements OnChanges {
         this.solvedGrid = null;
 
         this.cancelTimer();
-        this.subsription = timer(0, 1000).subscribe(() => {
+        this.subscription = timer(0, 1000).subscribe(() => {
             this.time++;
 
-            this.changeDetector.detectChanges();
+            this.changeDetector.markForCheck();
         });
     }
 
@@ -311,8 +329,8 @@ class SudokuGridComponent implements OnChanges {
     }
 
     private cancelTimer(): void {
-        if (this.subsription) {
-            this.subsription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 
@@ -352,6 +370,7 @@ function timerFormatter(time: number): string {
     return `${hours}:${minutes}:${seconds}`;
 }
 
+// TODO: https://stackoverflow.com/questions/41139763/how-to-declare-a-fixed-length-array-in-typescript
 type SudokuGrid = Array<SudokuRow>;
 type SudokuRow = Array<SudokuValue>;
 type SudokuValue = number | null;
@@ -363,5 +382,5 @@ interface IOnFinishGridEvent {
 }
 
 export {
-    SudokuGridComponent, SudokuGrid, SudokuRow, SudokuValue, getEmptyRow, IOnFinishGridEvent, timerFormatter,
+    GridComponent, SudokuGrid, SudokuRow, SudokuValue, getEmptyRow, IOnFinishGridEvent, timerFormatter,
 };

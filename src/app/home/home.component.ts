@@ -1,20 +1,37 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {MatLegacyDialog as MatDialog} from '@angular/material/legacy-dialog';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
-import {SudokuCreationDialogComponent} from '../sudoku-creation-dialog/sudoku-creation-dialog.component';
-import {ISudokuFinishDialogData, SudokuFinishDialogComponent} from '../sudoku-finish-dialog/sudoku-finish-dialog.component';
-import {IOnFinishGridEvent, SudokuGrid, SudokuRow, timerFormatter} from '../sudoku-grid/sudoku-grid.component';
-import {ISudokuShareDialogData, SudokuShareDialogComponent} from '../sudoku-share-dialog/sudoku-share-dialog.component';
+import {CreationDialogComponent} from '../creation-dialog/creation-dialog.component';
+import {IFinishDialogData, FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
+import {
+    IOnFinishGridEvent,
+    SudokuGrid,
+    GridComponent,
+    SudokuRow,
+    timerFormatter,
+} from '../grid/grid.component';
+import {IShareDialogData, ShareDialogComponent} from '../share-dialog/share-dialog.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @Component({
-    selector: 'app-home',
+    selector: 'home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        GridComponent,
+        ClipboardModule,
+        MatDialogModule,
+        FinishDialogComponent,
+        CreationDialogComponent,
+        ShareDialogComponent,
+    ],
 })
 class HomeComponent implements OnInit {
-    public sudokuGrid: SudokuGrid = getSudoku('Medium');
+    protected sudokuGrid: SudokuGrid = getSudoku('Medium');
+    private readonly lengthOfGridParameter: number = 81;
 
     constructor(
         private route: ActivatedRoute,
@@ -26,18 +43,18 @@ class HomeComponent implements OnInit {
         // Load sudoku by share link
         if (this.route.snapshot.paramMap.has('grid')) {
             const gridString: string | null = this.route.snapshot.paramMap.get('grid');
-            if (gridString.length === 81) {
+            if (gridString.length === this.lengthOfGridParameter) {
                 const grid: SudokuGrid = urlParamToGrid(gridString);
                 this.sudokuGrid = grid;
-                this.changeDetector.detectChanges();
+                this.changeDetector.markForCheck();
             }
         }
     }
 
     public openShareDialog(grid: SudokuGrid): void {
         this.dialog
-            .open<SudokuShareDialogComponent, ISudokuShareDialogData>(
-            SudokuShareDialogComponent,
+            .open<ShareDialogComponent, IShareDialogData>(
+            ShareDialogComponent,
             {
                 data: {
                     grid,
@@ -51,17 +68,14 @@ class HomeComponent implements OnInit {
 
     public openCreationDialog(): void {
         this.dialog
-            .open<SudokuCreationDialogComponent, {}>(
-            SudokuCreationDialogComponent,
+            .open<CreationDialogComponent>(
+            CreationDialogComponent,
             {
                 data: {},
             })
             .afterClosed()
             .subscribe((difficulty: Difficulty | undefined) => {
-                if (difficulty) {
-                    this.sudokuGrid = getSudoku(difficulty);
-                    this.changeDetector.detectChanges();
-                }
+                this.createRandomSudoku(difficulty);
             });
     }
 
@@ -72,8 +86,8 @@ class HomeComponent implements OnInit {
             : `You did not solve the puzzle in ${time}`;
 
         this.dialog
-            .open<SudokuFinishDialogComponent, ISudokuFinishDialogData>(
-            SudokuFinishDialogComponent,
+            .open<FinishDialogComponent, IFinishDialogData>(
+            FinishDialogComponent,
             {
                 data: {
                     title: event.isGridValid
@@ -89,6 +103,15 @@ class HomeComponent implements OnInit {
             .subscribe(() => {
                 // do nothing
             });
+    }
+
+    public createRandomSudoku(difficulty: Difficulty | undefined): void {
+        if (!difficulty) {
+            return;
+        }
+
+        this.sudokuGrid = getSudoku(difficulty);
+        this.changeDetector.markForCheck();
     }
 }
 

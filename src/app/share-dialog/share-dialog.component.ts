@@ -1,21 +1,33 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
-import {MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA} from '@angular/material/legacy-dialog';
+import {MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {Clipboard} from '@angular/cdk/clipboard';
-import {SudokuGrid, SudokuRow, SudokuValue} from '../sudoku-grid/sudoku-grid.component';
+import {SudokuGrid, SudokuRow, SudokuValue} from '../grid/grid.component';
 import {Router} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {NotificationModule} from '../notification/notification.module';
 
 @Component({
-    selector: 'app-sudoku-share-dialog',
-    templateUrl: './sudoku-share-dialog.component.html',
+    selector: 'share-dialog',
+    templateUrl: './share-dialog.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        MatDialogModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule,
+        NotificationModule,
+    ],
 })
-class SudokuShareDialogComponent {
-    public readonly shareLink: string;
+class ShareDialogComponent {
+    protected readonly shareLink: string;
 
     constructor(
-        public dialogRef: MatDialogRef<SudokuShareDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: ISudokuShareDialogData,
+        private dialogRef: MatDialogRef<ShareDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: IShareDialogData,
         private clipboard: Clipboard,
         private router: Router,
         private notificationService: NotificationService,
@@ -35,7 +47,7 @@ class SudokuShareDialogComponent {
     }
 }
 
-interface ISudokuShareDialogData {
+interface IShareDialogData {
     grid: SudokuGrid;
 }
 
@@ -50,4 +62,4 @@ function gridToConfig(grid: SudokuGrid): string {
     }, '');
 }
 
-export {SudokuShareDialogComponent, ISudokuShareDialogData};
+export {ShareDialogComponent, IShareDialogData};
