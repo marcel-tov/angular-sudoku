@@ -18,6 +18,22 @@ module.exports = {
             '../eslint-config/angular',
         ],
         overrides: [{
+            files: '**/*.spec.ts',
+            extends: '../eslint-config/jest',
+        }],
+    }, {
+        // Typescript project files
+        files: [
+            'src/**/*.ts',
+        ],
+        parserOptions: {
+            project: 'tsconfig.eslint.json',
+        },
+        extends: [
+            '../eslint-config/typescript',
+            '../eslint-config/angular',
+        ],
+        overrides: [{
             files: '**/*.cy.ts',
             extends: '../eslint-config/cypress',
         }],
