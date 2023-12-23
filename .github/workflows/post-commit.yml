@@ -1,7 +1,7 @@
 name: NodeJS with Webpack
 on: [push]
 jobs:
-  build:
+  install:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -13,7 +13,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Build
-      run: |
-        npm install
-        npm run lint
-        npm run build
+      run: npm install
+  lint:
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+    - name: lint
+      run: npm run lint
