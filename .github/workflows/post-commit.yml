@@ -1,11 +1,12 @@
 name: NodeJS with Webpack
 on: [push]
 jobs:
+  strategy:
+    matrix:
+      ubuntu-version: [ubuntu-latest]
+      node-version: [18.x]
   setup:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
+    runs-on: ${{ matrix.ubuntu-version }}
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
@@ -21,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: npm install
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.ubuntu-version }}
     needs: setup
     steps:
     - name: Check out repository code
