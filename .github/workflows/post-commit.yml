@@ -38,7 +38,7 @@ jobs:
         key: node-modules-${{ hashFiles('package-lock.json') }}
     - name: lint
       run: npm run lint
-  test:
+  jest:
     runs-on: ubuntu-latest
     needs: setup
     steps:
@@ -54,8 +54,8 @@ jobs:
       with:
         path: node_modules
         key: node-modules-${{ hashFiles('package-lock.json') }}
-    - name: test
-      run: npm run test:ci
+    - name: jest
+      run: npm run jest:ci
   build:
     runs-on: ubuntu-latest
     needs: setup
