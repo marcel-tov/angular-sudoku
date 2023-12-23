@@ -1,8 +1,9 @@
 import {AppComponent} from './app.component';
+import {mount} from 'cypress/angular';
 
 describe('AppComponent', () => {
     beforeEach(() => {
-        cy.mount(AppComponent);
+        mount(AppComponent);
     });
 
     it('should be created', () => {
