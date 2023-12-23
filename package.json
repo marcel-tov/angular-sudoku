@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "cypress:component": "npx cypress run --config-file cypress.config.ts --component -q",
-    "cypress": "npx cypress open",
+    "cypress:open": "npx cypress open --config-file cypress.config.ts",
     "eslint": "eslint --cache '**/*.{js,ts,html}'",
     "lint": "npm run eslint -- --quiet",
     "jest": "jest --verbose",
