@@ -1,5 +1,6 @@
 import {INotificationData, NotificationComponent} from './notification.component';
 import {MAT_SNACK_BAR_DATA, MatSnackBarModule} from '@angular/material/snack-bar';
+import {mount} from 'cypress/angular';
 
 describe('NotificationComponent', () => {
     beforeEach(() => {
@@ -8,7 +9,7 @@ describe('NotificationComponent', () => {
             message: 'test-message',
         };
 
-        cy.mount(NotificationComponent, {
+        mount(NotificationComponent, {
             imports: [
                 MatSnackBarModule,
             ],
