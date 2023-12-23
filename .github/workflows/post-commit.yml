@@ -1,49 +1,76 @@
 name: NodeJS with Webpack
 on: [push]
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  setup:
     strategy:
       matrix:
         node-version: [18.x]
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Cache node_modules
+      id: cache-node-modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
     - name: Install dependencies
       run: npm install
-    - name: Lint
-      run: npm run lint
-    - name: Jest
-      run: npm run jest:ci
-    - name: Build
-      run: npm run build
-  cypress-run:
+  lint:
     runs-on: ubuntu-latest
-#    needs: build
+    needs: setup
     steps:
-      - uses: actions/checkout@v3
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Restore node_modules
+      id: cache-node-modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
+    - name: lint
+      run: npm run lint
+  test:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Restore node_modules
+      id: cache-node-modules
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
+    - name: test
+      run: npm run test:ci
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        run: npm install
-#      - name: Start
-#        run: npm start
-      - name: Cypress component
-        run: npm run cypress:component
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#      - name: Download the build folder
-#        uses: actions/download-artifact@v3
-#        with:
-#          name: build
-#          path: build
-#      - name: Cypress run component
-#        uses: cypress-io/github-action@v6
-#        with:
-#          start: npm start && npm run cypress:component
-#          browser: chrome
+      - name: Restore node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+      - name: build
+        run: npm run build
