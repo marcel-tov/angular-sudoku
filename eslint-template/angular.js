@@ -27,7 +27,7 @@ module.exports = {
             'src/**/*.ts',
         ],
         parserOptions: {
-            project: 'tsconfig.eslint.json',
+            project: 'tsconfig.cypress.json',
         },
         extends: [
             '../eslint-config/typescript',
