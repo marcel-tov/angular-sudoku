@@ -91,5 +91,4 @@ jobs:
           path: node_modules
           key: node-modules-${{ hashFiles('package-lock.json') }}
       - name: cypress:component
-        uses: cypress-io/github-action@v6
         run: npm run cypress:component
