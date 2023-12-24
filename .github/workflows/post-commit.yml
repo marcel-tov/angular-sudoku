@@ -104,5 +104,6 @@ jobs:
       - name: cypress:component
         uses: cypress-io/github-action@v6
         with:
+          component: true   # runs Cypress in component test mode
           start: npm run cypress:component
           browser: chrome
