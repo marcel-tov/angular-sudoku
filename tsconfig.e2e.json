@@ -1,9 +1,14 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "sourceMap": false,
     "outDir": "./out-tsc/spec",
     "module": "CommonJs",
     "types": ["cypress"]
   },
-  "include": ["src/**/*.cy.ts", "src/**/*.d.ts"]
+  "include": [
+    "cypress/e2e/*.cy.ts",
+    "src/**/*.cy.ts",
+    "src/**/*.d.ts",
+  ]
 }
