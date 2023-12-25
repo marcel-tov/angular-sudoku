@@ -114,3 +114,4 @@ jobs:
           component: false
           start: npm run cypress:e2e
           browser: chrome
+          wait-on: http://localhost:4200
