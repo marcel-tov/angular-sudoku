@@ -74,12 +74,12 @@ jobs:
           key: node-modules-${{ hashFiles('package-lock.json') }}
       - name: build
         run: npm run build
-      - name: Save build folder
-        uses: actions/upload-artifact@v4
-        with:
-          name: build
-          if-no-files<-found: error
-          path: dist
+#      - name: Save build folder
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: build
+#          if-no-files<-found: error
+#          path: dist
   cypress:
     runs-on: ubuntu-latest
     needs: [setup, build]
@@ -97,11 +97,11 @@ jobs:
         with:
           path: node_modules
           key: node-modules-${{ hashFiles('package-lock.json') }}
-      - name: Download the build folder
-        uses: actions/download-artifact@v4
-        with:
-          name: build
-          path: dist
+#      - name: Download the build folder
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: build
+#          path: dist
       - name: cypress:component
         uses: cypress-io/github-action@v6
         with:
@@ -112,6 +112,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: false
-          start: npm run cypress:e2e
+          start: npm run start & sleep 18 && npm run cypress:e2e
           browser: chrome
           wait-on: http://localhost:4200
