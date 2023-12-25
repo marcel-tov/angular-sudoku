@@ -2,6 +2,7 @@ import {IShareDialogData, ShareDialogComponent} from './share-dialog.component';
 import {mount} from 'cypress/angular';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {getEmptyRow} from '../grid/grid.component';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('ShareDialogComponent', () => {
     const data: IShareDialogData = {
@@ -19,6 +20,9 @@ describe('ShareDialogComponent', () => {
     };
     beforeEach(() => {
         mount(ShareDialogComponent, {
+            imports: [
+                NoopAnimationsModule,
+            ],
             providers: [
                 {provide: MatDialogRef, useValue: {}},
                 {provide: MAT_DIALOG_DATA, useValue: data},
@@ -31,8 +35,28 @@ describe('ShareDialogComponent', () => {
         cy.get('h1').should('have.text', 'Share Sudoku');
     });
 
+    it('Does contain input value', () => {
+        cy.get('div[mat-dialog-content] input[name="link"]')
+            .should('have.value', `${window.location.origin}/123456789........................................................................`);
+    });
+
+    it('Does contain copy button', () => {
+        cy.get('div[mat-dialog-content] button[type=button]').should('have.attr', 'mat-icon-button');
+        cy.get('div[mat-dialog-content] button[type=button] mat-icon').should('have.text', 'content_copy');
+    });
+    //
+    // it('Does contain copy button tooltip', () => {
+    //     cy.get('div[mat-dialog-content] button[type=button]').trigger('mouseover');
+    //     // cy.get('div[mat-dialog-content] button[type=button]').trigger('mouseover');
+    //     cy.contains('Copy link').should('be.visible');
+    //     // cy.get('div[mat-dialog-content] button[type=button] mat-icon').should('have.text', 'content_copy');
+    // });
+
     it('Does contain close button', () => {
         cy.get('div[mat-dialog-actions] button[type=button]').should('have.attr', 'mat-raised-button');
         cy.get('div[mat-dialog-actions] button[type=button]').should('have.text', 'close');
     });
+
+    // @TODO write copy to clipboard test
 });
+
