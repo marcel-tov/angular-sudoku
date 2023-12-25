@@ -1,6 +1,6 @@
 describe('page-not-found', () => {
   it('Should contain page-not-found tag', () => {
-    cy.visit('/foo/bar');
+    cy.visit(`${Cypress.config().baseUrl}/foo/bar`);
     cy.get('page-not-found').should('exist');
   })
 
