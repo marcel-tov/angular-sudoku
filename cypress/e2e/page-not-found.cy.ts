@@ -8,6 +8,6 @@ describe('page-not-found', () => {
     cy.visit('/foo/bar');
     cy.get('page-not-found').should('exist');
     cy.get('.page-not-found-link__home-link').click();
-    cy.url().should('eq', `${Cypress.config().baseUrl}/`);
+    cy.url().should('eq', `${Cypress.config().baseUrl}`);
   })
 })
