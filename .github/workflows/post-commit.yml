@@ -108,11 +108,17 @@ jobs:
 #          component: true   # runs Cypress in component test mode
 #          start: npm run cypress:component
 #          browser: chrome
+      - name: cypress:component
+        uses: cypress-io/github-action@v6
+        with:
+          component: true
+          start: |
+            npm run cypress:component
       - name: cypress:e2e
         uses: cypress-io/github-action@v6
         with:
           component: false
           start: |
-            npm run e2e
+            npm run cypress:e2e
 #          browser: chrome
 #          wait-on: http://localhost:4200

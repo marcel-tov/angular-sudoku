@@ -5,16 +5,16 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "cypress:run-component": "npx cypress run --config-file cypress.config.ts --component -q",
-    "cypress:run": "cypress run",
-    "cypress:open": "cypress open",
+    "cypress:e2e": "ng e2e",
+    "cypress:component": "ng run angular-sudoku:ct",
+    "cypress:open": "ng run angular-sudoku:cypress-open",
+    "cypress:run": "ng run angular-sudoku:cypress-run",
     "eslint": "eslint --cache '**/*.{js,ts,html}'",
     "lint": "npm run eslint -- --quiet",
     "jest": "jest --verbose",
     "jest:watch": "jest --watch",
     "jest:ci": "jest --runInBand",
-    "fmt": "npm run eslint -- --fix",
-    "e2e": "ng e2e"
+    "fmt": "npm run eslint -- --fix"
   },
   "private": true,
   "dependencies": {
