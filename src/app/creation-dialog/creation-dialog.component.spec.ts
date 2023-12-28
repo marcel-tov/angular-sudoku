@@ -28,7 +28,7 @@ describe('CreationDialogComponent', () => {
     beforeEach(() => spectator = createComponent());
 
     it('Does return nothing on cancel', () => {
-        const selector: DOMSelector = byTextContent('Cancel', {selector: 'button'});
+        const selector: DOMSelector = byTextContent('cancel', {selector: 'button'});
         spectator.click(selector);
         expect(spectator.inject(MatDialogRef).close).toHaveBeenCalledWith();
     });
