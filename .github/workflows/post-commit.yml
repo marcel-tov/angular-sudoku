@@ -113,8 +113,8 @@ jobs:
         with:
           component: false
           start: |
-            npm run start
-            sleep 20
+#            npm run start
+#            sleep 20
             npm run cypress:e2e
           browser: chrome
           wait-on: http://localhost:4200
