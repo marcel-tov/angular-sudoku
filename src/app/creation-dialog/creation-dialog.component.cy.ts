@@ -24,7 +24,7 @@ describe('CreationDialogComponent', () => {
     it('Does contain difficulty button', () => {
         const list: Array<string> = [];
         cy.get('div[mat-dialog-content] button[type=button]')
-            .each(button => {
+            .each((button: JQuery<HTMLElement>): void => {
                 list.push(button.text());
             })
             .then(() => {
