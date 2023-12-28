@@ -1,6 +1,9 @@
 import {defineConfig} from 'cypress';
 
 export default defineConfig({
+    e2e: {
+        baseUrl: 'http://localhost:4200',
+    },
     component: {
         devServer: {
             framework: 'angular',
@@ -9,9 +12,4 @@ export default defineConfig({
         specPattern: '**/*.cy.ts',
     },
 
-    e2e: {
-        setupNodeEvents(_on: Cypress.PluginEvents, _config: Cypress.PluginConfigOptions) {
-            // implement node event listeners here
-        },
-    },
 });
