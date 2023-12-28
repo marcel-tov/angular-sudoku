@@ -90,14 +90,18 @@ jobs:
         with:
           path: node_modules
           key: node-modules-${{ hashFiles('package-lock.json') }}
+#      - name: cypress:component
+#        uses: cypress-io/github-action@v6
+#        with:
+#          component: true
+#          start: npm run cypress:component
       - name: cypress:component
-        uses: cypress-io/github-action@v6
-        with:
-          component: true
-          start: npm run cypress:component
+        run: npm run cypress:component
       - name: cypress:e2e
-        uses: cypress-io/github-action@v6
-        with:
-          component: false
-          start: npm run cypress:e2e
+        run: npm run cypress:e2e
+#      - name: cypress:e2e
+#        uses: cypress-io/github-action@v6
+#        with:
+#          component: false
+#          start: npm run cypress:e2e
 
