@@ -23,6 +23,7 @@ describe('CreationDialogComponent', () => {
 
     it('Does contain difficulty button', () => {
         const list: Array<string> = [];
+        // eslint-disable-next-line cypress/unsafe-to-chain-command
         cy.get('div[mat-dialog-content] button[type=button]')
             .each((button: JQuery<HTMLElement>): void => {
                 list.push(button.text());
