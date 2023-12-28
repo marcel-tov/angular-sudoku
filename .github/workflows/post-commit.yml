@@ -113,6 +113,6 @@ jobs:
         with:
           component: false
           start: |
-            npm run cypress:e2e
-          browser: chrome
-          wait-on: http://localhost:4200
+            ng run angular-sudoku:cypress-run
+#          browser: chrome
+#          wait-on: http://localhost:4200
