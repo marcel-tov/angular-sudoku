@@ -93,9 +93,11 @@ jobs:
       - name: cypress:component
         uses: cypress-io/github-action@v6
         with:
+          component: true
           start: npm run cypress:component
       - name: cypress:e2e
         uses: cypress-io/github-action@v6
         with:
+          component: false
           start: npm run cypress:e2e
 
