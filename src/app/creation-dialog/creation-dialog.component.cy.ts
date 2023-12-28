@@ -22,7 +22,16 @@ describe('CreationDialogComponent', () => {
     });
 
     it('Does contain difficulty button', () => {
-        cy.get('div[mat-dialog-content] button[type=button]').should('have.text', 'VeryEasyEasyMediumHard');
+        const list: Array<string> = [];
+        cy.get('div[mat-dialog-content] button[type=button]')
+            .each(button => {
+                list.push(button.text());
+            })
+            .then(() => {
+                // by the time ".each" is finished
+                // the list is populated
+                expect(list).to.deep.equal(['VeryEasy', 'Easy', 'Medium', 'Hard']);
+            });
     });
 
     it('Does contain close button', () => {
