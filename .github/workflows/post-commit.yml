@@ -99,5 +99,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: false
+          browser: firefox
           start: npm run cypress:e2e
 
