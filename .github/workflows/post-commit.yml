@@ -18,12 +18,6 @@ jobs:
       with:
         path: node_modules
         key: node-modules-${{ hashFiles('package-lock.json') }}
-    - name: Cache Cypress Binary
-      id: cache-cypress-binary
-      uses: actions/cache@v3
-      with:
-       path: ~/.cache/Cypress
-       key: cache-cypress-binary-${{ hashFiles('package-lock.json') }}
     - name: Install dependencies
       run: npm install
   lint:
@@ -96,17 +90,9 @@ jobs:
         with:
           path: node_modules
           key: node-modules-${{ hashFiles('package-lock.json') }}
-      - name: Restore Cache Cypress Binary
-        id: cache-cypress-binary
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/Cypress
-          key: cache-cypress-binary-${{ hashFiles('package-lock.json') }}
       - name: cypress:component
         uses: cypress-io/github-action@v6
         with:
-          # we have already installed everything
-          install: false
           component: true
           start: npm run cypress:component
   cypress-e2e:
@@ -128,16 +114,12 @@ jobs:
       - name: cypress:e2e
         uses: cypress-io/github-action@v6
         with:
-          # we have already installed everything
-          install: false
           component: false
           browser: chrome
           start: npm run cypress:e2e
       - name: cypress:e2e
         uses: cypress-io/github-action@v6
         with:
-          # we have already installed everything
-          install: false
           component: false
           browser: firefox
           start: npm run cypress:e2e
