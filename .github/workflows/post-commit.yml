@@ -18,6 +18,12 @@ jobs:
       with:
         path: node_modules
         key: node-modules-${{ hashFiles('package-lock.json') }}
+    - name: Cache Cypress Binary
+      id: cache-cypress-binary
+      uses: actions/cache@v3
+      with:
+       path: ~/.cache/Cypress
+       key: cache-cypress-binary-${{ hashFiles('package-lock.json') }}
     - name: Install dependencies
       run: npm install
   lint:
@@ -90,6 +96,12 @@ jobs:
         with:
           path: node_modules
           key: node-modules-${{ hashFiles('package-lock.json') }}
+      - name: Restore Cache Cypress Binary
+        id: cache-cypress-binary
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: cache-cypress-binary-${{ hashFiles('package-lock.json') }}
       - name: cypress:component
         uses: cypress-io/github-action@v6
         with:
