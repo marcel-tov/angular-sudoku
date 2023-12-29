@@ -94,6 +94,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: true
+          parallel: true
           start: npm run cypress:component
   cypress-e2e:
     runs-on: ubuntu-latest
@@ -115,6 +116,14 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           component: false
+          browser: chrome
+          parallel: true
+          start: npm run cypress:e2e
+      - name: cypress:e2e
+        uses: cypress-io/github-action@v6
+        with:
+          component: false
           browser: firefox
+          parallel: true
           start: npm run cypress:e2e
 
