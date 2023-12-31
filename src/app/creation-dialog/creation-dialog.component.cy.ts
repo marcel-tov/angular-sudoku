@@ -17,8 +17,7 @@ describe('CreationDialogComponent', () => {
     });
 
     it('Does contain h1 title', () => {
-        cy.get('h1').should('have.attr', 'mat-dialog-title');
-        cy.get('h1').should('have.text', 'Level of difficulty');
+        cy.get('h1[mat-dialog-title]').should('have.text', 'Level of difficulty');
     });
 
     it('Does contain difficulty button', () => {

@@ -31,8 +31,7 @@ describe('ShareDialogComponent', () => {
     });
 
     it('Does contain h1 title', () => {
-        cy.get('h1').should('have.attr', 'mat-dialog-title');
-        cy.get('h1').should('have.text', 'Share Sudoku');
+        cy.get('h1[mat-dialog-title]').should('have.text', 'Share Sudoku');
     });
 
     it('Does contain input value', () => {
