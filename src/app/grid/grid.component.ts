@@ -11,6 +11,7 @@ import {GridValueComponent} from '../grid-value/grid-value.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
 
 @Component({
     selector: 'grid',
@@ -349,10 +350,6 @@ class GridComponent implements OnChanges {
     }
 }
 
-function getEmptyRow(): Array<SudokuValue> {
-    return [null, null, null, null, null, null, null, null, null];
-}
-
 function timerFormatter(time: number): string {
     const hours: string = Math
         .floor(time / 3600)
@@ -370,17 +367,10 @@ function timerFormatter(time: number): string {
     return `${hours}:${minutes}:${seconds}`;
 }
 
-// TODO: https://stackoverflow.com/questions/41139763/how-to-declare-a-fixed-length-array-in-typescript
-type SudokuGrid = Array<SudokuRow>;
-type SudokuRow = Array<SudokuValue>;
-type SudokuValue = number | null;
-
 interface IOnFinishGridEvent {
     grid: SudokuGrid;
     isGridValid: boolean;
     time: number;
 }
 
-export {
-    GridComponent, SudokuGrid, SudokuRow, SudokuValue, getEmptyRow, IOnFinishGridEvent, timerFormatter,
-};
+export {GridComponent, IOnFinishGridEvent, timerFormatter};

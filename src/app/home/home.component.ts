@@ -6,13 +6,12 @@ import {CreationDialogComponent} from '../creation-dialog/creation-dialog.compon
 import {IFinishDialogData, FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
 import {
     IOnFinishGridEvent,
-    SudokuGrid,
     GridComponent,
-    SudokuRow,
     timerFormatter,
 } from '../grid/grid.component';
 import {IShareDialogData, ShareDialogComponent} from '../share-dialog/share-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import {SudokuGrid, SudokuRow} from '../grid-helper/types';
 
 @Component({
     selector: 'home',

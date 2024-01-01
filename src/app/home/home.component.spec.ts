@@ -2,13 +2,14 @@
 import {HomeComponent} from './home.component';
 import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
 import {RouterModule} from '@angular/router';
-import {SudokuGrid, getEmptyRow} from '../grid/grid.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {of} from 'rxjs';
 import {ShareDialogComponent} from '../share-dialog/share-dialog.component';
 import {CreationDialogComponent} from '../creation-dialog/creation-dialog.component';
 import {FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
 import {Difficulty} from 'fake-sudoku-puzzle-generator';
+import {SudokuGrid} from '../grid-helper/types';
+import {getEmptyRow} from '../grid-helper/empty-row';
 
 describe('HomeComponent', () => {
     const grid: SudokuGrid = [
