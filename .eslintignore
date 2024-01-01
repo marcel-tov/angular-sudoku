@@ -4,4 +4,3 @@
 dist/
 eslint-config/
 node_modules/
-cypress/
