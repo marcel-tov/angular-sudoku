@@ -19,7 +19,7 @@ export function solveSudoku(grid: SudokuGrid, iterations: number = 0): boolean |
 
             // Recursively try the next cell with numbers from 1 to 9
             // If it returns true, the sudoku has been solved
-            if (this.solve(iterations + 1)) {
+            if (solveSudoku(grid, iterations + 1)) {
                 return grid;
             }
 
