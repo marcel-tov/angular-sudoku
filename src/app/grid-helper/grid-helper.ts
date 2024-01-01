@@ -1,4 +1,4 @@
-import {SudokuGrid, SudokuValue} from '../grid-helper/types';
+import {SudokuGrid, SudokuValue} from './types';
 
 export class GridHelper {
     constructor(private grid: SudokuGrid) { }

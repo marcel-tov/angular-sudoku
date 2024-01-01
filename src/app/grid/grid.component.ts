@@ -4,7 +4,7 @@ import {
 import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {cloneDeep} from 'lodash';
 import {Subscription, timer} from 'rxjs';
-import {GridHelper} from './grid-helper';
+import {GridHelper} from '../grid-helper/grid-helper';
 import {NgClass, NgFor, NgIf} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {GridValueComponent} from '../grid-value/grid-value.component';
