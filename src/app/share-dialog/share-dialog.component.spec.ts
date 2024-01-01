@@ -9,9 +9,9 @@ import {
 } from '@angular/material/dialog';
 import {RouterModule} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
-import {getEmptyRow} from '../grid/grid.component';
 import {Clipboard} from '@angular/cdk/clipboard';
 import {NotificationModule} from '../notification/notification.module';
+import {getEmptyRow} from '../grid-helper/empty-row';
 
 describe('ShareDialogComponent', () => {
     const data: IShareDialogData = {
