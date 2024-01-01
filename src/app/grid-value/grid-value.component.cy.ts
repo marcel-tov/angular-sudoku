@@ -54,5 +54,32 @@ describe('GridValueComponent', () => {
         });
         cy.get('div.grid-value').should('have.class', 'grid-value--nominees');
     });
+
+    it('should show value', () => {
+        mount(GridValueComponent, {componentProperties: {value: 111}});
+        cy.get('div.grid-value').should('exist', 'span.grid-value__value');
+        cy.get('span.grid-value__value').should('have.text', '111');
+    });
+
+    it('should show nominees grid', () => {
+        mount(GridValueComponent, {
+            componentProperties: {
+                value: null,
+                nomineeValues: [9, 8, 7, 6, 5, 4, 3, 2, 1],
+            },
+        });
+
+        const list: Array<string> = [];
+        // eslint-disable-next-line cypress/unsafe-to-chain-command
+        cy.get('div.grid-value > div.nominees-grid > span.nominees-grid__value')
+            .each((button: JQuery<HTMLElement>): void => {
+                list.push(button.text());
+            })
+            .then(() => {
+                // by the time ".each" is finished
+                // the list is populated
+                expect(list).to.deep.equal(['9', '8', '7', '6', '5', '4', '3', '2', '1']);
+            });
+    });
 });
 
