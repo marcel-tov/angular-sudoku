@@ -12,6 +12,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
+import {getEmptyRow} from '../grid-helper/empty-row';
 
 @Component({
     selector: 'grid',

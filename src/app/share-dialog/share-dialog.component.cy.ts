@@ -1,8 +1,8 @@
 import {IShareDialogData, ShareDialogComponent} from './share-dialog.component';
 import {mount} from 'cypress/angular';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {getEmptyRow} from '../grid/grid.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {getEmptyRow} from '../grid-helper/empty-row';
 
 describe('ShareDialogComponent', () => {
     const data: IShareDialogData = {
