@@ -1,11 +1,13 @@
 
-import {getEmptyRow, SudokuGrid, GridComponent} from './grid.component';
+import {GridComponent} from './grid.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
 import {
     MatDialogModule,
     MatDialogRef,
 } from '@angular/material/dialog';
+import {SudokuGrid} from '../grid-helper/types';
+import {getEmptyRow} from '../grid-helper/empty-row';
 
 describe('GridComponent', () => {
     const grid: SudokuGrid = [

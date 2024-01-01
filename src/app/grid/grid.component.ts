@@ -4,13 +4,16 @@ import {
 import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {cloneDeep} from 'lodash';
 import {Subscription, timer} from 'rxjs';
-import {GridHelper} from './grid-helper';
 import {NgClass, NgFor, NgIf} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {GridValueComponent} from '../grid-value/grid-value.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
+import {getEmptyRow} from '../grid-helper/empty-row';
+import {isValueValid} from '../grid-helper/is-value-valid';
+import {solveSudoku} from '../grid-helper/solve-sudoku';
 
 @Component({
     selector: 'grid',
@@ -44,7 +47,6 @@ class GridComponent implements OnChanges {
     protected selectedColIndex: number | null = null;
     protected isHelpEnabled: boolean = false;
     protected gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
-    protected sudokuHelper: GridHelper = new GridHelper(this.grid);
     protected readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     @Output() protected finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter<IOnFinishGridEvent>();
     private time: number = 0;
@@ -55,7 +57,6 @@ class GridComponent implements OnChanges {
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
             this.grid = cloneDeep(this.originalGrid);
-            this.sudokuHelper = new GridHelper(this.grid);
             this.initalizeGrid();
         }
     }
@@ -90,7 +91,7 @@ class GridComponent implements OnChanges {
 	 * Checks if a given number can be placed in a row/column.
 	 */
     public isValueValid(row: number, col: number, value: SudokuValue): boolean {
-  		return this.sudokuHelper.isValueValid(row, col, value);
+  		return isValueValid(this.grid, row, col, value);
     }
 
     public isValueSelected(row: number, col: number): boolean {
@@ -128,9 +129,9 @@ class GridComponent implements OnChanges {
 
     public isValueErroneous(row: number, col: number, value: SudokuValue): boolean {
         if (this.isHelpEnabled && this.solvedGrid === null) {
-            const sudokuHelper: GridHelper = new GridHelper(cloneDeep(this.originalGrid));
-            sudokuHelper.solve();
-            this.solvedGrid = sudokuHelper.sudoku;
+            const clonedGrid: SudokuGrid = cloneDeep(this.originalGrid);
+            solveSudoku(clonedGrid);
+            this.solvedGrid = clonedGrid;
         }
 
         return this.solvedGrid[row][col] !== value;
@@ -349,10 +350,6 @@ class GridComponent implements OnChanges {
     }
 }
 
-function getEmptyRow(): Array<SudokuValue> {
-    return [null, null, null, null, null, null, null, null, null];
-}
-
 function timerFormatter(time: number): string {
     const hours: string = Math
         .floor(time / 3600)
@@ -370,17 +367,10 @@ function timerFormatter(time: number): string {
     return `${hours}:${minutes}:${seconds}`;
 }
 
-// TODO: https://stackoverflow.com/questions/41139763/how-to-declare-a-fixed-length-array-in-typescript
-type SudokuGrid = Array<SudokuRow>;
-type SudokuRow = Array<SudokuValue>;
-type SudokuValue = number | null;
-
 interface IOnFinishGridEvent {
     grid: SudokuGrid;
     isGridValid: boolean;
     time: number;
 }
 
-export {
-    GridComponent, SudokuGrid, SudokuRow, SudokuValue, getEmptyRow, IOnFinishGridEvent, timerFormatter,
-};
+export {GridComponent, IOnFinishGridEvent, timerFormatter};
