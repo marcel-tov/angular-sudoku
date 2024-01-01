@@ -1,5 +1,6 @@
 import {SudokuGrid, SudokuValue} from './types';
 import {usedInSquare} from './used-in-square';
+import {usedInColumn} from './used-in-column';
 
 export class GridHelper {
     constructor(private grid: SudokuGrid) { }
@@ -14,7 +15,7 @@ export class GridHelper {
     public isValueValid(row: number, col: number, value: SudokuValue): boolean {
         value = Number(value);
 
-        return !this.usedInColumn(col, value)
+        return !usedInColumn(this.grid, col, value)
         && !this.usedInRow(row, value)
         && !usedInSquare(this.grid, row, col, value);
     }
@@ -42,16 +43,6 @@ export class GridHelper {
 
                 // Looks like we were wrong, revert back and try again
                 this.grid[row][column] = null;
-            }
-        }
-
-        return false;
-    }
-
-    private usedInColumn(col: number, value: SudokuValue): boolean {
-        for (let y: number = 0; y < 9; y++) {
-            if (this.grid[y][col] === value) {
-                return true;
             }
         }
 
