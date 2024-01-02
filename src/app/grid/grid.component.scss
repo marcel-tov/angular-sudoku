@@ -39,15 +39,6 @@
     color: var(--font-color);
     margin: 5px 0;
     @include disablePinchZoom();
-
-    &--nominee {
-      color: var(--font-color);
-      font-weight: bold;
-    }
-
-    &--narrow {
-      margin: 0px;
-    }
   }
 }
 

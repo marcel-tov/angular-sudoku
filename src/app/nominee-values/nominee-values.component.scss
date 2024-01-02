@@ -1,0 +1,14 @@
+@import "mixins.scss";
+
+.nominee-value {
+  border-bottom: 2px solid var(--border-color);
+  color: var(--font-color);
+  margin: 5px 0;
+  @include disablePinchZoom();
+  color: var(--font-color);
+  font-weight: bold;
+
+  &--narrow {
+    margin: 0px;
+  }
+}
