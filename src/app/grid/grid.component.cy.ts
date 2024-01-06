@@ -106,6 +106,7 @@ describe('GridComponent', () => {
         it('Does contain nominee values', () => {
             mount(GridComponent);
             cy.get('div.grid__navigation')
-              .should('have.descendants', 'nominee-values');
+                .should('have.descendants', 'nominee-values');
+        });
     });
 });
