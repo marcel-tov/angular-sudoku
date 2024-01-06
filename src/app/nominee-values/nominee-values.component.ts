@@ -16,8 +16,8 @@ import {SudokuRow, SudokuValue} from '../grid-helper/types';
     ],
 })
 export class NomineeValuesComponent {
+    @Output() public onSelectValue: EventEmitter<SudokuValue> = new EventEmitter<SudokuValue>();
     protected readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    @Output() protected onSelectValue: EventEmitter<SudokuValue> = new EventEmitter<SudokuValue>();
 
     protected selectValue(value: SudokuValue): void {
         this.onSelectValue.emit(value);
