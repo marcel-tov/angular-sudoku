@@ -22,7 +22,7 @@ import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
 import {getEmptyRow} from '../grid-helper/empty-row';
 import {isValueValid} from '../grid-helper/is-value-valid';
 import {solveSudoku} from '../grid-helper/solve-sudoku';
-import {NomineeValuesComponent} from '../../nominee-values/nominee-values.component';
+import {NomineeValuesComponent} from '../nominee-values/nominee-values.component';
 
 @Component({
     selector: 'grid',
