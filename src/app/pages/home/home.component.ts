@@ -15,6 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgIf} from '@angular/common';
+import {Subscription, timer} from 'rxjs';
 
 @Component({
     selector: 'home',
@@ -40,6 +41,7 @@ class HomeComponent implements OnInit {
     protected sudokuGrid: SudokuGrid = getSudoku('Medium');
     private readonly lengthOfGridParameter: number = 81;
     private time: number = 0;
+    private subscription: Subscription | null = null;
 
     constructor(
         private route: ActivatedRoute,
@@ -57,6 +59,8 @@ class HomeComponent implements OnInit {
                 this.changeDetector.markForCheck();
             }
         }
+
+        this.startTime();
     }
 
     public openShareDialog(grid: SudokuGrid): void {
@@ -84,10 +88,12 @@ class HomeComponent implements OnInit {
             .afterClosed()
             .subscribe((difficulty: Difficulty | undefined) => {
                 this.createRandomSudoku(difficulty);
+                this.startTime();
             });
     }
 
     public openFinishDialog(event: IOnFinishGridEvent): void {
+        this.cancelTimer();
         const time: string = timerFormatter(this.time);
         const description: string = event.isGridValid
             ? `You solved the puzzle in ${time}`
@@ -144,6 +150,21 @@ class HomeComponent implements OnInit {
             // this.originalGrid = cloneDeep(this.grid);
             // this.initalizeGrid();
         }
+    }
+
+    private cancelTimer(): void {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
+    private startTime(): void {
+        this.time = 0;
+        this.cancelTimer();
+        this.subscription = timer(0, 1000).subscribe(() => {
+            this.time++;
+            this.changeDetector.markForCheck();
+        });
     }
 }
 

@@ -53,12 +53,9 @@
     </div>
   </div>
 
-
-<!--    (create)="openCreationDialog()"-->
-<!--    (share)="openShareDialog($event)"-->
-<!--    (finish)="openFinishDialog($event)"-->
   <grid
     class="home__grid"
     [originalGrid]="sudokuGrid"
+    [lockValues]="lockValues"
   ></grid>
 </div>
