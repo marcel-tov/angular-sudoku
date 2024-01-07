@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {NgClass, NgFor, NgIf} from '@angular/common';
-import {SudokuValue} from '../grid-helper/types';
-import {getEmptyRow} from '../grid-helper/empty-row';
+import {SudokuValue} from '../core/grid-helper/types';
+import {getEmptyRow} from '../core/grid-helper/empty-row';
 
 @Component({
     selector: 'grid-value',

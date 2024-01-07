@@ -14,7 +14,7 @@ import {cloneDeep} from 'lodash';
 import {Subscription, timer} from 'rxjs';
 import {NgFor, NgIf} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
-import {GridValueComponent} from '../grid-value/grid-value.component';
+import {GridValueComponent} from '../../grid-value/grid-value.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -22,7 +22,7 @@ import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
 import {getEmptyRow} from '../grid-helper/empty-row';
 import {isValueValid} from '../grid-helper/is-value-valid';
 import {solveSudoku} from '../grid-helper/solve-sudoku';
-import {NomineeValuesComponent} from '../nominee-values/nominee-values.component';
+import {NomineeValuesComponent} from '../../nominee-values/nominee-values.component';
 
 @Component({
     selector: 'grid',

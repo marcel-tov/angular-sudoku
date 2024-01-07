@@ -11,7 +11,7 @@ import {RouterModule} from '@angular/router';
 import {NotificationService} from '../notification/notification.service';
 import {Clipboard} from '@angular/cdk/clipboard';
 import {NotificationModule} from '../notification/notification.module';
-import {getEmptyRow} from '../grid-helper/empty-row';
+import {getEmptyRow} from '../core/grid-helper/empty-row';
 
 describe('ShareDialogComponent', () => {
     const data: IShareDialogData = {

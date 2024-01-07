@@ -8,8 +8,8 @@ import {ShareDialogComponent} from '../../share-dialog/share-dialog.component';
 import {CreationDialogComponent} from '../../core/creation-dialog/creation-dialog.component';
 import {FinishDialogComponent} from '../../core/finish-dialog/finish-dialog.component';
 import {Difficulty} from 'fake-sudoku-puzzle-generator';
-import {SudokuGrid} from '../../grid-helper/types';
-import {getEmptyRow} from '../../grid-helper/empty-row';
+import {SudokuGrid} from '../../core/grid-helper/types';
+import {getEmptyRow} from '../../core/grid-helper/empty-row';
 
 describe('HomeComponent', () => {
     const grid: SudokuGrid = [

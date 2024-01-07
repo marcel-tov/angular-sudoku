@@ -8,10 +8,10 @@ import {
     IOnFinishGridEvent,
     GridComponent,
     timerFormatter,
-} from '../../grid/grid.component';
+} from '../../core/grid/grid.component';
 import {IShareDialogData, ShareDialogComponent} from '../../share-dialog/share-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
-import {SudokuGrid, SudokuRow} from '../../grid-helper/types';
+import {SudokuGrid, SudokuRow} from '../../core/grid-helper/types';
 
 @Component({
     selector: 'home',
