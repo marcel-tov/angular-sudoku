@@ -9,7 +9,7 @@ import {
     GridComponent,
     timerFormatter,
 } from '../../core/grid/grid.component';
-import {IShareDialogData, ShareDialogComponent} from '../../share-dialog/share-dialog.component';
+import {IShareDialogData, ShareDialogComponent} from '../../core/share-dialog/share-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {SudokuGrid, SudokuRow} from '../../core/grid-helper/types';
 
