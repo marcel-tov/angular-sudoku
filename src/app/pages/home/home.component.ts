@@ -2,16 +2,16 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
-import {CreationDialogComponent} from '../creation-dialog/creation-dialog.component';
-import {IFinishDialogData, FinishDialogComponent} from '../finish-dialog/finish-dialog.component';
+import {CreationDialogComponent} from '../../creation-dialog/creation-dialog.component';
+import {IFinishDialogData, FinishDialogComponent} from '../../finish-dialog/finish-dialog.component';
 import {
     IOnFinishGridEvent,
     GridComponent,
     timerFormatter,
-} from '../grid/grid.component';
-import {IShareDialogData, ShareDialogComponent} from '../share-dialog/share-dialog.component';
+} from '../../grid/grid.component';
+import {IShareDialogData, ShareDialogComponent} from '../../share-dialog/share-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
-import {SudokuGrid, SudokuRow} from '../grid-helper/types';
+import {SudokuGrid, SudokuRow} from '../../grid-helper/types';
 
 @Component({
     selector: 'home',

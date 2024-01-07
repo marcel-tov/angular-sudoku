@@ -113,18 +113,9 @@
   </div>
 
   <div *ngIf="showFooterNavigation" class="grid__navigation">
-    <button
-      class="grid__navigation-button grid__navigation-button--nominee"
-      [ngClass.lt-sm]="{
-        'grid__navigation-button--narrow': true
-      }"
-      *ngFor="let nomineeValue of nomineeValues"
-      mat-icon-button
-      color="primary"
-      type="button"
-      (click)="onSelectValue(nomineeValue)"
-      [attr.aria-label]="'Select nominee value ' + nomineeValue"
-    >{{nomineeValue}}</button>
+    <nominee-values
+      (onSelectValue)="onSelectValue($event)"
+    ></nominee-values>
   </div>
 </div>
 

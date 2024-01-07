@@ -1,10 +1,18 @@
 import {
-    ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    HostListener,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
 } from '@angular/core';
 import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {cloneDeep} from 'lodash';
 import {Subscription, timer} from 'rxjs';
-import {NgClass, NgFor, NgIf} from '@angular/common';
+import {NgFor, NgIf} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {GridValueComponent} from '../grid-value/grid-value.component';
 import {MatIconModule} from '@angular/material/icon';
@@ -14,6 +22,7 @@ import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
 import {getEmptyRow} from '../grid-helper/empty-row';
 import {isValueValid} from '../grid-helper/is-value-valid';
 import {solveSudoku} from '../grid-helper/solve-sudoku';
+import {NomineeValuesComponent} from '../nominee-values/nominee-values.component';
 
 @Component({
     selector: 'grid',
@@ -24,13 +33,13 @@ import {solveSudoku} from '../grid-helper/solve-sudoku';
     imports: [
         NgIf,
         NgFor,
-        NgClass,
         MatButtonModule,
         MatSlideToggleModule,
         GridValueComponent,
         MatIconModule,
         MatTooltipModule,
         MatGridListModule,
+        NomineeValuesComponent,
     ],
 })
 class GridComponent implements OnChanges {

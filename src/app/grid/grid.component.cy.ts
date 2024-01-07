@@ -105,20 +105,8 @@ describe('GridComponent', () => {
 
         it('Does contain nominee values', () => {
             mount(GridComponent);
-            const list: Array<string> = [];
-            // eslint-disable-next-line cypress/unsafe-to-chain-command
-            cy.get('button.grid__navigation-button--nominee')
-                .should('have.class', 'grid__navigation-button')
-                .and('have.class', 'grid__navigation-button--nominee')
-                .each((button: JQuery<HTMLElement>): void => {
-                    list.push(button.text());
-                })
-                .then(() => {
-                    // by the time ".each" is finished
-                    // the list is populated
-                    expect(list).to.deep.equal(['1', '2', '3', '4', '5', '6', '7', '8', '9']);
-                });
+            cy.get('div.grid__navigation')
+                .should('have.descendants', 'nominee-values');
         });
     });
 });
-
