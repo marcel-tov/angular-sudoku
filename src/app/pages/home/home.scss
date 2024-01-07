@@ -4,8 +4,9 @@
   justify-content: center;
   margin: 0 20%;
 
+  &__top-navigation,
   &__grid {
-    margin: 0 10px;
+    max-width: 600px;
   }
 
   &__top-navigation {
