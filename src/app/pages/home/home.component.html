@@ -57,5 +57,6 @@
     class="home__grid"
     [originalGrid]="sudokuGrid"
     [lockValues]="lockValues"
+    (onChange)="onChangeGrid($event)"
   ></grid>
 </div>

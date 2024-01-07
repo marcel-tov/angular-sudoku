@@ -145,10 +145,11 @@ class HomeComponent implements OnInit {
 
     public onChangeLockValues(): void {
         this.lockValues = !this.lockValues;
+    }
 
-        if (this.lockValues) {
-            // this.originalGrid = cloneDeep(this.grid);
-            // this.initalizeGrid();
+    public onChangeGrid(grid: SudokuGrid): void {
+        if (!this.lockValues) {
+            this.sudokuGrid = grid;
         }
     }
 

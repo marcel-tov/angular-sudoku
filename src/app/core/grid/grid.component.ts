@@ -45,6 +45,7 @@ class GridComponent implements OnChanges {
     @Input() public showFooterNavigation: boolean = true;
     @Input() public lockValues: boolean = true;
     public showNominees: boolean = false;
+    @Output() public onChange: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
     protected grid!: SudokuGrid;
     protected solvedGrid: SudokuGrid | null = null;
     protected selectedRowIndex: number | null = null;
@@ -190,6 +191,8 @@ class GridComponent implements OnChanges {
         this.grid[row][col] = (value > 0 && value <= 9)
             ? value
             : null;
+
+        this.onChange.emit(this.grid);
     }
 
     private toggleNomineeValue(row: number, col: number, value: SudokuValue): void {
