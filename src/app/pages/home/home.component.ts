@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
-import {CreationDialogComponent} from '../../creation-dialog/creation-dialog.component';
+import {CreationDialogComponent} from '../../core/creation-dialog/creation-dialog.component';
 import {IFinishDialogData, FinishDialogComponent} from '../../finish-dialog/finish-dialog.component';
 import {
     IOnFinishGridEvent,

@@ -5,7 +5,7 @@ import {RouterModule} from '@angular/router';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {of} from 'rxjs';
 import {ShareDialogComponent} from '../../share-dialog/share-dialog.component';
-import {CreationDialogComponent} from '../../creation-dialog/creation-dialog.component';
+import {CreationDialogComponent} from '../../core/creation-dialog/creation-dialog.component';
 import {FinishDialogComponent} from '../../finish-dialog/finish-dialog.component';
 import {Difficulty} from 'fake-sudoku-puzzle-generator';
 import {SudokuGrid} from '../../grid-helper/types';
