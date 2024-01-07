@@ -8,9 +8,9 @@ import {
     MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import {RouterModule} from '@angular/router';
-import {NotificationService} from '../notification/notification.service';
+import {NotificationService} from '../core/notification/notification.service';
 import {Clipboard} from '@angular/cdk/clipboard';
-import {NotificationModule} from '../notification/notification.module';
+import {NotificationModule} from '../core/notification/notification.module';
 import {getEmptyRow} from '../core/grid-helper/empty-row';
 
 describe('ShareDialogComponent', () => {
