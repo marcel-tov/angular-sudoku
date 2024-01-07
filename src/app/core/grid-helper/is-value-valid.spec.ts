@@ -85,7 +85,7 @@ describe('isValueValid', () => {
         {row: 8, col: 6, expected: true},
         {row: 8, col: 7, expected: true},
         {row: 8, col: 8, expected: true},
-    ])('uisValueValid does correctly return row($row); col($col)', ({row, col, expected}: {row: number; col: number; expected: boolean}) => {
+    ])('isValueValid does correctly return row($row); col($col)', ({row, col, expected}: {row: number; col: number; expected: boolean}) => {
         const grid: SudokuGrid = [
             [1, null, null, null, null, null, null, null, null],
             getEmptyRow(),
