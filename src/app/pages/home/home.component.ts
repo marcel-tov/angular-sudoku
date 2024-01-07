@@ -87,8 +87,10 @@ class HomeComponent implements OnInit {
             })
             .afterClosed()
             .subscribe((difficulty: Difficulty | undefined) => {
-                this.createRandomSudoku(difficulty);
-                this.startTime();
+                if (difficulty) {
+                    this.createRandomSudoku(difficulty);
+                    this.startTime();
+                }
             });
     }
 
