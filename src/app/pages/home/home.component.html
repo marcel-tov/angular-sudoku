@@ -1,9 +1,64 @@
 <div class="home">
+  <div class="home__top-navigation">
+    <button
+      mat-icon-button
+      color="primary"
+      type="button"
+      matTooltip="Share sudoku"
+      (click)="openShareDialog(sudokuGrid)"
+      aria-label="Share sudoku by url"
+    >
+      <mat-icon>share</mat-icon>
+    </button>
+
+    <div>
+      <button
+        mat-icon-button
+        color="primary"
+        type="button"
+        matTooltip="Start a new game"
+        (click)="openCreationDialog()"
+        aria-label="Start a new game"
+      >
+        <mat-icon>autorenew</mat-icon>
+      </button>
+
+      <div>{{timeFormatter()}}</div>
+    </div>
+
+    <div>
+      <button
+        *ngIf="!lockValues"
+        mat-icon-button
+        color="primary"
+        type="button"
+        matTooltip="Clear all values"
+        (click)="clearAllValues()"
+        aria-label="Clear all values"
+      >
+        <mat-icon>clear_all</mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        color="primary"
+        type="button"
+        matTooltip="Lock values"
+        (click)="onChangeLockValues()"
+        aria-label="Make locked fields editable"
+      >
+        <mat-icon *ngIf="!lockValues">lock_open</mat-icon>
+        <mat-icon *ngIf="lockValues">lock</mat-icon>
+      </button>
+    </div>
+  </div>
+
+
+<!--    (create)="openCreationDialog()"-->
+<!--    (share)="openShareDialog($event)"-->
+<!--    (finish)="openFinishDialog($event)"-->
   <grid
     class="home__grid"
     [originalGrid]="sudokuGrid"
-    (create)="openCreationDialog()"
-    (share)="openShareDialog($event)"
-    (finish)="openFinishDialog($event)"
   ></grid>
 </div>

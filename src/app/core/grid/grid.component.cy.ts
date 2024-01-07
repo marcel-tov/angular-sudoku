@@ -10,15 +10,15 @@ describe('GridComponent', () => {
     });
 
     describe('top navigation', () => {
-        it('Does contain grid top navigation', () => {
-            mount(GridComponent, {componentProperties: {showTopNavigation: true, showFooterNavigation: false}});
-            cy.get('div.grid').should('have.descendants', 'div.grid__navigation');
-        });
-
-        it('Does not contain grid navigation', () => {
-            mount(GridComponent, {componentProperties: {showTopNavigation: false, showFooterNavigation: false}});
-            cy.get('div.grid').should('not.have.descendants', 'div.grid__navigation');
-        });
+        // it('Does contain grid top navigation', () => {
+        //     mount(GridComponent, {componentProperties: {showTopNavigation: true, showFooterNavigation: false}});
+        //     cy.get('div.grid').should('have.descendants', 'div.grid__navigation');
+        // });
+        //
+        // it('Does not contain grid navigation', () => {
+        //     mount(GridComponent, {componentProperties: {showTopNavigation: false, showFooterNavigation: false}});
+        //     cy.get('div.grid').should('not.have.descendants', 'div.grid__navigation');
+        // });
 
         it('Does contain share button', () => {
             mount(GridComponent);

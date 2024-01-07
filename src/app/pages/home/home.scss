@@ -1,8 +1,17 @@
 .home {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  margin: 0 20%;
 
   &__grid {
     margin: 0 10px;
+  }
+
+  &__top-navigation {
+    margin: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }

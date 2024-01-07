@@ -44,7 +44,7 @@ import {NomineeValuesComponent} from '../nominee-values/nominee-values.component
 })
 class GridComponent implements OnChanges {
     @Input() public originalGrid!: SudokuGrid;
-    @Input() public showTopNavigation: boolean = true;
+    // @Input() public showTopNavigation: boolean = true;
     @Input() public showFooterNavigation: boolean = true;
     // @Output() public share: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
     // @Output() public create: EventEmitter<void> = new EventEmitter<void>();

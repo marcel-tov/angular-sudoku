@@ -7,11 +7,14 @@ import {IFinishDialogData, FinishDialogComponent} from '../../core/finish-dialog
 import {
     IOnFinishGridEvent,
     GridComponent,
-    timerFormatter,
 } from '../../core/grid/grid.component';
 import {IShareDialogData, ShareDialogComponent} from '../../core/share-dialog/share-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {SudokuGrid, SudokuRow} from '../../core/grid-helper/types';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {NgIf} from '@angular/common';
 
 @Component({
     selector: 'home',
@@ -26,11 +29,17 @@ import {SudokuGrid, SudokuRow} from '../../core/grid-helper/types';
         FinishDialogComponent,
         CreationDialogComponent,
         ShareDialogComponent,
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule,
+        NgIf,
     ],
 })
 class HomeComponent implements OnInit {
+    public lockValues: boolean = true;
     protected sudokuGrid: SudokuGrid = getSudoku('Medium');
     private readonly lengthOfGridParameter: number = 81;
+    private time: number = 0;
 
     constructor(
         private route: ActivatedRoute,
@@ -79,7 +88,7 @@ class HomeComponent implements OnInit {
     }
 
     public openFinishDialog(event: IOnFinishGridEvent): void {
-        const time: string = timerFormatter(event.time);
+        const time: string = timerFormatter(this.time);
         const description: string = event.isGridValid
             ? `You solved the puzzle in ${time}`
             : `You did not solve the puzzle in ${time}`;
@@ -112,6 +121,30 @@ class HomeComponent implements OnInit {
         this.sudokuGrid = getSudoku(difficulty);
         this.changeDetector.markForCheck();
     }
+
+    public timeFormatter(): string {
+  	  return timerFormatter(this.time);
+    }
+
+    public clearAllValues(): void {
+        this.sudokuGrid = [];
+        for (let i: number = 0; i < 9; i++) {
+            this.sudokuGrid[i] = [];
+
+            for (let k: number = 0; k < 9; k++) {
+                this.sudokuGrid[i].push(null);
+            }
+        }
+    }
+
+    public onChangeLockValues(): void {
+        this.lockValues = !this.lockValues;
+
+        if (this.lockValues) {
+            // this.originalGrid = cloneDeep(this.grid);
+            // this.initalizeGrid();
+        }
+    }
 }
 
 function urlParamToGrid(gridString: string): SudokuGrid {
@@ -126,6 +159,23 @@ function urlParamToGrid(gridString: string): SudokuGrid {
 
             return list;
         }, []);
+}
+
+function timerFormatter(time: number): string {
+    const hours: string = Math
+        .floor(time / 3600)
+        .toString()
+        .padStart(2, '0');
+    const minutes: string = Math
+        .floor(time % 3600 / 60)
+        .toString()
+        .padStart(2, '0');
+    const seconds: string = Math
+        .floor(time % 3600 % 60)
+        .toString()
+        .padStart(2, '0');
+
+    return `${hours}:${minutes}:${seconds}`;
 }
 
 export {HomeComponent};
