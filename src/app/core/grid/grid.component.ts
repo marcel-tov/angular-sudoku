@@ -13,8 +13,6 @@ import {cloneDeep} from 'lodash';
 import {NgFor, NgIf} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {GridValueComponent} from '../grid-value/grid-value.component';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
 import {getEmptyRow} from '../grid-helper/empty-row';
@@ -34,8 +32,6 @@ import {NomineeValuesComponent} from '../nominee-values/nominee-values.component
         MatButtonModule,
         MatSlideToggleModule,
         GridValueComponent,
-        MatIconModule,
-        MatTooltipModule,
         MatGridListModule,
         NomineeValuesComponent,
     ],
