@@ -44,11 +44,8 @@ import {NomineeValuesComponent} from '../nominee-values/nominee-values.component
 })
 class GridComponent implements OnChanges {
     @Input() public originalGrid!: SudokuGrid;
-    // @Input() public showTopNavigation: boolean = true;
     @Input() public showFooterNavigation: boolean = true;
-    // @Output() public share: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
-    // @Output() public create: EventEmitter<void> = new EventEmitter<void>();
-    // public lockValues: boolean = true;
+    @Input() public lockValues: boolean = true;
     public showNominees: boolean = false;
     protected grid!: SudokuGrid;
     protected solvedGrid: SudokuGrid | null = null;
@@ -58,10 +55,6 @@ class GridComponent implements OnChanges {
     protected gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
     protected readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     @Output() protected finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter<IOnFinishGridEvent>();
-    // private time: number = 0;
-    // private subscription: Subscription | null = null;
-
-    constructor(private changeDetector: ChangeDetectorRef) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
@@ -71,9 +64,9 @@ class GridComponent implements OnChanges {
     }
 
     public isValueReadOnly(row: number, col: number): boolean {
-        // if (!this.lockValues) {
-        //     return false;
-        // }
+        if (!this.lockValues) {
+            return false;
+        }
 
         const value: SudokuValue = this.originalGrid[row][col];
 
@@ -171,41 +164,9 @@ class GridComponent implements OnChanges {
         }
     }
 
-    // public onChangeLockValues(): void {
-    //     this.lockValues = !this.lockValues;
-    //
-    //     if (this.lockValues) {
-    //         this.originalGrid = cloneDeep(this.grid);
-    //         this.initalizeGrid();
-    //     }
-    // }
-
-    // public onShareGrid(): void {
-  	// 	this.share.emit(this.originalGrid);
-    // }
-
     public trackByIndex(index: number) {
   		return index;
     }
-
-    // public onCreateGrid(): void {
-  	// 	this.create.emit();
-    // }
-
-    // public timeFormatter(): string {
-  	// 	return timerFormatter(this.time);
-    // }
-
-    // public clearAllValues(): void {
-    //     this.grid = [];
-    //     for (let i: number = 0; i < 9; i++) {
-    //         this.grid[i] = [];
-    //
-    //         for (let k: number = 0; k < 9; k++) {
-    //             this.grid[i].push(null);
-    //         }
-    //     }
-    // }
 
     private initalizeGrid(): void {
         for (const row of Object.keys(this.grid)) {
@@ -222,15 +183,7 @@ class GridComponent implements OnChanges {
         this.selectedColIndex = null;
         this.showNominees = false;
         this.isHelpEnabled = false;
-        // this.time = 0;
         this.solvedGrid = null;
-
-        // this.cancelTimer();
-        // this.subscription = timer(0, 1000).subscribe(() => {
-        //     this.time++;
-        //
-        //     this.changeDetector.markForCheck();
-        // });
     }
 
     private onValueChange(row: number, col: number, value: SudokuValue): void {
@@ -320,8 +273,13 @@ class GridComponent implements OnChanges {
     }
 
     private onFinishGrid(): void {
-        // this.cancelTimer();
+        this.finish.emit({
+            grid: this.grid,
+            isGridValid: this.isGridValid(),
+        });
+    }
 
+    private isGridValid(): boolean {
         let isGridValid: boolean = true;
         for (const row of Object.keys(this.grid)) {
             for (const col of Object.keys(this.grid[row])) {
@@ -331,18 +289,8 @@ class GridComponent implements OnChanges {
             }
         }
 
-        this.finish.emit({
-            grid: this.grid,
-            isGridValid,
-            // time: this.time,
-        });
+        return isGridValid;
     }
-
-    // private cancelTimer(): void {
-    //     if (this.subscription) {
-    //         this.subscription.unsubscribe();
-    //     }
-    // }
 
     private isGridFinish(): boolean {
         for (const row of Object.keys(this.grid)) {
@@ -362,7 +310,6 @@ class GridComponent implements OnChanges {
 interface IOnFinishGridEvent {
     grid: SudokuGrid;
     isGridValid: boolean;
-    // time: number;
 }
 
 export {GridComponent, IOnFinishGridEvent};
