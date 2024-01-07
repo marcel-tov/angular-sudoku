@@ -38,7 +38,7 @@ import {Subscription, timer} from 'rxjs';
 })
 class HomeComponent implements OnInit {
     public lockValues: boolean = true;
-    protected sudokuGrid: SudokuGrid = getSudoku('Medium');
+    public sudokuGrid: SudokuGrid = getSudoku('Medium');
     private readonly lengthOfGridParameter: number = 81;
     private time: number = 0;
     private subscription: Subscription | null = null;
