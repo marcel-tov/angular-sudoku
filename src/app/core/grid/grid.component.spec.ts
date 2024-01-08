@@ -1,6 +1,5 @@
 
 import {GridComponent} from './grid.component';
-import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
 import {
     MatDialogModule,
@@ -51,50 +50,14 @@ describe('GridComponent', () => {
         expect(spectator.query('div')).toHaveClass('grid');
     });
 
-    it('Does show top navigation', () => {
-        spectator.setInput({showTopNavigation: false, showFooterNavigation: false});
-        spectator.detectChanges();
-        expect(spectator.query('div.grid')).not.toHaveDescendant('.grid__navigation');
-
-        spectator.setInput({showTopNavigation: true, showFooterNavigation: false});
-        spectator.detectChanges();
-        expect(spectator.query('div.grid')).toHaveDescendant('.grid__navigation');
-    });
-
     it('Does show footer navigation', () => {
-        spectator.setInput({showTopNavigation: false, showFooterNavigation: false});
+        spectator.setInput({showFooterNavigation: false});
         spectator.detectChanges();
         expect(spectator.query('div.grid')).not.toHaveDescendant('.grid__navigation');
 
-        spectator.setInput({showTopNavigation: false, showFooterNavigation: true});
+        spectator.setInput({showFooterNavigation: true});
         spectator.detectChanges();
         expect(spectator.query('div.grid')).toHaveDescendant('.grid__navigation');
-    });
-
-    it('On share button does share grid', () => {
-        const shareSpy: jest.SpyInstance = jest.spyOn(spectator.component.share, 'emit');
-        spectator.detectChanges();
-        const selector: DOMSelector = byTextContent('share', {selector: 'button'});
-        spectator.click(selector);
-        expect(shareSpy).toHaveBeenCalledWith(spectator.component.originalGrid);
-    });
-
-    it('On create button does create grid', () => {
-        const createSpy: jest.SpyInstance = jest.spyOn(spectator.component.create, 'emit');
-        spectator.detectChanges();
-        const selector: DOMSelector = byTextContent('autorenew', {selector: 'button'});
-        spectator.click(selector);
-        expect(createSpy).toHaveBeenCalledWith();
-    });
-
-    it('On click lock button changes lock value', () => {
-        spectator.setInput('originalGrid', grid);
-        spectator.detectChanges();
-        expect(spectator.component.lockValues).toBe(true);
-        spectator.click(byTextContent('lock', {selector: 'button'}));
-        expect(spectator.component.lockValues).toBe(false);
-        spectator.click(byTextContent('lock_open', {selector: 'button'}));
-        expect(spectator.component.lockValues).toBe(true);
     });
 
     it('On click nominees button changes nominees value', () => {
