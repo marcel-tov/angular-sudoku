@@ -17,6 +17,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgIf} from '@angular/common';
 import {Subscription, timer} from 'rxjs';
 import {NomineeValuesComponent} from '../../core/nominee-values/nominee-values.component';
+import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {GridService} from '../../core/grid/grid.service';
 
 @Component({
     selector: 'home',
@@ -41,6 +43,8 @@ import {NomineeValuesComponent} from '../../core/nominee-values/nominee-values.c
 class HomeComponent implements OnInit {
     public lockValues: boolean = true;
     public sudokuGrid: SudokuGrid = getSudoku('Medium');
+    public showNominees: boolean = false;
+    protected isHelpEnabled: boolean = false;
     private readonly lengthOfGridParameter: number = 81;
     private time: number = 0;
     private subscription: Subscription | null = null;
@@ -49,6 +53,7 @@ class HomeComponent implements OnInit {
         private route: ActivatedRoute,
         private changeDetector: ChangeDetectorRef,
         private dialog: MatDialog,
+        private gridService: GridService,
     ) { }
 
     public ngOnInit(): void {
@@ -155,6 +160,18 @@ class HomeComponent implements OnInit {
         if (!this.lockValues) {
             this.sudokuGrid = grid;
         }
+    }
+
+    public onHelpChange(event: MatSlideToggleChange): void {
+        this.isHelpEnabled = event.checked;
+    }
+
+    public hasSelectedValue(): boolean {
+        return this.gridService.hasSelectedValue();
+    }
+
+    public deleteSelectedValue(): void {
+        this.deleteSelectedValue();
     }
 
     private cancelTimer(): void {
