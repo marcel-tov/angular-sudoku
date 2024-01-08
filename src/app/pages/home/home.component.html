@@ -60,4 +60,40 @@
     (finish)="openFinishDialog($event)"
     (onChange)="onChangeGrid($event)"
   ></grid>
+
+
+  <!-- navigation -->
+  <div class="grid__footer-navigation">
+    <button
+      class="grid__navigation-button"
+      mat-raised-button
+      [color]="hasSelectedValue() && !showNominees ? 'primary' : undefined"
+      type="button"
+      [disabled]="!hasSelectedValue()"
+      (click)="deleteSelectedValue()"
+      aria-label="Delete a selected value"
+    >Delete number</button>
+
+    <button
+      class="grid__navigation-button"
+      mat-raised-button
+      [color]="showNominees ? 'primary' : undefined"
+      type="button"
+      (click)="showNominees = !showNominees"
+      aria-label="Toggle field edit nominees"
+    >Nominees</button>
+
+    <mat-slide-toggle
+      color="primary"
+      [checked]="isHelpEnabled"
+      (change)="onHelpChange($event)"
+      aria-label="Enable help"
+    >Help</mat-slide-toggle>
+  </div>
+
+  <div *ngIf="showFooterNavigation" class="grid__navigation">
+    <nominee-values
+      (onSelectValue)="onSelectValue($event)"
+    ></nominee-values>
+  </div>
 </div>

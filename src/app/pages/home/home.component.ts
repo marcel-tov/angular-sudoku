@@ -16,6 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgIf} from '@angular/common';
 import {Subscription, timer} from 'rxjs';
+import {NomineeValuesComponent} from '../../core/nominee-values/nominee-values.component';
 
 @Component({
     selector: 'home',
@@ -34,6 +35,7 @@ import {Subscription, timer} from 'rxjs';
         MatIconModule,
         MatTooltipModule,
         NgIf,
+        NomineeValuesComponent,
     ],
 })
 class HomeComponent implements OnInit {
