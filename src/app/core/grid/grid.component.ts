@@ -36,7 +36,7 @@ import {GridService} from './grid.service';
     ],
 })
 class GridComponent implements OnChanges {
-    // @Input() public originalGrid!: SudokuGrid;
+    @Input() public originalGrid!: SudokuGrid;
     // @Input() public showFooterNavigation: boolean = true;
     @Input() public lockValues: boolean = true;
     // @Input()  public showNominees: boolean = false;
@@ -67,6 +67,7 @@ class GridComponent implements OnChanges {
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
+            this.gridService.originalGrid = this.originalGrid;
             this.gridService.grid = cloneDeep(this.originalGrid);
             this.initalizeGrid();
         }
@@ -149,7 +150,7 @@ class GridComponent implements OnChanges {
         this.gridService.selectedColIndex = null;
         this.gridService.showNominees = false;
         this.gridService.isHelpEnabled = false;
-        this.solvedGrid = null;
+        this.gridService.solvedGrid = null;
     }
 
     /**
