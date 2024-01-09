@@ -34,6 +34,9 @@ import {GridService} from './grid.service';
         GridValueComponent,
         MatGridListModule,
     ],
+    providers: [
+        GridService,
+    ],
 })
 class GridComponent implements OnChanges {
     @Input() public originalGrid!: SudokuGrid;
