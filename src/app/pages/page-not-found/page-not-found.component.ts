@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {GridComponent} from '../../core/grid/grid.component';
 import {SudokuGrid} from '../../core/grid-helper/types';
 import {getEmptyRow} from '../../core/grid-helper/empty-row';
+import {GridService} from '../../core/grid/grid.service';
 
 @Component({
     selector: 'page-not-found',
