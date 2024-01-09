@@ -35,7 +35,7 @@ class GridService {
     public gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
     public onFinishGrid: Subject<IOnFinishGridEvent> = new Subject<IOnFinishGridEvent>();
     public isHelpEnabled: boolean = false;
-    protected solvedGrid: SudokuGrid | null = null;
+    public solvedGrid: SudokuGrid | null = null;
 
     public hasSelectedValue(): boolean {
         return this.selectedRowIndex !== null && this.selectedColIndex !== null;
