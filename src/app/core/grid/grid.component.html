@@ -1,15 +1,8 @@
 <div class="grid">
   <div *ngIf="showTopNavigation" class="grid__navigation">
-    <button
-      mat-icon-button
-      color="primary"
-      type="button"
-      matTooltip="Share sudoku"
-      (click)="onShareGrid()"
-      aria-label="Share sudoku by url"
-    >
-      <mat-icon>share</mat-icon>
-    </button>
+    <share-button
+      (onClick)="onShareGrid()"
+    ></share-button>
 
     <div>
       <button
