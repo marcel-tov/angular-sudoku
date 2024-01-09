@@ -4,13 +4,10 @@ import {ActivatedRoute} from '@angular/router';
 import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
 import {CreationDialogComponent} from '../../core/creation-dialog/creation-dialog.component';
 import {IFinishDialogData, FinishDialogComponent} from '../../core/finish-dialog/finish-dialog.component';
-import {
-    IOnFinishGridEvent,
-    GridComponent,
-} from '../../core/grid/grid.component';
+import {GridComponent} from '../../core/grid/grid.component';
 import {IShareDialogData, ShareDialogComponent} from '../../core/share-dialog/share-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
-import {SudokuGrid, SudokuRow} from '../../core/grid-helper/types';
+import {SudokuGrid, SudokuRow, SudokuValue} from '../../core/grid-helper/types';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -18,7 +15,7 @@ import {NgIf} from '@angular/common';
 import {Subscription, timer} from 'rxjs';
 import {NomineeValuesComponent} from '../../core/nominee-values/nominee-values.component';
 import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {GridService} from '../../core/grid/grid.service';
+import {GridService, IOnFinishGridEvent} from '../../core/grid/grid.service';
 
 @Component({
     selector: 'home',
@@ -38,6 +35,7 @@ import {GridService} from '../../core/grid/grid.service';
         MatTooltipModule,
         NgIf,
         NomineeValuesComponent,
+        MatSlideToggleModule,
     ],
 })
 class HomeComponent implements OnInit {
@@ -168,6 +166,10 @@ class HomeComponent implements OnInit {
 
     public hasSelectedValue(): boolean {
         return this.gridService.hasSelectedValue();
+    }
+
+    public onSelectValue(value: SudokuValue): void {
+        this.gridService.onSelectValue(value);
     }
 
     public deleteSelectedValue(): void {
