@@ -1,7 +1,6 @@
 
 import {HomeComponent} from './home.component';
-import {DOMSelector} from '@ngneat/spectator';
-import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
+import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
 import {RouterModule} from '@angular/router';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {of} from 'rxjs';
@@ -98,6 +97,7 @@ describe('HomeComponent', () => {
         spectator.component.openFinishDialog({
             grid,
             isGridValid: true,
+            time: 0,
         });
         spectator.detectChanges();
         expect(spectator.inject(MatDialog).open).toHaveBeenCalledWith(
@@ -117,6 +117,7 @@ describe('HomeComponent', () => {
         spectator.component.openFinishDialog({
             grid,
             isGridValid: false,
+            time: 0,
         });
         expect(spectator.inject(MatDialog).open).toHaveBeenCalledWith(
             FinishDialogComponent,
@@ -128,40 +129,5 @@ describe('HomeComponent', () => {
                 },
             },
         );
-    });
-
-    it('On share button does share grid', () => {
-        spectator.detectChanges();
-        const selector: DOMSelector = byTextContent('share', {selector: 'button'});
-        spectator.click(selector);
-        expect(spectator.inject(MatDialog).open).toHaveBeenCalledWith(
-            ShareDialogComponent,
-            {
-                data: {
-                    grid: spectator.component.sudokuGrid,
-                },
-            },
-        );
-    });
-
-    it('On create button does create grid', () => {
-        const selector: DOMSelector = byTextContent('autorenew', {selector: 'button'});
-        spectator.click(selector);
-        expect(spectator.inject(MatDialog).open).toHaveBeenCalledWith(
-            CreationDialogComponent,
-            {
-                data: {},
-            },
-        );
-    });
-
-    it('On click lock button changes lock value', () => {
-        spectator.component.sudokuGrid = grid;
-        spectator.detectChanges();
-        expect(spectator.component.lockValues).toBe(true);
-        spectator.click(byTextContent('lock', {selector: 'button'}));
-        expect(spectator.component.lockValues).toBe(false);
-        spectator.click(byTextContent('lock_open', {selector: 'button'}));
-        expect(spectator.component.lockValues).toBe(true);
     });
 });

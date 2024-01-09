@@ -1,4 +1,58 @@
 <div class="grid">
+  <div *ngIf="showTopNavigation" class="grid__navigation">
+    <button
+      mat-icon-button
+      color="primary"
+      type="button"
+      matTooltip="Share sudoku"
+      (click)="onShareGrid()"
+      aria-label="Share sudoku by url"
+    >
+      <mat-icon>share</mat-icon>
+    </button>
+
+    <div>
+      <button
+        mat-icon-button
+        color="primary"
+        type="button"
+        matTooltip="Start a new game"
+        (click)="onCreateGrid()"
+        aria-label="Start a new game"
+      >
+        <mat-icon>autorenew</mat-icon>
+      </button>
+
+      <div>{{timeFormatter()}}</div>
+    </div>
+
+    <div>
+      <button
+        *ngIf="!lockValues"
+        mat-icon-button
+        color="primary"
+        type="button"
+        matTooltip="Clear all values"
+        (click)="clearAllValues()"
+        aria-label="Clear all values"
+      >
+        <mat-icon>clear_all</mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        color="primary"
+        type="button"
+        matTooltip="Lock values"
+        (click)="onChangeLockValues()"
+        aria-label="Make locked fields editable"
+      >
+        <mat-icon *ngIf="!lockValues">lock_open</mat-icon>
+        <mat-icon *ngIf="lockValues">lock</mat-icon>
+      </button>
+    </div>
+  </div>
+
   <!-- grid -->
   <div class="grid__grid-wrapper">
     <mat-grid-list cols="9" rowHeight="9:9">
