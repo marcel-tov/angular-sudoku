@@ -1,18 +1,8 @@
 .home {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 
-  &__top-navigation,
   &__grid {
-    max-width: 600px;
-  }
-
-  &__top-navigation {
-    margin: 0px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 434px;
+    margin: 0 10px;
   }
 }
