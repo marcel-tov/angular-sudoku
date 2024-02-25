@@ -14,7 +14,8 @@
     "jest": "jest --verbose",
     "jest:watch": "jest --watch",
     "jest:ci": "jest --runInBand",
-    "fmt": "npm run eslint -- --fix"
+    "fmt": "npm run eslint -- --fix",
+    "semantic-release": "npx semantic-release"
   },
   "private": true,
   "dependencies": {
