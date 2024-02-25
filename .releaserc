@@ -1,7 +1,6 @@
 {
   "branches": [
     "main",
-    "29-use-semantic-release",
   ],
   "plugins": [
       [
