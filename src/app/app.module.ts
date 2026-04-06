@@ -15,14 +15,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent,
-    ],
+    declarations: [],
     imports: [
         RouterModule.forRoot(routes),
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
+        AppComponent,
         HomeComponent,
         PageNotFoundComponent,
     ],

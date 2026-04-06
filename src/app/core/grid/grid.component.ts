@@ -279,7 +279,7 @@ class GridComponent implements OnChanges {
 	 * @deprecated https://developer.mozilla.org/de/docs/Web/API/KeyboardEvent/keyCode
 	 */
     @HostListener('window:keydown', ['$event'])
-    private onKeydown(event: KeyboardEvent): void {
+    protected onKeydown(event: KeyboardEvent): void {
         const value: number = Number(event.key);
         if (value > 0 && value <= 9) {
             this.onSelectValue(value);

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
-import {NgClass, NgFor} from '@angular/common';
+import {NgFor} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {SudokuRow, SudokuValue} from '../grid-helper/types';
 
@@ -11,7 +11,6 @@ import {SudokuRow, SudokuValue} from '../grid-helper/types';
     standalone: true,
     imports: [
         NgFor,
-        NgClass,
         MatButtonModule,
     ],
 })

@@ -23,9 +23,6 @@ import {SudokuGrid, SudokuRow} from '../../core/grid-helper/types';
         GridComponent,
         ClipboardModule,
         MatDialogModule,
-        FinishDialogComponent,
-        CreationDialogComponent,
-        ShareDialogComponent,
     ],
 })
 class HomeComponent implements OnInit {
