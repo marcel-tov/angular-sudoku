@@ -15,9 +15,18 @@ jobs:
       with:
         path: node_modules
         key: node-modules-${{ hashFiles('package-lock.json') }}
+    - name: Cache Cypress binary
+      id: cache-cypress
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/Cypress
+        key: cypress-${{ hashFiles('package-lock.json') }}
     - name: Install dependencies
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
       run: npm install --legacy-peer-deps
+    - name: Install Cypress binary
+      if: steps.cache-cypress.outputs.cache-hit != 'true'
+      run: npx cypress install
   lint:
     runs-on: ubuntu-latest
     needs: setup
@@ -84,6 +93,11 @@ jobs:
         with:
           path: node_modules
           key: node-modules-${{ hashFiles('package-lock.json') }}
+      - name: Restore Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ hashFiles('package-lock.json') }}
       - name: cypress:component
         uses: cypress-io/github-action@v6
         with:
@@ -104,6 +118,11 @@ jobs:
         with:
           path: node_modules
           key: node-modules-${{ hashFiles('package-lock.json') }}
+      - name: Restore Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ hashFiles('package-lock.json') }}
       - name: cypress:e2e (chrome)
         uses: cypress-io/github-action@v6
         with:
