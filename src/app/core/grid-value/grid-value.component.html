@@ -9,17 +9,17 @@
     'grid-value--nominees': isSelected && showNominees
   }"
 >
-    <span
-      *ngIf="value !== null"
-      class="grid-value__value"
-    >{{value}}</span>
+    @if (value !== null) {
+      <span class="grid-value__value">{{value}}</span>
+    }
 
     <!-- Nominees -->
-    <div class="nominees-grid" *ngIf="value === null">
-      <span
-        *ngFor="let nomineeValue of nomineeValues"
-        class="nominees-grid__value"
-      >{{nomineeValue}}</span>
-    </div>
+    @if (value === null) {
+      <div class="nominees-grid">
+        @for (nomineeValue of nomineeValues; track $index) {
+          <span class="nominees-grid__value">{{nomineeValue}}</span>
+        }
+      </div>
+    }
 </div>
 

@@ -1,12 +1,13 @@
-<button
-  class="nominee-value"
-  [ngClass.lt-sm]="{
-        'nominee-value--narrow': true
-      }"
-  *ngFor="let nomineeValue of nomineeValues"
-  mat-icon-button
-  color="primary"
-  type="button"
-  (click)="selectValue(nomineeValue)"
-  [attr.aria-label]="'Select nominee value ' + nomineeValue"
->{{nomineeValue}}</button>
+@for (nomineeValue of nomineeValues; track nomineeValue) {
+  <button
+    class="nominee-value"
+    [ngClass.lt-sm]="{
+          'nominee-value--narrow': true
+        }"
+    mat-icon-button
+    color="primary"
+    type="button"
+    (click)="selectValue(nomineeValue)"
+    [attr.aria-label]="'Select nominee value ' + nomineeValue"
+  >{{nomineeValue}}</button>
+}

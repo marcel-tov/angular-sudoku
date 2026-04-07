@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
-import {NgFor} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {SudokuRow, SudokuValue} from '../grid-helper/types';
 
@@ -10,7 +9,6 @@ import {SudokuRow, SudokuValue} from '../grid-helper/types';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        NgFor,
         MatButtonModule,
     ],
 })
