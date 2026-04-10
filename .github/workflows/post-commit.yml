@@ -146,6 +146,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
@@ -157,3 +159,5 @@ jobs:
           key: node-modules-${{ hashFiles('package-lock.json') }}
       - name: changelog
         run: npm run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
