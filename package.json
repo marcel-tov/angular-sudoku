@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "cypress:e2e": "ng e2e",
+    "cypress:e2e:firefox": "ng run angular-sudoku:e2e:firefox",
     "cypress:component": "ng run angular-sudoku:ct",
     "cypress:open": "ng run angular-sudoku:cypress-open",
     "cypress:run": "ng run angular-sudoku:cypress-run",

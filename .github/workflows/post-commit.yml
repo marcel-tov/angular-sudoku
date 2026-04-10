@@ -123,18 +123,22 @@ jobs:
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ hashFiles('package-lock.json') }}
+      - name: Install Firefox
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y firefox
+      - name: Start dev server
+        run: npm start &
       - name: cypress:e2e (chrome)
         uses: cypress-io/github-action@v6
         with:
           install: false
-          start: npm start
           wait-on: 'http://localhost:4200'
           browser: chrome
       - name: cypress:e2e (firefox)
         uses: cypress-io/github-action@v6
         with:
           install: false
-          start: npm start
           wait-on: 'http://localhost:4200'
           browser: firefox
   changelog:
