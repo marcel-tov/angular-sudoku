@@ -12,7 +12,6 @@ import {
 import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {cloneDeep} from 'lodash';
 import {Subscription, timer} from 'rxjs';
-import {NgFor, NgIf} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
 import {GridValueComponent} from '../grid-value/grid-value.component';
 import {MatIconModule} from '@angular/material/icon';
@@ -31,8 +30,6 @@ import {NomineeValuesComponent} from '../nominee-values/nominee-values.component
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        NgIf,
-        NgFor,
         MatButtonModule,
         MatSlideToggleModule,
         GridValueComponent,
@@ -207,6 +204,21 @@ class GridComponent implements OnChanges {
         }
     }
 
+    /**
+     * @deprecated https://developer.mozilla.org/de/docs/Web/API/KeyboardEvent/keyCode
+     */
+    @HostListener('window:keydown', ['$event'])
+    protected onKeydown(event: KeyboardEvent): void {
+        const value: number = Number(event.key);
+        if (value > 0 && value <= 9) {
+            this.onSelectValue(value);
+        }
+
+        if (event.key === 'Backspace' || event.key === 'Delete') {
+            this.onSelectValue(null);
+        }
+    }
+
     private initalizeGrid(): void {
         for (const row of Object.keys(this.grid)) {
             for (const col of Object.keys(this.grid[row])) {
@@ -272,21 +284,6 @@ class GridComponent implements OnChanges {
             modifiedNomineeValue[indexValue] = null;
 
             this.gridNomineeValues[row][col] = modifiedNomineeValue;
-        }
-    }
-
-    /**
-	 * @deprecated https://developer.mozilla.org/de/docs/Web/API/KeyboardEvent/keyCode
-	 */
-    @HostListener('window:keydown', ['$event'])
-    private onKeydown(event: KeyboardEvent): void {
-        const value: number = Number(event.key);
-        if (value > 0 && value <= 9) {
-            this.onSelectValue(value);
-        }
-
-        if (event.key === 'Backspace' || event.key === 'Delete') {
-            this.onSelectValue(null);
         }
     }
 

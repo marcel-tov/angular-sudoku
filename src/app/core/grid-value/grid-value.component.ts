@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {NgClass, NgFor, NgIf} from '@angular/common';
+import {NgClass} from '@angular/common';
 import {SudokuValue} from '../grid-helper/types';
 import {getEmptyRow} from '../grid-helper/empty-row';
 
@@ -10,8 +10,6 @@ import {getEmptyRow} from '../grid-helper/empty-row';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        NgIf,
-        NgFor,
         NgClass,
     ],
 })

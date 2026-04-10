@@ -1,8 +1,8 @@
 
 import {HomeComponent} from './home.component';
-import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
+import {Spectator, createComponentFactory, SpectatorFactory, createSpyObject} from '@ngneat/spectator/jest';
 import {RouterModule} from '@angular/router';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {of} from 'rxjs';
 import {ShareDialogComponent} from '../../core/share-dialog/share-dialog.component';
 import {CreationDialogComponent} from '../../core/creation-dialog/creation-dialog.component';
@@ -31,6 +31,7 @@ describe('HomeComponent', () => {
         ],
         mocks: [
             MatDialog,
+            MatDialogRef,
         ],
         overrideComponents: [
             [
@@ -71,7 +72,10 @@ describe('HomeComponent', () => {
     });
 
     it('should open share dialog', () => {
-        spectator.inject(MatDialog).open.andReturn({afterClosed: () => of(void 0)});
+        const matDialogRef: MatDialogRef<void> = createSpyObject(MatDialogRef, {
+            afterClosed: () => of(void 0),
+        });
+        spectator.inject(MatDialog).open.mockReturnValue(matDialogRef);
         spectator.component.openShareDialog(grid);
         expect(spectator.inject(MatDialog).open).toHaveBeenCalledWith(
             ShareDialogComponent,
@@ -82,7 +86,10 @@ describe('HomeComponent', () => {
     it('should open creation dialog', () => {
         const difficulty: Difficulty = 'Easy';
         const createRandomSudokuSpy: jest.SpyInstance = jest.spyOn(spectator.component, 'createRandomSudoku');
-        spectator.inject(MatDialog).open.andReturn({afterClosed: () => of(difficulty)});
+        const matDialogRef: MatDialogRef<unknown> = createSpyObject(MatDialogRef, {
+            afterClosed: () => of(difficulty),
+        });
+        spectator.inject(MatDialog).open.mockReturnValue(matDialogRef);
         spectator.component.openCreationDialog();
         expect(spectator.inject(MatDialog).open).toHaveBeenCalledWith(
             CreationDialogComponent,
@@ -92,7 +99,10 @@ describe('HomeComponent', () => {
     });
 
     it('should open finish dialog with solved parameters', (() => {
-        spectator.inject(MatDialog).open.andReturn({afterClosed: () => of(void 0)});
+        const matDialogRef: MatDialogRef<void> = createSpyObject(MatDialogRef, {
+            afterClosed: () => of(void 0),
+        });
+        spectator.inject(MatDialog).open.mockReturnValue(matDialogRef);
         spectator.detectChanges();
         spectator.component.openFinishDialog({
             grid,
@@ -113,7 +123,10 @@ describe('HomeComponent', () => {
     }));
 
     it('should open finish dialog with unsolved parameters', () => {
-        spectator.inject(MatDialog).open.andReturn({afterClosed: () => of(void 0)});
+        const matDialogRef: MatDialogRef<void> = createSpyObject(MatDialogRef, {
+            afterClosed: () => of(void 0),
+        });
+        spectator.inject(MatDialog).open.mockReturnValue(matDialogRef);
         spectator.component.openFinishDialog({
             grid,
             isGridValid: false,

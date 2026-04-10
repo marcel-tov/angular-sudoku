@@ -46,3 +46,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Accidentally copied sandbox files (safe to delete)
+/mnt
+/.cache
+.bash_logout
+.bashrc
+.profile

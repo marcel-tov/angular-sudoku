@@ -1,6 +1,15 @@
 module.exports = {
     preset: 'jest-preset-angular',
     setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-    globalSetup: 'jest-preset-angular/global-setup',
     modulePathIgnorePatterns: ['<rootDir>/eslint-config/'],
+    transform: {
+        '^.+\\.(ts|js|mjs|html|svg)$': [
+            'jest-preset-angular',
+            {
+                tsconfig: '<rootDir>/tsconfig.spec.json',
+                stringifyContentPathRegex: '\\.(html|svg)$',
+                isolatedModules: true,
+            },
+        ],
+    },
 };

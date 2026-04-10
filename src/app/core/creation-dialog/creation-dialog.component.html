@@ -1,13 +1,14 @@
 <h1 mat-dialog-title>Level of difficulty</h1>
 <div mat-dialog-content>
   <div>
-    <button
-      *ngFor="let difficulty of difficulties"
-      mat-button
-      color="primary"
-      type="button"
-      (click)="onSelectDifficulty(difficulty)"
-    >{{difficulty}}</button>
+    @for (difficulty of difficulties; track difficulty) {
+      <button
+        mat-button
+        color="primary"
+        type="button"
+        (click)="onSelectDifficulty(difficulty)"
+      >{{difficulty}}</button>
+    }
   </div>
 </div>
 <div mat-dialog-actions align="end">
