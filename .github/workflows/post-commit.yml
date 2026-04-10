@@ -124,9 +124,7 @@ jobs:
           path: ~/.cache/Cypress
           key: cypress-${{ hashFiles('package-lock.json') }}
       - name: Install Firefox
-        run: |
-          sudo apt-get update -q
-          sudo apt-get install -y firefox
+        uses: browser-actions/setup-firefox@latest
       - name: Start dev server
         run: npm start &
       - name: cypress:e2e (chrome)
