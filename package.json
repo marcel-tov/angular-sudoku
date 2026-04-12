@@ -14,7 +14,7 @@
     "lint": "npm run eslint -- --quiet",
     "jest": "jest --verbose",
     "jest:watch": "jest --watch",
-    "jest:ci": "jest --runInBand",
+    "jest:ci": "jest --runInBand --coverage",
     "fmt": "npm run eslint -- --fix",
     "semantic-release": "semantic-release"
   },
