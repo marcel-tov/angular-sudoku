@@ -134,7 +134,7 @@ class GridComponent implements OnChanges {
     }
 
     public isValueErroneous(row: number, col: number, value: SudokuValue): boolean {
-        if (this.isHelpEnabled && this.solvedGrid === null) {
+        if (this.solvedGrid === null) {
             const clonedGrid: SudokuGrid = cloneDeep(this.originalGrid);
             solveSudoku(clonedGrid);
             this.solvedGrid = clonedGrid;
