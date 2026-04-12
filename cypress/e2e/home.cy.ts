@@ -23,8 +23,14 @@ const NEARLY_COMPLETE_GRID: string =
     '287419635' +
     '345286170'; // last cell is 0 → empty
 
-/** Returns the nth mat-grid-tile (0-based, row-major order). */
+/**
+ * Returns the nth mat-grid-tile (0-based, row-major order).
+ * The dynamic CSS classes (--selected, --error, etc.) live on the inner
+ * <div class="grid-value"> rendered by grid-value.component.html,
+ * NOT on the <grid-value> custom element itself.
+ */
 const tile = (index: number) => cy.get('mat-grid-tile').eq(index);
+const tileInner = (index: number) => tile(index).find('.grid-value');
 
 describe('home — grid renders', () => {
     it('renders 81 grid cells', () => {
@@ -51,13 +57,13 @@ describe('home — cell interaction', () => {
     it('selects an empty cell on click', () => {
         // Cell [0][2] is empty → editable
         tile(2).click();
-        tile(2).find('grid-value').should('have.class', 'grid-value--selected');
+        tileInner(2).should('have.class', 'grid-value--selected');
     });
 
     it('does not select a read-only cell', () => {
         // Cell [0][0] = 5 is pre-filled and locked
         tile(0).click();
-        tile(0).find('grid-value').should('not.have.class', 'grid-value--selected');
+        tileInner(0).should('not.have.class', 'grid-value--selected');
     });
 
     it('enters a value by clicking the number pad', () => {
@@ -68,7 +74,8 @@ describe('home — cell interaction', () => {
 
     it('enters a value via keyboard', () => {
         tile(2).click();
-        cy.get('body').type('4');
+        // HostListener is on window:keydown — use trigger so the event reaches Angular
+        cy.get('body').trigger('keydown', {key: '4', bubbles: true});
         tile(2).find('.grid-value__value').should('have.text', '4');
     });
 
@@ -84,7 +91,7 @@ describe('home — cell interaction', () => {
     it('clicking the same empty cell twice toggles nominees mode', () => {
         tile(2).click(); // select
         tile(2).click(); // second click → showNominees = true
-        tile(2).find('grid-value').should('have.class', 'grid-value--nominees');
+        tileInner(2).should('have.class', 'grid-value--nominees');
     });
 });
 
@@ -124,12 +131,12 @@ describe('home — nominees mode', () => {
         cy.get('[aria-label="Toggle field edit nominees"]').click();
         cy.get('[aria-label="Select nominee value 5"]').click();
 
-        // Switch back to normal mode and place 5 in cell [0][3]
-        tile(3).click();
-        cy.get('[aria-label="Toggle field edit nominees"]').click(); // ensure nominees off
+        // Move to cell [0][3], disable nominees mode, place value 5
+        tile(3).click(); // showNominees stays true (different cell)
+        cy.get('[aria-label="Toggle field edit nominees"]').click(); // showNominees → false
         cy.get('[aria-label="Select nominee value 5"]').click();
 
-        // Nominee 5 should now be cleared from cell [0][2]
+        // Nominee 5 should now be cleared from cell [0][2] (same row)
         tile(2).find('.nominees-grid__value').eq(4).should('have.text', '');
     });
 });
@@ -143,14 +150,14 @@ describe('home — help mode', () => {
         tile(2).click(); // [0][2], correct = 4
         cy.get('[aria-label="Select nominee value 9"]').click(); // wrong value
         cy.get('[aria-label="Enable help"]').click();
-        tile(2).find('grid-value').should('have.class', 'grid-value--error');
+        tileInner(2).should('have.class', 'grid-value--error');
     });
 
     it('marks a correctly filled cell with success styling', () => {
         tile(2).click(); // [0][2], correct = 4
         cy.get('[aria-label="Select nominee value 4"]').click(); // correct value
         cy.get('[aria-label="Enable help"]').click();
-        tile(2).find('grid-value').should('have.class', 'grid-value--success');
+        tileInner(2).should('have.class', 'grid-value--success');
     });
 });
 
