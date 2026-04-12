@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.4.0...v1.5.0) (2026-04-12)
+
+
+### Features
+
+* add e2e tests ([#42](https://github.com/marcel-tov/angular-sudoku/issues/42)) ([0100e1d](https://github.com/marcel-tov/angular-sudoku/commit/0100e1de42fcab51415413a782636d04360c6518))
+
 # [1.4.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.3.0...v1.4.0) (2026-04-10)
 
 
