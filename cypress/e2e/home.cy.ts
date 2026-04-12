@@ -1,6 +1,6 @@
 // Classic puzzle: 0 = empty cell.
 // Cell [0][2] is empty; the correct solution value there is 4.
-const PUZZLE_GRID =
+const PUZZLE_GRID: string =
     '530070000' +
     '600195000' +
     '098000060' +
@@ -12,7 +12,7 @@ const PUZZLE_GRID =
     '000080079';
 
 // Same puzzle fully solved except cell [8][8] (index 80), which is 9.
-const NEARLY_COMPLETE_GRID =
+const NEARLY_COMPLETE_GRID: string =
     '534678912' +
     '672195348' +
     '198342567' +
