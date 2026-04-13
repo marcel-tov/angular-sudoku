@@ -10,7 +10,6 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {cloneDeep} from 'lodash';
 import {Subscription, timer} from 'rxjs';
 import {MatButtonModule} from '@angular/material/button';
 import {GridValueComponent} from '../grid-value/grid-value.component';
@@ -62,7 +61,7 @@ class GridComponent implements OnChanges {
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
-            this.grid = cloneDeep(this.originalGrid);
+            this.grid = structuredClone(this.originalGrid);
             this.initalizeGrid();
         }
     }
@@ -135,7 +134,7 @@ class GridComponent implements OnChanges {
 
     public isValueErroneous(row: number, col: number, value: SudokuValue): boolean {
         if (this.solvedGrid === null) {
-            const clonedGrid: SudokuGrid = cloneDeep(this.originalGrid);
+            const clonedGrid: SudokuGrid = structuredClone(this.originalGrid);
             solveSudoku(clonedGrid);
             this.solvedGrid = clonedGrid;
         }
@@ -172,7 +171,7 @@ class GridComponent implements OnChanges {
         this.lockValues = !this.lockValues;
 
         if (this.lockValues) {
-            this.originalGrid = cloneDeep(this.grid);
+            this.originalGrid = structuredClone(this.grid);
             this.initalizeGrid();
         }
     }
@@ -254,7 +253,7 @@ class GridComponent implements OnChanges {
     }
 
     private toggleNomineeValue(row: number, col: number, value: SudokuValue): void {
-        let modifiedNomineeValue: Array<SudokuValue> = cloneDeep(this.gridNomineeValues[row][col]);
+        let modifiedNomineeValue: Array<SudokuValue> = structuredClone(this.gridNomineeValues[row][col]);
 
         if (value === null) {
             modifiedNomineeValue = getEmptyRow();
@@ -275,7 +274,7 @@ class GridComponent implements OnChanges {
             return;
         }
 
-        const modifiedNomineeValue: Array<SudokuValue> = cloneDeep(this.gridNomineeValues[row][col]);
+        const modifiedNomineeValue: Array<SudokuValue> = structuredClone(this.gridNomineeValues[row][col]);
 
         value = Number(value);
         if (modifiedNomineeValue.includes(value)) {
