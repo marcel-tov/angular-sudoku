@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MAT_SNACK_BAR_DATA, MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatIconModule} from '@angular/material/icon';
 
@@ -14,9 +14,7 @@ import {MatIconModule} from '@angular/material/icon';
     ],
 })
 export class NotificationComponent {
-    constructor(
-        @Inject(MAT_SNACK_BAR_DATA) protected data: INotificationData,
-    ) {}
+    protected readonly data: INotificationData = inject<INotificationData>(MAT_SNACK_BAR_DATA);
 }
 
 export interface INotificationData {

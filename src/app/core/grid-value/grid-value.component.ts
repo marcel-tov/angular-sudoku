@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, InputSignal, input} from '@angular/core';
 import {NgClass} from '@angular/common';
 import {SudokuValue} from '../grid-helper/types';
 import {getEmptyRow} from '../grid-helper/empty-row';
@@ -14,11 +14,11 @@ import {getEmptyRow} from '../grid-helper/empty-row';
     ],
 })
 export class GridValueComponent {
-    @Input() public value: SudokuValue = null;
-    @Input() public nomineeValues: Array<SudokuValue> = getEmptyRow();
-    @Input() public isSelected: boolean = false;
-    @Input() public isReadOnly: boolean = false;
-    @Input() public hasError: boolean = false;
-    @Input() public hasSuccess: boolean = false;
-    @Input() public showNominees: boolean = false;
+    public readonly value: InputSignal<SudokuValue> = input<SudokuValue>(null);
+    public readonly nomineeValues: InputSignal<Array<SudokuValue>> = input<Array<SudokuValue>>(getEmptyRow());
+    public readonly isSelected: InputSignal<boolean> = input(false);
+    public readonly isReadOnly: InputSignal<boolean> = input(false);
+    public readonly hasError: InputSignal<boolean> = input(false);
+    public readonly hasSuccess: InputSignal<boolean> = input(false);
+    public readonly showNominees: InputSignal<boolean> = input(false);
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -15,10 +15,8 @@ import {MatButtonModule} from '@angular/material/button';
     ],
 })
 class FinishDialogComponent {
-    constructor(
-        private dialogRef: MatDialogRef<FinishDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: IFinishDialogData,
-    ) { }
+    protected readonly data: IFinishDialogData = inject<IFinishDialogData>(MAT_DIALOG_DATA);
+    private readonly dialogRef: MatDialogRef<FinishDialogComponent> = inject(MatDialogRef<FinishDialogComponent>);
 
     public close(): void {
         this.dialogRef.close();

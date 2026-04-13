@@ -1,25 +1,24 @@
 <div
   class="grid-value"
   [ngClass]="{
-    'grid-value--readonly': isReadOnly,
-    'grid-value--clickable': !isReadOnly,
-    'grid-value--selected': isSelected,
-    'grid-value--error': hasError && !isReadOnly && value !== null,
-    'grid-value--success': hasSuccess && !isReadOnly && value !== null,
-    'grid-value--nominees': isSelected && showNominees
+    'grid-value--readonly': isReadOnly(),
+    'grid-value--clickable': !isReadOnly(),
+    'grid-value--selected': isSelected(),
+    'grid-value--error': hasError() && !isReadOnly() && value() !== null,
+    'grid-value--success': hasSuccess() && !isReadOnly() && value() !== null,
+    'grid-value--nominees': isSelected() && showNominees()
   }"
 >
-    @if (value !== null) {
-      <span class="grid-value__value">{{value}}</span>
+    @if (value() !== null) {
+      <span class="grid-value__value">{{value()}}</span>
     }
 
     <!-- Nominees -->
-    @if (value === null) {
+    @if (value() === null) {
       <div class="nominees-grid">
-        @for (nomineeValue of nomineeValues; track $index) {
+        @for (nomineeValue of nomineeValues(); track $index) {
           <span class="nominees-grid__value">{{nomineeValue}}</span>
         }
       </div>
     }
 </div>
-

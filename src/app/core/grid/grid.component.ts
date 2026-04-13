@@ -1,13 +1,16 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
-    EventEmitter,
+    DestroyRef,
     HostListener,
-    Input,
-    OnChanges,
-    Output,
-    SimpleChanges,
+    InputSignal,
+    OutputEmitterRef,
+    WritableSignal,
+    effect,
+    inject,
+    input,
+    output,
+    signal,
 } from '@angular/core';
 import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {Subscription, timer} from 'rxjs';
@@ -38,69 +41,83 @@ import {NomineeValuesComponent} from '../nominee-values/nominee-values.component
         NomineeValuesComponent,
     ],
 })
-class GridComponent implements OnChanges {
-    @Input() public originalGrid!: SudokuGrid;
-    @Input() public showTopNavigation: boolean = true;
-    @Input() public showFooterNavigation: boolean = true;
-    @Output() public share: EventEmitter<SudokuGrid> = new EventEmitter<SudokuGrid>();
-    @Output() public create: EventEmitter<void> = new EventEmitter<void>();
-    public lockValues: boolean = true;
-    public showNominees: boolean = false;
-    protected grid!: SudokuGrid;
-    protected solvedGrid: SudokuGrid | null = null;
-    protected selectedRowIndex: number | null = null;
-    protected selectedColIndex: number | null = null;
-    protected isHelpEnabled: boolean = false;
-    protected gridNomineeValues: Array<Array<Array<SudokuValue>>> = [];
+class GridComponent {
+    // Inputs
+    public readonly originalGrid: InputSignal<SudokuGrid> = input.required<SudokuGrid>();
+    public readonly showTopNavigation: InputSignal<boolean> = input(true);
+    public readonly showFooterNavigation: InputSignal<boolean> = input(true);
+
+    // Outputs
+    public readonly share: OutputEmitterRef<SudokuGrid> = output<SudokuGrid>();
+    public readonly create: OutputEmitterRef<void> = output<void>();
+    public readonly finish: OutputEmitterRef<IOnFinishGridEvent> = output<IOnFinishGridEvent>();
+
+    // Public state (accessed from template)
+    public readonly lockValues: WritableSignal<boolean> = signal(true);
+    public readonly showNominees: WritableSignal<boolean> = signal(false);
+
+    // Protected state
+    protected readonly grid: WritableSignal<SudokuGrid> = signal<SudokuGrid>([]);
+    protected readonly solvedGrid: WritableSignal<SudokuGrid | null> = signal<SudokuGrid | null>(null);
+    protected readonly selectedRowIndex: WritableSignal<number | null> = signal<number | null>(null);
+    protected readonly selectedColIndex: WritableSignal<number | null> = signal<number | null>(null);
+    protected readonly isHelpEnabled: WritableSignal<boolean> = signal(false);
+    protected readonly gridNomineeValues: WritableSignal<Array<Array<Array<SudokuValue>>>> = signal<Array<Array<Array<SudokuValue>>>>([]);
     protected readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    @Output() protected finish: EventEmitter<IOnFinishGridEvent> = new EventEmitter<IOnFinishGridEvent>();
-    private time: number = 0;
-    private subscription: Subscription | null = null;
 
-    constructor(private changeDetector: ChangeDetectorRef) {}
+    // Internal state
+    // baseGrid tracks which cells are read-only (originalGrid snapshot that can be
+    // re-committed when the user re-locks after editing in unlocked mode)
+    private readonly baseGrid: WritableSignal<SudokuGrid> = signal<SudokuGrid>([]);
+    private readonly time: WritableSignal<number> = signal(0);
+    private timerSubscription: Subscription | null = null;
+    private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
-    public ngOnChanges(changes: SimpleChanges): void {
-        if (changes.originalGrid && changes.originalGrid.currentValue !== undefined) {
-            this.grid = structuredClone(this.originalGrid);
+    constructor() {
+        // Replaces ngOnChanges: re-runs whenever originalGrid input changes
+        effect(() => {
+            const grid: SudokuGrid = this.originalGrid();
+            this.baseGrid.set(structuredClone(grid));
+            this.grid.set(structuredClone(grid));
             this.initalizeGrid();
-        }
+        });
+
+        this.destroyRef.onDestroy(() => this.cancelTimer());
     }
 
     public isValueReadOnly(row: number, col: number): boolean {
-        if (!this.lockValues) {
+        if (!this.lockValues()) {
             return false;
         }
 
-        const value: SudokuValue = this.originalGrid[row][col];
-
-        return value !== null;
+        return this.baseGrid()[row][col] !== null;
     }
 
     public isGroupTop(row: number): boolean {
-  		return row % 3 === 0;
+        return row % 3 === 0;
     }
 
     public isGroupEnd(col: number): boolean {
-  		return col % 3 === 0;
+        return col % 3 === 0;
     }
 
     public isGridBottom(row: number): boolean {
-  		return row === 8;
+        return row === 8;
     }
 
     public isGridEnd(col: number): boolean {
-  		return col  === 8;
+        return col === 8;
     }
 
     /**
-	 * Checks if a given number can be placed in a row/column.
-	 */
+     * Checks if a given number can be placed in a row/column.
+     */
     public isValueValid(row: number, col: number, value: SudokuValue): boolean {
-  		return isValueValid(this.grid, row, col, value);
+        return isValueValid(this.grid(), row, col, value);
     }
 
     public isValueSelected(row: number, col: number): boolean {
-  		return !!(this.selectedRowIndex === row && this.selectedColIndex === col);
+        return !!(this.selectedRowIndex() === row && this.selectedColIndex() === col);
     }
 
     public toogleSelectedValue(row: number, col: number): void {
@@ -109,15 +126,19 @@ class GridComponent implements OnChanges {
         }
 
         if (this.isValueSelected(row, col)) {
-            this.showNominees = !this.showNominees;
+            this.toggleNominees();
         }
 
-        this.selectedRowIndex = row;
-        this.selectedColIndex = col;
+        this.selectedRowIndex.set(row);
+        this.selectedColIndex.set(col);
+    }
+
+    public toggleNominees(): void {
+        this.showNominees.update((v: boolean) => !v);
     }
 
     public hasSelectedValue(): boolean {
-  		return this.selectedRowIndex !== null && this.selectedColIndex !== null;
+        return this.selectedRowIndex() !== null && this.selectedColIndex() !== null;
     }
 
     public deleteSelectedValue(): void {
@@ -125,25 +146,25 @@ class GridComponent implements OnChanges {
             return;
         }
 
-        if (this.showNominees) {
-            this.toggleNomineeValue(this.selectedRowIndex, this.selectedColIndex, null);
+        if (this.showNominees()) {
+            this.toggleNomineeValue(this.selectedRowIndex(), this.selectedColIndex(), null);
         } else {
-            this.onValueChange(this.selectedRowIndex, this.selectedColIndex, null);
+            this.onValueChange(this.selectedRowIndex(), this.selectedColIndex(), null);
         }
     }
 
     public isValueErroneous(row: number, col: number, value: SudokuValue): boolean {
-        if (this.solvedGrid === null) {
-            const clonedGrid: SudokuGrid = structuredClone(this.originalGrid);
+        if (this.solvedGrid() === null) {
+            const clonedGrid: SudokuGrid = structuredClone(this.baseGrid());
             solveSudoku(clonedGrid);
-            this.solvedGrid = clonedGrid;
+            this.solvedGrid.set(clonedGrid);
         }
 
-        return this.solvedGrid[row][col] !== value;
+        return this.solvedGrid()[row][col] !== value;
     }
 
     public onHelpChange(event: MatSlideToggleChange): void {
-  		this.isHelpEnabled = event.checked;
+        this.isHelpEnabled.set(event.checked);
     }
 
     public onSelectValue(value: SudokuValue): void {
@@ -151,10 +172,10 @@ class GridComponent implements OnChanges {
             return;
         }
 
-        if (this.showNominees) {
-            this.toggleNomineeValue(this.selectedRowIndex, this.selectedColIndex, value);
+        if (this.showNominees()) {
+            this.toggleNomineeValue(this.selectedRowIndex(), this.selectedColIndex(), value);
         } else {
-            this.onValueChange(this.selectedRowIndex, this.selectedColIndex, value);
+            this.onValueChange(this.selectedRowIndex(), this.selectedColIndex(), value);
 
             if (value > 0) {
                 this.updateAffectedNomineeValue(value);
@@ -168,39 +189,31 @@ class GridComponent implements OnChanges {
     }
 
     public onChangeLockValues(): void {
-        this.lockValues = !this.lockValues;
+        this.lockValues.update((v: boolean) => !v);
 
-        if (this.lockValues) {
-            this.originalGrid = structuredClone(this.grid);
+        if (this.lockValues()) {
+            // Commit the current grid as the new base (locked state)
+            this.baseGrid.set(structuredClone(this.grid()));
             this.initalizeGrid();
         }
     }
 
     public onShareGrid(): void {
-  		this.share.emit(this.originalGrid);
-    }
-
-    public trackByIndex(index: number) {
-  		return index;
+        this.share.emit(this.originalGrid());
     }
 
     public onCreateGrid(): void {
-  		this.create.emit();
+        this.create.emit();
     }
 
     public timeFormatter(): string {
-  		return timerFormatter(this.time);
+        return timerFormatter(this.time());
     }
 
     public clearAllValues(): void {
-        this.grid = [];
-        for (let i: number = 0; i < 9; i++) {
-            this.grid[i] = [];
-
-            for (let k: number = 0; k < 9; k++) {
-                this.grid[i].push(null);
-            }
-        }
+        this.grid.set(
+            Array.from({length: 9}, () => Array<SudokuValue>(9).fill(null)),
+        );
     }
 
     /**
@@ -219,71 +232,48 @@ class GridComponent implements OnChanges {
     }
 
     private initalizeGrid(): void {
-        for (const row of Object.keys(this.grid)) {
-            for (const col of Object.keys(this.grid[row])) {
-                if (!this.gridNomineeValues[row]) {
-                    this.gridNomineeValues[row] = [];
-                }
+        this.gridNomineeValues.set(
+            Array.from({length: 9}, () =>
+                Array.from({length: 9}, () => getEmptyRow()),
+            ),
+        );
 
-                this.gridNomineeValues[row][col] = getEmptyRow();
-            }
-        }
-
-        this.selectedRowIndex = null;
-        this.selectedColIndex = null;
-        this.showNominees = false;
-        this.isHelpEnabled = false;
-        this.time = 0;
-        this.solvedGrid = null;
+        this.selectedRowIndex.set(null);
+        this.selectedColIndex.set(null);
+        this.showNominees.set(false);
+        this.isHelpEnabled.set(false);
+        this.solvedGrid.set(null);
+        this.time.set(0);
 
         this.cancelTimer();
-        this.subscription = timer(0, 1000).subscribe(() => {
-            this.time++;
-
-            this.changeDetector.markForCheck();
+        this.timerSubscription = timer(0, 1000).subscribe(() => {
+            this.time.update((t: number) => t + 1);
         });
     }
 
     private onValueChange(row: number, col: number, value: SudokuValue): void {
-        value = Number(value);
+        const v: number = Number(value);
+        this.grid.update((grid: SudokuGrid) => {
+            const updated: SudokuGrid = grid.map((r: SudokuRow) => [...r]);
+            updated[row][col] = (v > 0 && v <= 9) ? v : null;
 
-        this.grid[row][col] = (value > 0 && value <= 9)
-            ? value
-            : null;
+            return updated;
+        });
     }
 
     private toggleNomineeValue(row: number, col: number, value: SudokuValue): void {
-        let modifiedNomineeValue: Array<SudokuValue> = structuredClone(this.gridNomineeValues[row][col]);
+        this.gridNomineeValues.update((nominees: Array<Array<Array<SudokuValue>>>) => {
+            const updated: Array<Array<Array<SudokuValue>>> = nominees.map((r: Array<Array<SudokuValue>>) => r.map((c: Array<SudokuValue>) => [...c]));
 
-        if (value === null) {
-            modifiedNomineeValue = getEmptyRow();
-        } else {
-            value = Number(value);
-            const indexValue: number = value - 1;
+            if (value === null) {
+                updated[row][col] = getEmptyRow();
+            } else {
+                const v: number = Number(value);
+                updated[row][col][v - 1] = updated[row][col][v - 1] === null ? v : null;
+            }
 
-            modifiedNomineeValue[indexValue] = modifiedNomineeValue[indexValue] === null
-                ? value
-                : null;
-        }
-
-        this.gridNomineeValues[row][col] = modifiedNomineeValue;
-    }
-
-    private removeNomineeValue(row: number, col: number, value: SudokuValue): void {
-        if (value === null) {
-            return;
-        }
-
-        const modifiedNomineeValue: Array<SudokuValue> = structuredClone(this.gridNomineeValues[row][col]);
-
-        value = Number(value);
-        if (modifiedNomineeValue.includes(value)) {
-            const indexValue: number = value - 1;
-
-            modifiedNomineeValue[indexValue] = null;
-
-            this.gridNomineeValues[row][col] = modifiedNomineeValue;
-        }
+            return updated;
+        });
     }
 
     private updateAffectedNomineeValue(value: SudokuValue): void {
@@ -291,83 +281,73 @@ class GridComponent implements OnChanges {
             return;
         }
 
-        // Empty nominees of selected value
-        this.gridNomineeValues[this.selectedRowIndex][this.selectedColIndex] = getEmptyRow();
+        const selRow: number = this.selectedRowIndex();
+        const selCol: number = this.selectedColIndex();
+        const v: number = Number(value);
 
-        // Remove same nominee values of same row
-        for (const colValue of Object.keys(this.grid[this.selectedRowIndex])) {
-            this.removeNomineeValue(this.selectedRowIndex, Number(colValue), value);
-        }
+        this.gridNomineeValues.update((nominees: Array<Array<Array<SudokuValue>>>) => {
+            const updated: Array<Array<Array<SudokuValue>>> = nominees.map((r: Array<Array<SudokuValue>>) => r.map((c: Array<SudokuValue>) => [...c]));
 
-        // Remove same nominee values of same col
-        for (const rowValue of Object.keys(this.grid)) {
-            this.removeNomineeValue(Number(rowValue), this.selectedColIndex, value);
-        }
+            // Empty nominees of the just-filled cell
+            updated[selRow][selCol] = getEmptyRow();
 
-        // Remove same nominee values of same square
-        const row: number = this.selectedRowIndex - this.selectedRowIndex % 3;
-        const col: number = this.selectedColIndex - this.selectedColIndex % 3;
-
-        for (let x: number = 0; x < 3; x++) {
-            for (let y: number = 0; y < 3; y++) {
-                this.removeNomineeValue(x + row, y + col, value);
+            // Remove same nominee value from the same row
+            for (let col: number = 0; col < 9; col++) {
+                updated[selRow][col][v - 1] = null;
             }
-        }
+
+            // Remove same nominee value from the same column
+            for (let row: number = 0; row < 9; row++) {
+                updated[row][selCol][v - 1] = null;
+            }
+
+            // Remove same nominee value from the same 3×3 square
+            const boxRow: number = selRow - selRow % 3;
+            const boxCol: number = selCol - selCol % 3;
+            for (let x: number = 0; x < 3; x++) {
+                for (let y: number = 0; y < 3; y++) {
+                    updated[x + boxRow][y + boxCol][v - 1] = null;
+                }
+            }
+
+            return updated;
+        });
     }
 
     private onFinishGrid(): void {
         this.cancelTimer();
 
+        const grid: SudokuGrid = this.grid();
         let isGridValid: boolean = true;
-        for (const row of Object.keys(this.grid)) {
-            for (const col of Object.keys(this.grid[row])) {
-                if (this.isValueErroneous(Number(row), Number(col), this.grid[row][col])) {
+        for (let row: number = 0; row < 9; row++) {
+            for (let col: number = 0; col < 9; col++) {
+                if (this.isValueErroneous(row, col, grid[row][col])) {
                     isGridValid = false;
                 }
             }
         }
 
         this.finish.emit({
-            grid: this.grid,
+            grid,
             isGridValid,
-            time: this.time,
+            time: this.time(),
         });
     }
 
     private cancelTimer(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        this.timerSubscription?.unsubscribe();
+        this.timerSubscription = null;
     }
 
     private isGridFinish(): boolean {
-        for (const row of Object.keys(this.grid)) {
-            for (const col of Object.keys(this.grid[row])) {
-                const value: SudokuValue = this.grid[row][col];
-
-                if (value === null) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return this.grid().every((row: SudokuRow) => row.every((cell: SudokuValue) => cell !== null));
     }
 }
 
 function timerFormatter(time: number): string {
-    const hours: string = Math
-        .floor(time / 3600)
-        .toString()
-        .padStart(2, '0');
-    const minutes: string = Math
-        .floor(time % 3600 / 60)
-        .toString()
-        .padStart(2, '0');
-    const seconds: string = Math
-        .floor(time % 3600 % 60)
-        .toString()
-        .padStart(2, '0');
+    const hours: string = Math.floor(time / 3600).toString().padStart(2, '0');
+    const minutes: string = Math.floor(time % 3600 / 60).toString().padStart(2, '0');
+    const seconds: string = Math.floor(time % 3600 % 60).toString().padStart(2, '0');
 
     return `${hours}:${minutes}:${seconds}`;
 }

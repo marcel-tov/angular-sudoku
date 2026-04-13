@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OutputEmitterRef, output} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {SudokuRow, SudokuValue} from '../grid-helper/types';
 
@@ -13,7 +13,7 @@ import {SudokuRow, SudokuValue} from '../grid-helper/types';
     ],
 })
 export class NomineeValuesComponent {
-    @Output() public onSelectValue: EventEmitter<SudokuValue> = new EventEmitter<SudokuValue>();
+    public readonly onSelectValue: OutputEmitterRef<SudokuValue> = output<SudokuValue>();
     protected readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     protected selectValue(value: SudokuValue): void {

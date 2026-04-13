@@ -1,4 +1,3 @@
-
 import {GridComponent} from './grid.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
@@ -47,12 +46,13 @@ describe('GridComponent', () => {
     });
 
     it('Does show grid container', () => {
+        spectator.setInput('originalGrid', grid);
         spectator.detectChanges();
         expect(spectator.query('div')).toHaveClass('grid');
     });
 
     it('Does show top navigation', () => {
-        spectator.setInput({showTopNavigation: false, showFooterNavigation: false});
+        spectator.setInput({originalGrid: grid, showTopNavigation: false, showFooterNavigation: false});
         spectator.detectChanges();
         expect(spectator.query('div.grid')).not.toHaveDescendant('.grid__navigation');
 
@@ -62,7 +62,7 @@ describe('GridComponent', () => {
     });
 
     it('Does show footer navigation', () => {
-        spectator.setInput({showTopNavigation: false, showFooterNavigation: false});
+        spectator.setInput({originalGrid: grid, showTopNavigation: false, showFooterNavigation: false});
         spectator.detectChanges();
         expect(spectator.query('div.grid')).not.toHaveDescendant('.grid__navigation');
 
@@ -72,14 +72,16 @@ describe('GridComponent', () => {
     });
 
     it('On share button does share grid', () => {
+        spectator.setInput('originalGrid', grid);
         const shareSpy: jest.SpyInstance = jest.spyOn(spectator.component.share, 'emit');
         spectator.detectChanges();
         const selector: DOMSelector = byTextContent('share', {selector: 'button'});
         spectator.click(selector);
-        expect(shareSpy).toHaveBeenCalledWith(spectator.component.originalGrid);
+        expect(shareSpy).toHaveBeenCalledWith(spectator.component.originalGrid());
     });
 
     it('On create button does create grid', () => {
+        spectator.setInput('originalGrid', grid);
         const createSpy: jest.SpyInstance = jest.spyOn(spectator.component.create, 'emit');
         spectator.detectChanges();
         const selector: DOMSelector = byTextContent('autorenew', {selector: 'button'});
@@ -90,20 +92,20 @@ describe('GridComponent', () => {
     it('On click lock button changes lock value', () => {
         spectator.setInput('originalGrid', grid);
         spectator.detectChanges();
-        expect(spectator.component.lockValues).toBe(true);
+        expect(spectator.component.lockValues()).toBe(true);
         spectator.click(byTextContent('lock', {selector: 'button'}));
-        expect(spectator.component.lockValues).toBe(false);
+        expect(spectator.component.lockValues()).toBe(false);
         spectator.click(byTextContent('lock_open', {selector: 'button'}));
-        expect(spectator.component.lockValues).toBe(true);
+        expect(spectator.component.lockValues()).toBe(true);
     });
 
     it('On click nominees button changes nominees value', () => {
         spectator.setInput('originalGrid', grid);
         spectator.detectChanges();
-        expect(spectator.component.showNominees).toBe(false);
+        expect(spectator.component.showNominees()).toBe(false);
         spectator.click(byTextContent('Nominees', {selector: 'button'}));
-        expect(spectator.component.showNominees).toBe(true);
+        expect(spectator.component.showNominees()).toBe(true);
         spectator.click(byTextContent('Nominees', {selector: 'button'}));
-        expect(spectator.component.showNominees).toBe(false);
+        expect(spectator.component.showNominees()).toBe(false);
     });
 });
