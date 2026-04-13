@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.5.0...v1.6.0) (2026-04-13)
+
+
+### Features
+
+* use signals ([#47](https://github.com/marcel-tov/angular-sudoku/issues/47)) ([bac0150](https://github.com/marcel-tov/angular-sudoku/commit/bac01503aec64b7a331730e4f19b6842754c56cf))
+
 # [1.5.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.4.0...v1.5.0) (2026-04-12)
 
 
