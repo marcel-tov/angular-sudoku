@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {Clipboard} from '@angular/cdk/clipboard';
 import {Router} from '@angular/router';
@@ -25,16 +25,15 @@ import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
 class ShareDialogComponent {
     protected readonly shareLink: string;
 
-    constructor(
-        private dialogRef: MatDialogRef<ShareDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: IShareDialogData,
-        private clipboard: Clipboard,
-        private router: Router,
-        private notificationService: NotificationService,
-    ) {
+    private readonly dialogRef: MatDialogRef<ShareDialogComponent> = inject(MatDialogRef<ShareDialogComponent>);
+    private readonly data: IShareDialogData = inject<IShareDialogData>(MAT_DIALOG_DATA);
+    private readonly clipboard: Clipboard = inject(Clipboard);
+    private readonly router: Router = inject(Router);
+    private readonly notificationService: NotificationService = inject(NotificationService);
+
+    constructor() {
         const gridParam: string = this.router.createUrlTree(['/', gridToConfig(this.data.grid)]).toString();
-        const domain: string = window.location.origin;
-        this.shareLink = `${domain}${gridParam}`;
+        this.shareLink = `${window.location.origin}${gridParam}`;
     }
 
     public close(): void {
