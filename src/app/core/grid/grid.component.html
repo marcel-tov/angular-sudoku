@@ -1,5 +1,5 @@
 <div class="grid">
-  @if (showTopNavigation) {
+  @if (showTopNavigation()) {
     <div class="grid__navigation">
       <button
         mat-icon-button
@@ -28,7 +28,7 @@
       </div>
 
       <div>
-        @if (!lockValues) {
+        @if (!lockValues()) {
           <button
             mat-icon-button
             color="primary"
@@ -49,10 +49,10 @@
           (click)="onChangeLockValues()"
           aria-label="Make locked fields editable"
         >
-          @if (!lockValues) {
+          @if (!lockValues()) {
             <mat-icon>lock_open</mat-icon>
           }
-          @if (lockValues) {
+          @if (lockValues()) {
             <mat-icon>lock</mat-icon>
           }
         </button>
@@ -63,7 +63,7 @@
   <!-- grid -->
   <div class="grid__grid-wrapper">
     <mat-grid-list cols="9" rowHeight="9:9">
-      @for (row of grid; track $index; let rowIndex = $index) {
+      @for (row of grid(); track $index; let rowIndex = $index) {
         @for (value of row; track $index; let colIndex = $index) {
           <mat-grid-tile
             class="grid__value-wrapper"
@@ -75,12 +75,12 @@
           >
             <grid-value
               [value]="value"
-              [nomineeValues]="gridNomineeValues[rowIndex][colIndex]"
+              [nomineeValues]="gridNomineeValues()[rowIndex][colIndex]"
               [isSelected]="isValueSelected(rowIndex, colIndex)"
               [isReadOnly]="isValueReadOnly(rowIndex, colIndex)"
-              [hasError]="isHelpEnabled && isValueErroneous(rowIndex, colIndex, value)"
-              [hasSuccess]="isHelpEnabled && !isValueErroneous(rowIndex, colIndex, value)"
-              [showNominees]="isValueSelected(rowIndex, colIndex) && showNominees"
+              [hasError]="isHelpEnabled() && isValueErroneous(rowIndex, colIndex, value)"
+              [hasSuccess]="isHelpEnabled() && !isValueErroneous(rowIndex, colIndex, value)"
+              [showNominees]="isValueSelected(rowIndex, colIndex) && showNominees()"
             ></grid-value>
           </mat-grid-tile>
         }
@@ -89,12 +89,12 @@
   </div>
 
   <!-- navigation -->
-  @if (showFooterNavigation) {
+  @if (showFooterNavigation()) {
     <div class="grid__navigation">
       <button
         class="grid__navigation-button"
         mat-raised-button
-        [color]="hasSelectedValue() && !showNominees ? 'primary' : undefined"
+        [color]="hasSelectedValue() && !showNominees() ? 'primary' : undefined"
         type="button"
         [disabled]="!hasSelectedValue()"
         (click)="deleteSelectedValue()"
@@ -104,15 +104,15 @@
       <button
         class="grid__navigation-button"
         mat-raised-button
-        [color]="showNominees ? 'primary' : undefined"
+        [color]="showNominees() ? 'primary' : undefined"
         type="button"
-        (click)="showNominees = !showNominees"
+        (click)="toggleNominees()"
         aria-label="Toggle field edit nominees"
       >Nominees</button>
 
       <mat-slide-toggle
         color="primary"
-        [checked]="isHelpEnabled"
+        [checked]="isHelpEnabled()"
         (change)="onHelpChange($event)"
         aria-label="Enable help"
       >Help</mat-slide-toggle>
@@ -125,4 +125,3 @@
     </div>
   }
 </div>
-
