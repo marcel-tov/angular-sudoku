@@ -5,7 +5,9 @@ import {
     HostListener,
     InputSignal,
     OutputEmitterRef,
+    Signal,
     WritableSignal,
+    computed,
     effect,
     inject,
     input,
@@ -58,7 +60,16 @@ class GridComponent {
 
     // Protected state
     protected readonly grid: WritableSignal<SudokuGrid> = signal<SudokuGrid>([]);
-    protected readonly solvedGrid: WritableSignal<SudokuGrid | null> = signal<SudokuGrid | null>(null);
+    protected readonly solvedGrid: Signal<SudokuGrid | null> = computed(() => {
+        if (!this.isHelpEnabled()) {
+            return null;
+        }
+
+        const clonedGrid: SudokuGrid = structuredClone(this.baseGrid());
+        solveSudoku(clonedGrid);
+
+        return clonedGrid;
+    });
     protected readonly selectedRowIndex: WritableSignal<number | null> = signal<number | null>(null);
     protected readonly selectedColIndex: WritableSignal<number | null> = signal<number | null>(null);
     protected readonly isHelpEnabled: WritableSignal<boolean> = signal(false);
@@ -154,13 +165,12 @@ class GridComponent {
     }
 
     public isValueErroneous(row: number, col: number, value: SudokuValue): boolean {
-        if (this.solvedGrid() === null) {
-            const clonedGrid: SudokuGrid = structuredClone(this.baseGrid());
-            solveSudoku(clonedGrid);
-            this.solvedGrid.set(clonedGrid);
+        const solved: SudokuGrid | null = this.solvedGrid();
+        if (solved === null) {
+            return false;
         }
 
-        return this.solvedGrid()[row][col] !== value;
+        return solved[row][col] !== value;
     }
 
     public onHelpChange(event: MatSlideToggleChange): void {
@@ -242,7 +252,6 @@ class GridComponent {
         this.selectedColIndex.set(null);
         this.showNominees.set(false);
         this.isHelpEnabled.set(false);
-        this.solvedGrid.set(null);
         this.time.set(0);
 
         this.cancelTimer();
