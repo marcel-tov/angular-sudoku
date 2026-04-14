@@ -5,8 +5,4 @@
   margin: 5px 0;
   @include disablePinchZoom();
   font-weight: bold;
-
-  &--narrow {
-    margin: 0px;
-  }
 }

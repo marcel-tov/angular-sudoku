@@ -39,9 +39,6 @@ describe('ShareDialogComponent', () => {
             Clipboard,
             NotificationService,
         ],
-        providers: [
-            {provide: MAT_DIALOG_DATA, useValue: data},
-        ],
         overrideComponents: [
             [
                 ShareDialogComponent,
@@ -56,10 +53,15 @@ describe('ShareDialogComponent', () => {
         shallow: true,
     });
 
-    beforeEach(() => spectator = createComponent());
+    beforeEach(() => {
+        spectator = createComponent({
+            providers: [
+                {provide: MAT_DIALOG_DATA, useValue: data},
+            ],
+        });
+    });
 
     it('Does show dialog data', () => {
-        spectator.setInput({data});
         spectator.detectChanges();
         expect(spectator.query('h1')).toContainText('Share Sudoku');
     });
@@ -71,7 +73,6 @@ describe('ShareDialogComponent', () => {
     });
 
     it('Does copy grid string to clipboard', () => {
-        spectator.setInput({data});
         const selector: DOMSelector = byTextContent('content_copy', {selector: 'button'});
         spectator.click(selector);
         expect(spectator.inject(NotificationService).showSuccess).toHaveBeenCalledWith('Link copied to clipboard');
