@@ -71,6 +71,6 @@ describe('GridFooterNavigationComponent', () => {
     it('Does contain nominee values', () => {
         spectator.setInput({hasSelectedValue: false, showNominees: false, isHelpEnabled: false});
         spectator.detectChanges();
-        expect(spectator.element).toContainElement('nominee-values');
+        expect(spectator.element).toHaveDescendant('nominee-values');
     });
 });
