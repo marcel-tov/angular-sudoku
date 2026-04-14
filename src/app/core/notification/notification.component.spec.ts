@@ -11,9 +11,6 @@ describe('NotificationComponent', () => {
     let spectator: Spectator<NotificationComponent>;
     const createComponent: SpectatorFactory<NotificationComponent> = createComponentFactory({
         component: NotificationComponent,
-        providers: [
-            {provide: MAT_SNACK_BAR_DATA, useValue: data},
-        ],
         detectChanges: false,
         shallow: true,
     });
@@ -31,7 +28,7 @@ describe('NotificationComponent', () => {
     });
 
     it('should show message', () => {
-        spectator.setInput({data});
+        spectator.detectChanges();
         expect(spectator.query('div > mat-icon')).toContainText('test-icon');
         expect(spectator.query('div > span')).toContainText('test-message');
     });
