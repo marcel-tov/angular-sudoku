@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/marcel-tov/angular-sudoku/compare/v1.6.0...v1.6.1) (2026-04-14)
+
+
+### Bug Fixes
+
+* remove errors in test ([#53](https://github.com/marcel-tov/angular-sudoku/issues/53)) ([49d305b](https://github.com/marcel-tov/angular-sudoku/commit/49d305ba83d8b6af64493e5c7c1858b119bb1894))
+
 # [1.6.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.5.0...v1.6.0) (2026-04-13)
 
 
