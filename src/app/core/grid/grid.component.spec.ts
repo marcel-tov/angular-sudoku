@@ -54,21 +54,21 @@ describe('GridComponent', () => {
     it('Does show top navigation', () => {
         spectator.setInput({originalGrid: grid, showTopNavigation: false, showFooterNavigation: false});
         spectator.detectChanges();
-        expect(spectator.query('div.grid')).not.toHaveDescendant('.grid__navigation');
+        expect(spectator.query('div.grid')).not.toHaveDescendant('grid-top-navigation');
 
         spectator.setInput({showTopNavigation: true, showFooterNavigation: false});
         spectator.detectChanges();
-        expect(spectator.query('div.grid')).toHaveDescendant('.grid__navigation');
+        expect(spectator.query('div.grid')).toHaveDescendant('grid-top-navigation');
     });
 
     it('Does show footer navigation', () => {
         spectator.setInput({originalGrid: grid, showTopNavigation: false, showFooterNavigation: false});
         spectator.detectChanges();
-        expect(spectator.query('div.grid')).not.toHaveDescendant('.grid__navigation');
+        expect(spectator.query('div.grid')).not.toHaveDescendant('grid-footer-navigation');
 
         spectator.setInput({showTopNavigation: false, showFooterNavigation: true});
         spectator.detectChanges();
-        expect(spectator.query('div.grid')).toHaveDescendant('.grid__navigation');
+        expect(spectator.query('div.grid')).toHaveDescendant('grid-footer-navigation');
     });
 
     it('On share button does share grid', () => {

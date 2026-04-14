@@ -1,0 +1,58 @@
+<div class="grid-top-navigation">
+  <button
+    mat-icon-button
+    color="primary"
+    type="button"
+    matTooltip="Share sudoku"
+    (click)="share.emit()"
+    aria-label="Share sudoku by url"
+  >
+    <mat-icon>share</mat-icon>
+  </button>
+
+  <div>
+    <button
+      mat-icon-button
+      color="primary"
+      type="button"
+      matTooltip="Start a new game"
+      (click)="create.emit()"
+      aria-label="Start a new game"
+    >
+      <mat-icon>autorenew</mat-icon>
+    </button>
+
+    <div>{{time()}}</div>
+  </div>
+
+  <div>
+    @if (!lockValues()) {
+      <button
+        mat-icon-button
+        color="primary"
+        type="button"
+        matTooltip="Clear all values"
+        (click)="clearAll.emit()"
+        aria-label="Clear all values"
+      >
+        <mat-icon>clear_all</mat-icon>
+      </button>
+    }
+
+    <button
+      mat-icon-button
+      color="primary"
+      type="button"
+      matTooltip="Lock values"
+      (click)="lockValuesChange.emit()"
+      aria-label="Make locked fields editable"
+    >
+      @if (!lockValues()) {
+        <mat-icon>lock_open</mat-icon>
+      }
+      @if (lockValues()) {
+        <mat-icon>lock</mat-icon>
+      }
+    </button>
+  </div>
+</div>

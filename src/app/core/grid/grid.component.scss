@@ -28,17 +28,5 @@
     }
   }
 
-  &__navigation {
-    margin: 0px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  &__navigation-button {
-    color: var(--font-color);
-    margin: 5px 0;
-    @include disablePinchZoom();
-  }
 }
 
