@@ -1,0 +1,14 @@
+@import "mixins.scss";
+
+.grid-footer-navigation {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__button {
+        color: var(--font-color);
+        margin: 5px 0;
+        @include disablePinchZoom();
+    }
+}

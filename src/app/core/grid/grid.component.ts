@@ -14,18 +14,15 @@ import {
     output,
     signal,
 } from '@angular/core';
-import {MatSlideToggleChange, MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {Subscription, timer} from 'rxjs';
-import {MatButtonModule} from '@angular/material/button';
 import {GridValueComponent} from '../grid-value/grid-value.component';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
 import {getEmptyRow} from '../grid-helper/empty-row';
 import {isValueValid} from '../grid-helper/is-value-valid';
 import {solveSudoku} from '../grid-helper/solve-sudoku';
-import {NomineeValuesComponent} from '../nominee-values/nominee-values.component';
+import {GridTopNavigationComponent} from '../grid-top-navigation/grid-top-navigation.component';
+import {GridFooterNavigationComponent} from '../grid-footer-navigation/grid-footer-navigation.component';
 
 @Component({
     selector: 'grid',
@@ -34,13 +31,10 @@ import {NomineeValuesComponent} from '../nominee-values/nominee-values.component
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [
-        MatButtonModule,
-        MatSlideToggleModule,
         GridValueComponent,
-        MatIconModule,
-        MatTooltipModule,
         MatGridListModule,
-        NomineeValuesComponent,
+        GridTopNavigationComponent,
+        GridFooterNavigationComponent,
     ],
 })
 class GridComponent {
@@ -74,7 +68,7 @@ class GridComponent {
     protected readonly selectedColIndex: WritableSignal<number | null> = signal<number | null>(null);
     protected readonly isHelpEnabled: WritableSignal<boolean> = signal(false);
     protected readonly gridNomineeValues: WritableSignal<Array<Array<Array<SudokuValue>>>> = signal<Array<Array<Array<SudokuValue>>>>([]);
-    protected readonly nomineeValues: SudokuRow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    protected readonly formattedTime: Signal<string> = computed(() => timerFormatter(this.time()));
 
     // Internal state
     // baseGrid tracks which cells are read-only (originalGrid snapshot that can be
@@ -173,10 +167,6 @@ class GridComponent {
         return solved[row][col] !== value;
     }
 
-    public onHelpChange(event: MatSlideToggleChange): void {
-        this.isHelpEnabled.set(event.checked);
-    }
-
     public onSelectValue(value: SudokuValue): void {
         if (!this.hasSelectedValue()) {
             return;
@@ -214,10 +204,6 @@ class GridComponent {
 
     public onCreateGrid(): void {
         this.create.emit();
-    }
-
-    public timeFormatter(): string {
-        return timerFormatter(this.time());
     }
 
     public clearAllValues(): void {
