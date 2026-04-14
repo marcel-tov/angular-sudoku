@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.6.1...v1.7.0) (2026-04-14)
+
+
+### Features
+
+* extract navigation ([#56](https://github.com/marcel-tov/angular-sudoku/issues/56)) ([cf50e43](https://github.com/marcel-tov/angular-sudoku/commit/cf50e4324a4bfe73776320c65add761195a43eff))
+
 ## [1.6.1](https://github.com/marcel-tov/angular-sudoku/compare/v1.6.0...v1.6.1) (2026-04-14)
 
 
