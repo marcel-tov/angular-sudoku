@@ -1,4 +1,11 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    OnInit,
+    WritableSignal,
+    inject,
+    signal,
+} from '@angular/core';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
@@ -26,23 +33,18 @@ import {SudokuGrid, SudokuRow} from '../../core/grid-helper/types';
     ],
 })
 class HomeComponent implements OnInit {
-    protected sudokuGrid: SudokuGrid = getSudoku('Medium');
-    private readonly lengthOfGridParameter: number = 81;
+    protected readonly sudokuGrid: WritableSignal<SudokuGrid> = signal<SudokuGrid>(getSudoku('Medium'));
 
-    constructor(
-        private route: ActivatedRoute,
-        private changeDetector: ChangeDetectorRef,
-        private dialog: MatDialog,
-    ) { }
+    private readonly lengthOfGridParameter: number = 81;
+    private readonly route: ActivatedRoute = inject(ActivatedRoute);
+    private readonly dialog: MatDialog = inject(MatDialog);
 
     public ngOnInit(): void {
         // Load sudoku by share link
         if (this.route.snapshot.paramMap.has('grid')) {
-            const gridString: string | null = this.route.snapshot.paramMap.get('grid');
+            const gridString: string = this.route.snapshot.paramMap.get('grid');
             if (gridString.length === this.lengthOfGridParameter) {
-                const grid: SudokuGrid = urlParamToGrid(gridString);
-                this.sudokuGrid = grid;
-                this.changeDetector.markForCheck();
+                this.sudokuGrid.set(urlParamToGrid(gridString));
             }
         }
     }
@@ -50,25 +52,19 @@ class HomeComponent implements OnInit {
     public openShareDialog(grid: SudokuGrid): void {
         this.dialog
             .open<ShareDialogComponent, IShareDialogData>(
-            ShareDialogComponent,
-            {
-                data: {
-                    grid,
-                },
-            })
+                ShareDialogComponent,
+                {data: {grid}},
+            )
             .afterClosed()
-            .subscribe(() => {
-                // do nothing
-            });
+            .subscribe();
     }
 
     public openCreationDialog(): void {
         this.dialog
             .open<CreationDialogComponent>(
-            CreationDialogComponent,
-            {
-                data: {},
-            })
+                CreationDialogComponent,
+                {data: {}},
+            )
             .afterClosed()
             .subscribe((difficulty: Difficulty | undefined) => {
                 this.createRandomSudoku(difficulty);
@@ -83,31 +79,24 @@ class HomeComponent implements OnInit {
 
         this.dialog
             .open<FinishDialogComponent, IFinishDialogData>(
-            FinishDialogComponent,
-            {
-                data: {
-                    title: event.isGridValid
-                        ? 'Skrrr skrrr'
-                        : 'Dang',
-                    description,
-                    icon: event.isGridValid
-                        ? 'sentiment_very_satisfied'
-                        : 'sentiment_dissatisfied',
+                FinishDialogComponent,
+                {
+                    data: {
+                        title: event.isGridValid ? 'Skrrr skrrr' : 'Dang',
+                        description,
+                        icon: event.isGridValid ? 'sentiment_very_satisfied' : 'sentiment_dissatisfied',
+                    },
                 },
-            })
+            )
             .afterClosed()
-            .subscribe(() => {
-                // do nothing
-            });
+            .subscribe();
     }
 
     public createRandomSudoku(difficulty: Difficulty | undefined): void {
         if (!difficulty) {
             return;
         }
-
-        this.sudokuGrid = getSudoku(difficulty);
-        this.changeDetector.markForCheck();
+        this.sudokuGrid.set(getSudoku(difficulty));
     }
 }
 

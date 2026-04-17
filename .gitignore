@@ -37,6 +37,11 @@ speed-measure-plugin.json
 /connect.lock
 /coverage
 /libpeerconnection.log
+
+# Cypress auto-generated output (never commit these)
+/cypress/screenshots
+/cypress/videos
+/cypress/downloads
 npm-debug.log
 yarn-error.log
 testem.log

@@ -1,3 +1,31 @@
+# [1.7.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.6.1...v1.7.0) (2026-04-14)
+
+
+### Features
+
+* extract navigation ([#56](https://github.com/marcel-tov/angular-sudoku/issues/56)) ([cf50e43](https://github.com/marcel-tov/angular-sudoku/commit/cf50e4324a4bfe73776320c65add761195a43eff))
+
+## [1.6.1](https://github.com/marcel-tov/angular-sudoku/compare/v1.6.0...v1.6.1) (2026-04-14)
+
+
+### Bug Fixes
+
+* remove errors in test ([#53](https://github.com/marcel-tov/angular-sudoku/issues/53)) ([49d305b](https://github.com/marcel-tov/angular-sudoku/commit/49d305ba83d8b6af64493e5c7c1858b119bb1894))
+
+# [1.6.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.5.0...v1.6.0) (2026-04-13)
+
+
+### Features
+
+* use signals ([#47](https://github.com/marcel-tov/angular-sudoku/issues/47)) ([bac0150](https://github.com/marcel-tov/angular-sudoku/commit/bac01503aec64b7a331730e4f19b6842754c56cf))
+
+# [1.5.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.4.0...v1.5.0) (2026-04-12)
+
+
+### Features
+
+* add e2e tests ([#42](https://github.com/marcel-tov/angular-sudoku/issues/42)) ([0100e1d](https://github.com/marcel-tov/angular-sudoku/commit/0100e1de42fcab51415413a782636d04360c6518))
+
 # [1.4.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.3.0...v1.4.0) (2026-04-10)
 
 

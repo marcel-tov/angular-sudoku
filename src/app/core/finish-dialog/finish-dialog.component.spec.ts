@@ -23,17 +23,17 @@ describe('FinishDialogComponent', () => {
         mocks: [
             MatDialogRef,
         ],
-        providers: [
-            {provide: MAT_DIALOG_DATA, useValue: data},
-        ],
         detectChanges: false,
         shallow: true,
     });
 
-    beforeEach(() => spectator = createComponent());
+    beforeEach(() => spectator = createComponent({
+        providers: [
+            {provide: MAT_DIALOG_DATA, useValue: data},
+        ],
+    }));
 
     it('Does show dialog data', () => {
-        spectator.setInput({data});
         spectator.detectChanges();
         expect(spectator.query('h1')).toContainText('test-title');
         expect(spectator.query('mat-icon')).toContainText('test-icon');
