@@ -52,9 +52,9 @@ class HomeComponent implements OnInit {
     public openShareDialog(grid: SudokuGrid): void {
         this.dialog
             .open<ShareDialogComponent, IShareDialogData>(
-            ShareDialogComponent,
-            {data: {grid}},
-        )
+                ShareDialogComponent,
+                {data: {grid}},
+            )
             .afterClosed()
             .subscribe();
     }
@@ -62,9 +62,9 @@ class HomeComponent implements OnInit {
     public openCreationDialog(): void {
         this.dialog
             .open<CreationDialogComponent>(
-            CreationDialogComponent,
-            {data: {}},
-        )
+                CreationDialogComponent,
+                {data: {}},
+            )
             .afterClosed()
             .subscribe((difficulty: Difficulty | undefined) => {
                 this.createRandomSudoku(difficulty);
@@ -79,15 +79,15 @@ class HomeComponent implements OnInit {
 
         this.dialog
             .open<FinishDialogComponent, IFinishDialogData>(
-            FinishDialogComponent,
-            {
-                data: {
-                    title: event.isGridValid ? 'Skrrr skrrr' : 'Dang',
-                    description,
-                    icon: event.isGridValid ? 'sentiment_very_satisfied' : 'sentiment_dissatisfied',
+                FinishDialogComponent,
+                {
+                    data: {
+                        title: event.isGridValid ? 'Skrrr skrrr' : 'Dang',
+                        description,
+                        icon: event.isGridValid ? 'sentiment_very_satisfied' : 'sentiment_dissatisfied',
+                    },
                 },
-            },
-        )
+            )
             .afterClosed()
             .subscribe();
     }

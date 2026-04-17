@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
+import {MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import {Difficulty} from 'fake-sudoku-puzzle-generator';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -22,7 +22,6 @@ class CreationDialogComponent {
     ];
 
     private readonly dialogRef: MatDialogRef<CreationDialogComponent> = inject(MatDialogRef<CreationDialogComponent>);
-    private readonly data: {} = inject<{}>(MAT_DIALOG_DATA);
 
     public close(): void {
         this.dialogRef.close();

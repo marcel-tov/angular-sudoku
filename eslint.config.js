@@ -109,7 +109,7 @@ const tsRules = {
         'ts-ignore': false,
         'ts-nocheck': true,
         'ts-check': false,
-        minimumDescriptionLength: 10,
+        'minimumDescriptionLength': 10,
     }],
     '@typescript-eslint/consistent-type-assertions': 'error',
     '@typescript-eslint/consistent-type-definitions': 'error',
@@ -256,7 +256,7 @@ module.exports = [
     {
         files: ['**/*.js'],
         ignores: ['src/**/*.js'],
-        plugins: {'import': importPlugin},
+        plugins: {import: importPlugin},
         languageOptions: {
             ecmaVersion: 2020,
             globals: {...globals.node, ...globals.commonjs},
