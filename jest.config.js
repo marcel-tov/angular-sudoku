@@ -15,6 +15,7 @@ module.exports = {
     collectCoverageFrom: [
         'src/**/*.ts',
         '!src/**/*.spec.ts',
+        '!src/**/*.cy.ts',
         '!src/main.ts',
         '!src/environments/**',
     ],
@@ -22,10 +23,10 @@ module.exports = {
     coverageDirectory: 'coverage',
     coverageThreshold: {
         global: {
-            branches: 60,
-            functions: 70,
-            lines: 70,
-            statements: 70,
+            branches: 90,
+            functions: 100,
+            lines: 93,
+            statements: 93,
         },
     },
 };

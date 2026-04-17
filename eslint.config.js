@@ -183,7 +183,7 @@ module.exports = [
 
     // 1. Global ignores
     {
-        ignores: ['.angular/**', '.idea/**', '.vscode/**', 'dist/**', 'node_modules/**'],
+        ignores: ['.angular/**', '.idea/**', '.vscode/**', 'dist/**', 'node_modules/**', 'coverage/**'],
     },
 
     // 2. Angular TypeScript source files
