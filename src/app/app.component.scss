@@ -1,2 +1,13 @@
 .app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    &__footer {
+        margin-top: auto;
+        padding: 8px;
+        text-align: center;
+        font-size: 0.75rem;
+        opacity: 0.4;
+    }
 }
