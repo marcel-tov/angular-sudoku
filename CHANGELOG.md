@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/marcel-tov/angular-sudoku/compare/v1.7.0...v1.7.1) (2026-04-17)
+
+
+### Bug Fixes
+
+* align toggle help center ([#69](https://github.com/marcel-tov/angular-sudoku/issues/69)) ([3fe4c99](https://github.com/marcel-tov/angular-sudoku/commit/3fe4c99b73c73253e62250174774d8250c7202ec))
+
 # [1.7.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.6.1...v1.7.0) (2026-04-14)
 
 
