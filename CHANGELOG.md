@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.7.1...v1.8.0) (2026-04-17)
+
+
+### Features
+
+* display version in footer ([#71](https://github.com/marcel-tov/angular-sudoku/issues/71)) ([b9a2a4c](https://github.com/marcel-tov/angular-sudoku/commit/b9a2a4cbb5434c8835a6b2127be6c38f9cadcd82))
+
 ## [1.7.1](https://github.com/marcel-tov/angular-sudoku/compare/v1.7.0...v1.7.1) (2026-04-17)
 
 
