@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
+import {environment} from '../environments/environment';
 
 @Component({
     selector: 'app-root',
@@ -8,5 +9,7 @@ import {RouterOutlet} from '@angular/router';
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [RouterOutlet],
 })
-export class AppComponent {}
+export class AppComponent {
+    protected readonly version: string = environment.version;
+}
 
