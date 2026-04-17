@@ -61,6 +61,13 @@ jobs:
         key: node-modules-${{ hashFiles('package-lock.json') }}
     - name: jest
       run: npm run jest:ci
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: jest-coverage
+        path: coverage/
+        retention-days: 14
   build:
     runs-on: ubuntu-latest
     needs: setup
