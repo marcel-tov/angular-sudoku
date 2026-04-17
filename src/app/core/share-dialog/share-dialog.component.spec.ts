@@ -73,10 +73,11 @@ describe('ShareDialogComponent', () => {
     });
 
     it('Does copy grid string to clipboard', () => {
+        spectator.detectChanges();
         const selector: DOMSelector = byTextContent('content_copy', {selector: 'button'});
         spectator.click(selector);
-        expect(spectator.inject(NotificationService).showSuccess).toHaveBeenCalledWith('Link copied to clipboard');
         expect(spectator.inject(Clipboard).copy)
             .toHaveBeenCalledWith(`${window.location.origin}/123456789........................................................................`);
+        expect(spectator.inject(NotificationService).showSuccess).toHaveBeenCalledWith('Link copied to clipboard');
     });
 });
