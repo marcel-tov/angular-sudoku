@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
-import {Difficulty, getSudoku} from 'fake-sudoku-puzzle-generator';
+import {Difficulty, getSudoku} from '../../core/sudoku-generator/sudoku-generator';
 import {CreationDialogComponent} from '../../core/creation-dialog/creation-dialog.component';
 import {IFinishDialogData, FinishDialogComponent} from '../../core/finish-dialog/finish-dialog.component';
 import {

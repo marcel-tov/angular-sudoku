@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatDialogRef, MatDialogModule} from '@angular/material/dialog';
-import {Difficulty} from 'fake-sudoku-puzzle-generator';
+import {Difficulty} from '../sudoku-generator/sudoku-generator';
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
