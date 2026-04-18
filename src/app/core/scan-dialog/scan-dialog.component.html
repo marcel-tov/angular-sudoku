@@ -1,0 +1,83 @@
+<h1 mat-dialog-title>Scan Sudoku</h1>
+
+<div mat-dialog-content class="scan-dialog__content">
+
+  <!-- ── Phase: camera ──────────────────────────────────────── -->
+  @if (phase() === 'camera') {
+    @if (cameraError()) {
+      <div class="scan-dialog__error">
+        <mat-icon>videocam_off</mat-icon>
+        <p>{{ cameraError() }}</p>
+      </div>
+    }
+    @if (!cameraError()) {
+      <div class="scan-dialog__camera-wrapper">
+        <video
+          #videoEl
+          class="scan-dialog__video"
+          autoplay
+          playsinline
+          muted
+        ></video>
+        <canvas #overlayCanvas class="scan-dialog__overlay"></canvas>
+      </div>
+      <p class="scan-dialog__hint">
+        Align the puzzle inside the green grid, then tap&nbsp;<strong>Capture</strong>.
+      </p>
+    }
+  }
+
+  <!-- ── Phase: processing ──────────────────────────────────── -->
+  @if (phase() === 'processing') {
+    <div class="scan-dialog__processing">
+      <mat-progress-spinner
+        mode="determinate"
+        [value]="processingProgress()"
+        diameter="80"
+      ></mat-progress-spinner>
+      <p>{{ processingMessage() }}</p>
+    </div>
+  }
+
+  <!-- ── Phase: review ─────────────────────────────────────── -->
+  @if (phase() === 'review') {
+    <p class="scan-dialog__hint">
+      Check the scanned values below. Clear a cell or type a correction, then tap&nbsp;<strong>Import</strong>.
+    </p>
+    <div class="scan-dialog__review-grid">
+      @for (row of reviewGrid(); track trackByIndex($index); let rowIndex = $index) {
+        @for (cell of row; track trackByIndex($index); let colIndex = $index) {
+          <input
+            class="scan-dialog__cell"
+            [class.scan-dialog__cell--box-right]="colIndex === 2 || colIndex === 5"
+            [class.scan-dialog__cell--box-bottom]="rowIndex === 2 || rowIndex === 5"
+            type="text"
+            maxlength="1"
+            inputmode="numeric"
+            [ngModel]="cell"
+            (ngModelChange)="reviewGrid()[rowIndex][colIndex] = $event"
+          />
+        }
+      }
+    </div>
+  }
+
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="close()">Cancel</button>
+
+  @if (phase() === 'camera' && !cameraError()) {
+    <button mat-raised-button color="primary" type="button" (click)="capture()">
+      <mat-icon>camera_alt</mat-icon>
+      Capture
+    </button>
+  }
+
+  @if (phase() === 'review') {
+    <button mat-raised-button color="primary" type="button" (click)="importGrid()">
+      <mat-icon>download</mat-icon>
+      Import
+    </button>
+  }
+</div>

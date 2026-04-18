@@ -3,6 +3,17 @@
     mat-icon-button
     color="primary"
     type="button"
+    matTooltip="Scan sudoku with camera"
+    (click)="scan.emit()"
+    aria-label="Scan sudoku from camera"
+  >
+    <mat-icon>photo_camera</mat-icon>
+  </button>
+
+  <button
+    mat-icon-button
+    color="primary"
+    type="button"
     matTooltip="Share sudoku"
     (click)="share.emit()"
     aria-label="Share sudoku by url"

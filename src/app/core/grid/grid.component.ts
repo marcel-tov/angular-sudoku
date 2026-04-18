@@ -46,6 +46,7 @@ class GridComponent {
     // Outputs
     public readonly share: OutputEmitterRef<SudokuGrid> = output<SudokuGrid>();
     public readonly create: OutputEmitterRef<void> = output<void>();
+    public readonly scan: OutputEmitterRef<void> = output<void>();
     public readonly finish: OutputEmitterRef<IOnFinishGridEvent> = output<IOnFinishGridEvent>();
 
     // Public state (accessed from template)
@@ -204,6 +205,10 @@ class GridComponent {
 
     public onCreateGrid(): void {
         this.create.emit();
+    }
+
+    public onScanGrid(): void {
+        this.scan.emit();
     }
 
     public clearAllValues(): void {

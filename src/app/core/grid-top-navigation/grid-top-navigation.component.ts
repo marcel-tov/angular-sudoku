@@ -30,6 +30,7 @@ class GridTopNavigationComponent {
     public readonly create: OutputEmitterRef<void> = output<void>();
     public readonly clearAll: OutputEmitterRef<void> = output<void>();
     public readonly lockValuesChange: OutputEmitterRef<void> = output<void>();
+    public readonly scan: OutputEmitterRef<void> = output<void>();
 }
 
 export {GridTopNavigationComponent};

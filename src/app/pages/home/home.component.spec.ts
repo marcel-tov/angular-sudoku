@@ -7,6 +7,7 @@ import {of} from 'rxjs';
 import {ShareDialogComponent} from '../../core/share-dialog/share-dialog.component';
 import {CreationDialogComponent} from '../../core/creation-dialog/creation-dialog.component';
 import {FinishDialogComponent} from '../../core/finish-dialog/finish-dialog.component';
+import {ScanDialogComponent} from '../../core/scan-dialog/scan-dialog.component';
 import {Difficulty} from '../../core/sudoku-generator/sudoku-generator';
 import {SudokuGrid} from '../../core/grid-helper/types';
 import {getEmptyRow} from '../../core/grid-helper/empty-row';
@@ -218,6 +219,46 @@ describe('HomeComponent', () => {
             const gridAfter: SudokuGrid = (spectator.component as any).sudokuGrid();
             expect(gridAfter).toHaveLength(9);
             expect(gridAfter[0]).toHaveLength(9);
+        });
+    });
+
+    describe('openScanDialog', () => {
+        it('should open scan dialog', () => {
+            const matDialogRef: MatDialogRef<void> = createSpyObject(MatDialogRef, {
+                afterClosed: () => of(null),
+            });
+            spectator.inject(MatDialog).open.mockReturnValue(matDialogRef);
+            spectator.component.openScanDialog();
+            expect(spectator.inject(MatDialog).open).toHaveBeenCalledWith(
+                ScanDialogComponent,
+                expect.objectContaining({maxWidth: '95vw'}),
+            );
+        });
+
+        it('should update sudokuGrid when scan dialog returns a valid grid', () => {
+            const scannedGrid: SudokuGrid = [
+                getEmptyRow(), getEmptyRow(), getEmptyRow(),
+                getEmptyRow(), getEmptyRow(), getEmptyRow(),
+                getEmptyRow(), getEmptyRow(), [1, 2, 3, 4, 5, 6, 7, 8, 9],
+            ];
+            const matDialogRef: MatDialogRef<SudokuGrid> = createSpyObject(MatDialogRef, {
+                afterClosed: () => of(scannedGrid),
+            });
+            spectator.inject(MatDialog).open.mockReturnValue(matDialogRef);
+            spectator.component.openScanDialog();
+            const currentGrid: SudokuGrid = (spectator.component as any).sudokuGrid();
+            expect(currentGrid).toEqual(scannedGrid);
+        });
+
+        it('should not update sudokuGrid when scan dialog returns null', () => {
+            const gridBefore: SudokuGrid = (spectator.component as any).sudokuGrid();
+            const matDialogRef: MatDialogRef<null> = createSpyObject(MatDialogRef, {
+                afterClosed: () => of(null),
+            });
+            spectator.inject(MatDialog).open.mockReturnValue(matDialogRef);
+            spectator.component.openScanDialog();
+            const gridAfter: SudokuGrid = (spectator.component as any).sudokuGrid();
+            expect(gridAfter).toBe(gridBefore);
         });
     });
 });
