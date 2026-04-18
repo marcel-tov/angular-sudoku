@@ -89,6 +89,15 @@ describe('GridComponent', () => {
         expect(createSpy).toHaveBeenCalledWith();
     });
 
+    it('On scan button does emit scan event', () => {
+        spectator.setInput('originalGrid', grid);
+        const scanSpy: jest.SpyInstance = jest.spyOn(spectator.component.scan, 'emit');
+        spectator.detectChanges();
+        const selector: DOMSelector = byTextContent('photo_camera', {selector: 'button'});
+        spectator.click(selector);
+        expect(scanSpy).toHaveBeenCalledWith();
+    });
+
     it('On click lock button changes lock value', () => {
         spectator.setInput('originalGrid', grid);
         spectator.detectChanges();

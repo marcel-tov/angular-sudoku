@@ -138,13 +138,13 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           install: false
-          wait-on: 'http://localhost:4200'
+          wait-on: 'https://localhost:4200'
           browser: chrome
       - name: cypress:e2e (firefox)
         uses: cypress-io/github-action@v6
         with:
           install: false
-          wait-on: 'http://localhost:4200'
+          wait-on: 'https://localhost:4200'
           browser: firefox
   changelog:
     runs-on: ubuntu-latest
