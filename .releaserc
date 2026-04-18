@@ -12,6 +12,12 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/npm",
       [
+        "@semantic-release/exec",
+        {
+          "prepareCmd": "node scripts/set-env-version.mjs",
+        },
+      ],
+      [
         "@semantic-release/changelog",
         {
           "changelogFile": "CHANGELOG.md",
@@ -24,6 +30,8 @@
             "CHANGELOG.md",
             "package.json",
             "package-lock.json",
+            "src/environments/environment.ts",
+            "src/environments/environment.prod.ts",
           ],
         },
       ],
