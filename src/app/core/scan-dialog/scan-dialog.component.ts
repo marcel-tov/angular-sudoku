@@ -178,6 +178,31 @@ class ScanDialogComponent implements OnInit, OnDestroy {
         this.dialogRef.close(null);
     }
 
+    public async retry(): Promise<void> {
+        // Stop any existing stream and reset to the camera phase
+        this.stopStream();
+
+        if (this.animFrameId !== null) {
+            cancelAnimationFrame(this.animFrameId);
+            this.animFrameId = null;
+        }
+
+        this.cameraError.set(null);
+        this.processingProgress.set(0);
+        this.reviewGrid.set(Array.from({length: 9}, (): Array<string> => Array<string>(9).fill('')));
+        this.phase.set('camera');
+        this.cdr.markForCheck();
+
+        // Re-request camera access
+        const stream: MediaStream | null = await this.openCamera();
+
+        if (stream) {
+            this.stream.set(stream);
+        }
+
+        this.cdr.markForCheck();
+    }
+
     public trackByIndex(index: number): number {
         return index;
     }
