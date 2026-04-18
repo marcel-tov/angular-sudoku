@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/marcel-tov/angular-sudoku/compare/v1.8.0...v1.8.1) (2026-04-18)
+
+
+### Bug Fixes
+
+* change version in environment by changelog ([#73](https://github.com/marcel-tov/angular-sudoku/issues/73)) ([9e102c5](https://github.com/marcel-tov/angular-sudoku/commit/9e102c534cbc92da27f1cad67fc48999406ee84e))
+
 # [1.8.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.7.1...v1.8.0) (2026-04-17)
 
 
