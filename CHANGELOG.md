@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.8.1...v1.9.0) (2026-04-18)
+
+
+### Features
+
+* add sudoku generator ([#76](https://github.com/marcel-tov/angular-sudoku/issues/76)) ([87ef1f0](https://github.com/marcel-tov/angular-sudoku/commit/87ef1f09dff3088e0e4bfa645beb35a0a81e144b))
+
 ## [1.8.1](https://github.com/marcel-tov/angular-sudoku/compare/v1.8.0...v1.8.1) (2026-04-18)
 
 
