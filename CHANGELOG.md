@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.9.0...v1.10.0) (2026-04-20)
+
+
+### Features
+
+* add scan functionality ([#78](https://github.com/marcel-tov/angular-sudoku/issues/78)) ([4ad47d1](https://github.com/marcel-tov/angular-sudoku/commit/4ad47d14f62b1c6ae7677196d1b5bb5d573d610f))
+
 # [1.9.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.8.1...v1.9.0) (2026-04-18)
 
 
