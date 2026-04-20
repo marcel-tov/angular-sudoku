@@ -38,6 +38,10 @@ speed-measure-plugin.json
 /coverage
 /libpeerconnection.log
 
+# Local environment (never commit real secrets)
+.env
+.env.local
+
 # Cypress auto-generated output (never commit these)
 /cypress/screenshots
 /cypress/videos

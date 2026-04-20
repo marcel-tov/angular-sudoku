@@ -1,3 +1,7 @@
+jest.mock('../scan-dialog/firebase-status', () => ({
+    isFirebaseConfigured: true,
+}));
+
 import {GridComponent, IOnFinishGridEvent} from './grid.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
@@ -87,6 +91,15 @@ describe('GridComponent', () => {
         const selector: DOMSelector = byTextContent('autorenew', {selector: 'button'});
         spectator.click(selector);
         expect(createSpy).toHaveBeenCalledWith();
+    });
+
+    it('On scan button does emit scan event', () => {
+        spectator.setInput('originalGrid', grid);
+        const scanSpy: jest.SpyInstance = jest.spyOn(spectator.component.scan, 'emit');
+        spectator.detectChanges();
+        const selector: DOMSelector = byTextContent('photo_camera', {selector: 'button'});
+        spectator.click(selector);
+        expect(scanSpy).toHaveBeenCalledWith();
     });
 
     it('On click lock button changes lock value', () => {

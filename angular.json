@@ -56,7 +56,8 @@
                 "src/styles/"
               ]
             },
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": []
           },
           "configurations": {
             "production": {
@@ -88,7 +89,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
-          "options": {},
+          "options": {
+            "ssl": true
+          },
           "configurations": {
             "production": {
               "buildTarget": "angular-sudoku:build:production"

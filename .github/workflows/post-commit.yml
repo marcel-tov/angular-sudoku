@@ -136,15 +136,20 @@ jobs:
         run: npm start &
       - name: cypress:e2e (chrome)
         uses: cypress-io/github-action@v6
+        env:
+          # ng serve --ssl uses a self-signed cert; let wait-on accept it.
+          NODE_TLS_REJECT_UNAUTHORIZED: '0'
         with:
           install: false
-          wait-on: 'http://localhost:4200'
+          wait-on: 'https://localhost:4200'
           browser: chrome
       - name: cypress:e2e (firefox)
         uses: cypress-io/github-action@v6
+        env:
+          NODE_TLS_REJECT_UNAUTHORIZED: '0'
         with:
           install: false
-          wait-on: 'http://localhost:4200'
+          wait-on: 'https://localhost:4200'
           browser: firefox
   changelog:
     runs-on: ubuntu-latest

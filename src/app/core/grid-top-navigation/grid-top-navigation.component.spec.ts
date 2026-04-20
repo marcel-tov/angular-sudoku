@@ -1,3 +1,11 @@
+let mockedIsFirebaseConfigured: boolean = true;
+
+jest.mock('../scan-dialog/firebase-status', () => ({
+    get isFirebaseConfigured(): boolean {
+        return mockedIsFirebaseConfigured;
+    },
+}));
+
 import {GridTopNavigationComponent} from './grid-top-navigation.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
@@ -11,6 +19,7 @@ describe('GridTopNavigationComponent', () => {
     });
 
     beforeEach(() => {
+        mockedIsFirebaseConfigured = true;
         spectator = createComponent();
     });
 
@@ -83,5 +92,34 @@ describe('GridTopNavigationComponent', () => {
         spectator.detectChanges();
         spectator.click('button[aria-label="Make locked fields editable"]');
         expect(lockSpy).toHaveBeenCalledWith();
+    });
+
+    describe('scan button', () => {
+        it('Does show scan button when Firebase is configured', () => {
+            mockedIsFirebaseConfigured = true;
+            spectator = createComponent();
+            spectator.setInput({lockValues: true, time: '00:00:00'});
+            spectator.detectChanges();
+            expect(spectator.query('button[aria-label="Scan sudoku from camera"]')).not.toBeNull();
+        });
+
+        it('Does hide scan button when Firebase is not configured', () => {
+            mockedIsFirebaseConfigured = false;
+            spectator = createComponent();
+            spectator.setInput({lockValues: true, time: '00:00:00'});
+            spectator.detectChanges();
+            expect(spectator.query('button[aria-label="Scan sudoku from camera"]')).toBeNull();
+        });
+
+        it('Does emit scan on scan button click when Firebase is configured', () => {
+            mockedIsFirebaseConfigured = true;
+            spectator = createComponent();
+            spectator.setInput({lockValues: true, time: '00:00:00'});
+            const scanSpy: jest.SpyInstance = jest.spyOn(spectator.component.scan, 'emit');
+            spectator.detectChanges();
+            const selector: DOMSelector = byTextContent('photo_camera', {selector: 'button'});
+            spectator.click(selector);
+            expect(scanSpy).toHaveBeenCalledWith();
+        });
     });
 });

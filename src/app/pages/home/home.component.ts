@@ -17,6 +17,7 @@ import {
     timerFormatter,
 } from '../../core/grid/grid.component';
 import {IShareDialogData, ShareDialogComponent} from '../../core/share-dialog/share-dialog.component';
+import {ScanDialogComponent} from '../../core/scan-dialog/scan-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {SudokuGrid, SudokuRow} from '../../core/grid-helper/types';
 
@@ -90,6 +91,20 @@ class HomeComponent implements OnInit {
             )
             .afterClosed()
             .subscribe();
+    }
+
+    public openScanDialog(): void {
+        this.dialog
+            .open<ScanDialogComponent>(
+                ScanDialogComponent,
+                {maxWidth: '95vw', panelClass: 'scan-dialog-panel'},
+            )
+            .afterClosed()
+            .subscribe((grid: SudokuGrid | null | undefined) => {
+                if (grid) {
+                    this.sudokuGrid.set(grid);
+                }
+            });
     }
 
     public createRandomSudoku(difficulty: Difficulty | undefined): void {

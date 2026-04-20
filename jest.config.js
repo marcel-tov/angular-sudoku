@@ -18,6 +18,9 @@ module.exports = {
         '!src/**/*.cy.ts',
         '!src/main.ts',
         '!src/environments/**',
+        // Camera/OCR pipeline relies on browser APIs (getUserMedia, Canvas, Tesseract.js)
+        // that cannot be meaningfully exercised in jsdom — covered by Cypress e2e instead.
+        '!src/app/core/scan-dialog/**',
     ],
     coverageReporters: ['lcov', 'text-summary', 'html'],
     coverageDirectory: 'coverage',
