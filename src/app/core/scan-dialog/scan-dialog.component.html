@@ -41,9 +41,17 @@
 
   <!-- ── Phase: review ─────────────────────────────────────── -->
   @if (phase() === 'review') {
-    <p class="scan-dialog__hint">
-      Check the scanned values below. Clear a cell or type a correction, then tap&nbsp;<strong>Import</strong>.
-    </p>
+    @if (hasConflicts()) {
+      <p class="scan-dialog__conflict-hint">
+        <mat-icon>warning</mat-icon>
+        Conflicting values are highlighted. Fix or clear them before importing.
+      </p>
+    }
+    @if (!hasConflicts()) {
+      <p class="scan-dialog__hint">
+        Check the scanned values below. Clear a cell or type a correction, then tap&nbsp;<strong>Import</strong>.
+      </p>
+    }
     <div class="scan-dialog__review-grid">
       @for (row of reviewGrid(); track trackByIndex($index); let rowIndex = $index) {
         @for (cell of row; track trackByIndex($index); let colIndex = $index) {
@@ -51,6 +59,7 @@
             class="scan-dialog__cell"
             [class.scan-dialog__cell--box-right]="colIndex === 2 || colIndex === 5"
             [class.scan-dialog__cell--box-bottom]="rowIndex === 2 || rowIndex === 5"
+            [class.scan-dialog__cell--conflict]="conflictCells()[rowIndex][colIndex]"
             type="text"
             maxlength="1"
             inputmode="numeric"
@@ -82,7 +91,7 @@
   }
 
   @if (phase() === 'review') {
-    <button mat-raised-button color="primary" type="button" (click)="importGrid()">
+    <button mat-raised-button color="primary" type="button" (click)="importGrid()" [disabled]="hasConflicts()">
       <mat-icon>download</mat-icon>
       Import
     </button>

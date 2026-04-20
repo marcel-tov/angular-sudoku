@@ -97,5 +97,26 @@
     &--box-bottom {
       border-bottom: 2px solid rgba(0, 0, 0, 0.6);
     }
+
+    &--conflict {
+      background: rgba(229, 57, 53, 0.15);
+      border-color: #e53935;
+      color: #e53935;
+    }
+  }
+
+  &__conflict-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--mat-sys-error, #b00020);
+
+    mat-icon {
+      font-size: 1.1rem;
+      width: 1.1rem;
+      height: 1.1rem;
+    }
   }
 }

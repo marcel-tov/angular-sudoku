@@ -57,9 +57,7 @@
               ]
             },
             "scripts": [],
-            "allowedCommonJsDependencies": [
-              "tesseract.js"
-            ]
+            "allowedCommonJsDependencies": []
           },
           "configurations": {
             "production": {

@@ -9,6 +9,7 @@ import {
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {isFirebaseConfigured} from '../scan-dialog/firebase-status';
 
 @Component({
     selector: 'grid-top-navigation',
@@ -31,6 +32,8 @@ class GridTopNavigationComponent {
     public readonly clearAll: OutputEmitterRef<void> = output<void>();
     public readonly lockValuesChange: OutputEmitterRef<void> = output<void>();
     public readonly scan: OutputEmitterRef<void> = output<void>();
+
+    protected readonly isScanAvailable: boolean = isFirebaseConfigured;
 }
 
 export {GridTopNavigationComponent};
