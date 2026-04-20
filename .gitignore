@@ -41,8 +41,6 @@ speed-measure-plugin.json
 # Local environment (never commit real secrets)
 .env
 .env.local
-# Auto-generated from env vars by scripts/set-firebase-config.mjs
-/src/app/core/scan-dialog/firebase.config.ts
 
 # Cypress auto-generated output (never commit these)
 /cypress/screenshots
