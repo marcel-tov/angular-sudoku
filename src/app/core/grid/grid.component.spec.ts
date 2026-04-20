@@ -1,3 +1,7 @@
+jest.mock('../scan-dialog/firebase-status', () => ({
+    isFirebaseConfigured: true,
+}));
+
 import {GridComponent, IOnFinishGridEvent} from './grid.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
