@@ -31,6 +31,7 @@ $app-theme: mat-m2.define-light-theme((
 * {
   --primary-color: #{map-get(mat-m2.$grey-palette, 200)};
   --secondary-color: #{map-get($app-primary, 300)};
+  --secondary-color-light: #{map-get($app-primary, 100)};
   --error-color: #{map-get($app-warn, A400)};
   --success-color: #{map-get(mat-m2.$green-palette, 400)};
   --border-color: #{map-get(mat-m2.$grey-palette, 400)};

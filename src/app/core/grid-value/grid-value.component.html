@@ -3,6 +3,7 @@
   [ngClass]="{
     'grid-value--readonly': isReadOnly(),
     'grid-value--clickable': !isReadOnly(),
+    'grid-value--peer': isPeer() && !isSelected(),
     'grid-value--selected': isSelected(),
     'grid-value--error': hasError() && !isReadOnly() && value() !== null,
     'grid-value--success': hasSuccess() && !isReadOnly() && value() !== null,

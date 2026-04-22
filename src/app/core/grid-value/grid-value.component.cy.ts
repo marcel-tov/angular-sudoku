@@ -23,6 +23,18 @@ describe('GridValueComponent', () => {
         cy.get('div.grid-value').should('have.class', 'grid-value--selected');
     });
 
+    it('should have peer class', () => {
+        mount(GridValueComponent, {componentProperties: {isPeer: true}});
+        cy.get('div.grid-value').should('have.class', 'grid-value--peer');
+    });
+
+    it('should not have peer class when selected', () => {
+        mount(GridValueComponent, {componentProperties: {isPeer: true, isSelected: true}});
+        cy.get('div.grid-value')
+            .should('not.have.class', 'grid-value--peer')
+            .and('have.class', 'grid-value--selected');
+    });
+
     it('should have error class', () => {
         mount(GridValueComponent, {
             componentProperties: {

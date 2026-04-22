@@ -28,6 +28,7 @@
               [value]="value"
               [nomineeValues]="gridNomineeValues()[rowIndex][colIndex]"
               [isSelected]="isValueSelected(rowIndex, colIndex)"
+              [isPeer]="isValuePeer(rowIndex, colIndex)"
               [isReadOnly]="isValueReadOnly(rowIndex, colIndex)"
               [hasError]="isHelpEnabled() && isValueErroneous(rowIndex, colIndex, value)"
               [hasSuccess]="isHelpEnabled() && !isValueErroneous(rowIndex, colIndex, value)"
