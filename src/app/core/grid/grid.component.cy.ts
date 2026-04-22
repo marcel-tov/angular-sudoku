@@ -136,7 +136,8 @@ describe('GridComponent', () => {
 
             // Cells in the top-left block (excluding the selected cell) are peers.
             [
-                        [0, 1], [0, 2],
+                // eslint-disable-next-line indent
+                         [0, 1], [0, 2],
                 [1, 0], [1, 1], [1, 2],
                 [2, 0], [2, 1], [2, 2],
             ].forEach(([r, c]: Array<number>) => {
