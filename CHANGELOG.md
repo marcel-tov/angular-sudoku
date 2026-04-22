@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.10.0...v1.11.0) (2026-04-22)
+
+
+### Features
+
+* highlight block, row and column of selection ([#85](https://github.com/marcel-tov/angular-sudoku/issues/85)) ([5b67b0a](https://github.com/marcel-tov/angular-sudoku/commit/5b67b0a8d4ef0fe4161bd01fe8d97770ce03791d))
+
 # [1.10.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.9.0...v1.10.0) (2026-04-20)
 
 
