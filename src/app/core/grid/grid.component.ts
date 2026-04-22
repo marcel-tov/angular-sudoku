@@ -16,7 +16,6 @@ import {
 } from '@angular/core';
 import {Subscription, timer} from 'rxjs';
 import {GridValueComponent} from '../grid-value/grid-value.component';
-import {MatGridListModule} from '@angular/material/grid-list';
 import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
 import {getEmptyRow} from '../grid-helper/empty-row';
 import {isValueValid} from '../grid-helper/is-value-valid';
@@ -32,7 +31,6 @@ import {GridFooterNavigationComponent} from '../grid-footer-navigation/grid-foot
     standalone: true,
     imports: [
         GridValueComponent,
-        MatGridListModule,
         GridTopNavigationComponent,
         GridFooterNavigationComponent,
     ],
