@@ -13,10 +13,10 @@
 
   <!-- grid -->
   <div class="grid__grid-wrapper">
-    <mat-grid-list cols="9" rowHeight="9:9">
+    <div class="grid__grid-list">
       @for (row of grid(); track $index; let rowIndex = $index) {
         @for (value of row; track $index; let colIndex = $index) {
-          <mat-grid-tile
+          <div
             class="grid__value-wrapper"
             [class.grid__value-wrapper--group-top]="isGroupTop(rowIndex)"
             [class.grid__value-wrapper--group-end]="isGroupEnd(colIndex)"
@@ -33,10 +33,10 @@
               [hasSuccess]="isHelpEnabled() && !isValueErroneous(rowIndex, colIndex, value)"
               [showNominees]="isValueSelected(rowIndex, colIndex) && showNominees()"
             ></grid-value>
-          </mat-grid-tile>
+          </div>
         }
       }
-    </mat-grid-list>
+    </div>
   </div>
 
   @if (showFooterNavigation()) {

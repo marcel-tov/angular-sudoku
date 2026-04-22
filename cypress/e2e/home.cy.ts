@@ -24,18 +24,18 @@ const NEARLY_COMPLETE_GRID: string =
     '345286170'; // last cell is 0 → empty
 
 /**
- * Returns the nth mat-grid-tile (0-based, row-major order).
+ * Returns the nth grid cell (0-based, row-major order).
  * The dynamic CSS classes (--selected, --error, etc.) live on the inner
  * <div class="grid-value"> rendered by grid-value.component.html,
  * NOT on the <grid-value> custom element itself.
  */
-const tile = (index: number) => cy.get('mat-grid-tile').eq(index);
+const tile = (index: number) => cy.get('div.grid__value-wrapper').eq(index);
 const tileInner = (index: number) => tile(index).find('.grid-value');
 
 describe('home — grid renders', () => {
     it('renders 81 grid cells', () => {
         cy.visit('/');
-        cy.get('mat-grid-tile').should('have.length', 81);
+        cy.get('div.grid__value-wrapper').should('have.length', 81);
     });
 
     it('loads a puzzle from a URL parameter', () => {
@@ -187,7 +187,7 @@ describe('home — dialogs', () => {
         cy.get('[aria-label="Start a new game"]').click();
         cy.get('mat-dialog-container').contains('Easy').click();
         cy.get('mat-dialog-container').should('not.exist');
-        cy.get('mat-grid-tile').should('have.length', 81);
+        cy.get('div.grid__value-wrapper').should('have.length', 81);
     });
 
     it('opens the share dialog when clicking Share sudoku', () => {

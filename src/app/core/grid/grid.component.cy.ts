@@ -65,13 +65,13 @@ describe('GridComponent', () => {
 
         it('Does contain grid list', () => {
             mount(GridComponent, {componentProperties: {originalGrid: emptyGrid}});
-            cy.get('div.grid__grid-wrapper').should('have.descendants', 'mat-grid-list');
-            cy.get('div.grid__grid-wrapper').find('mat-grid-tile.grid__value-wrapper').should('have.length', 81);
+            cy.get('div.grid__grid-wrapper').should('have.descendants', 'div.grid__grid-list');
+            cy.get('div.grid__grid-wrapper').find('div.grid__value-wrapper').should('have.length', 81);
         });
 
         it('Does contain grid value', () => {
             mount(GridComponent, {componentProperties: {originalGrid: emptyGrid}});
-            cy.get('mat-grid-tile').should('have.descendants', 'grid-value');
+            cy.get('div.grid__value-wrapper').should('have.descendants', 'grid-value');
         });
     });
 
