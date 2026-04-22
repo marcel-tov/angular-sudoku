@@ -190,6 +190,77 @@ describe('GridComponent', () => {
         });
     });
 
+    describe('isValuePeer', () => {
+        it('returns false when no cell is selected', () => {
+            spectator.setInput('originalGrid', grid);
+            spectator.detectChanges();
+            expect(spectator.component.isValuePeer(0, 0)).toBe(false);
+            expect(spectator.component.isValuePeer(4, 4)).toBe(false);
+        });
+
+        it('returns false for the selected cell itself', () => {
+            spectator.setInput('originalGrid', grid);
+            spectator.detectChanges();
+            spectator.component.toogleSelectedValue(4, 4);
+            expect(spectator.component.isValuePeer(4, 4)).toBe(false);
+        });
+
+        it('returns true for cells in the same row as the selected cell', () => {
+            spectator.setInput('originalGrid', grid);
+            spectator.detectChanges();
+            spectator.component.toogleSelectedValue(4, 4);
+            // Different column, same row -> peer
+            expect(spectator.component.isValuePeer(4, 0)).toBe(true);
+            expect(spectator.component.isValuePeer(4, 8)).toBe(true);
+        });
+
+        it('returns true for cells in the same column as the selected cell', () => {
+            spectator.setInput('originalGrid', grid);
+            spectator.detectChanges();
+            spectator.component.toogleSelectedValue(4, 4);
+            // Different row, same column -> peer
+            expect(spectator.component.isValuePeer(0, 4)).toBe(true);
+            expect(spectator.component.isValuePeer(8, 4)).toBe(true);
+        });
+
+        it('returns true for cells in the same 3x3 block as the selected cell', () => {
+            spectator.setInput('originalGrid', grid);
+            spectator.detectChanges();
+            // Select center cell (4,4) — its block is rows 3-5, cols 3-5.
+            spectator.component.toogleSelectedValue(4, 4);
+            // Different row and column, same block -> peer
+            expect(spectator.component.isValuePeer(3, 3)).toBe(true);
+            expect(spectator.component.isValuePeer(3, 5)).toBe(true);
+            expect(spectator.component.isValuePeer(5, 3)).toBe(true);
+            expect(spectator.component.isValuePeer(5, 5)).toBe(true);
+        });
+
+        it('returns false for cells unrelated to the selected cell', () => {
+            spectator.setInput('originalGrid', grid);
+            spectator.detectChanges();
+            spectator.component.toogleSelectedValue(4, 4);
+            // Different row, column, and block
+            expect(spectator.component.isValuePeer(0, 0)).toBe(false);
+            expect(spectator.component.isValuePeer(0, 8)).toBe(false);
+            expect(spectator.component.isValuePeer(8, 0)).toBe(false);
+            expect(spectator.component.isValuePeer(8, 8)).toBe(false);
+        });
+
+        it('covers the 3x3 block-boundary branch exhaustively', () => {
+            spectator.setInput('originalGrid', grid);
+            spectator.detectChanges();
+            // Selecting a corner cell exercises the boxRow/boxCol math
+            // (non-zero offsets → selRow - selRow % 3 lands on a group boundary).
+            spectator.component.toogleSelectedValue(8, 8);
+
+            // A cell just outside the bottom-right block on both axes is not a peer.
+            expect(spectator.component.isValuePeer(5, 5)).toBe(false);
+            // A cell in the block (different row/col) is a peer.
+            expect(spectator.component.isValuePeer(6, 6)).toBe(true);
+            expect(spectator.component.isValuePeer(7, 7)).toBe(true);
+        });
+    });
+
     describe('deleteSelectedValue', () => {
         it('should delete value when cell is selected in normal mode', () => {
             spectator.setInput('originalGrid', grid);

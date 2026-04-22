@@ -23,6 +23,10 @@
     background: var(--primary-color);
   }
 
+  &--peer {
+    background-color: var(--secondary-color-light);
+  }
+
   &--selected {
     background-color: var(--secondary-color);
   }

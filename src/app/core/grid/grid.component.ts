@@ -124,6 +124,33 @@ class GridComponent {
         return !!(this.selectedRowIndex() === row && this.selectedColIndex() === col);
     }
 
+    /**
+     * A cell is a "peer" of the selected cell when it shares the same row,
+     * column, or 3×3 block with it (but is not the selected cell itself).
+     */
+    public isValuePeer(row: number, col: number): boolean {
+        if (!this.hasSelectedValue()) {
+            return false;
+        }
+
+        const selRow: number = this.selectedRowIndex();
+        const selCol: number = this.selectedColIndex();
+
+        if (selRow === row && selCol === col) {
+            return false;
+        }
+
+        if (selRow === row || selCol === col) {
+            return true;
+        }
+
+        const boxRow: number = selRow - selRow % 3;
+        const boxCol: number = selCol - selCol % 3;
+
+        return row >= boxRow && row < boxRow + 3
+            && col >= boxCol && col < boxCol + 3;
+    }
+
     public toogleSelectedValue(row: number, col: number): void {
         if (this.isValueReadOnly(row, col)) {
             return;

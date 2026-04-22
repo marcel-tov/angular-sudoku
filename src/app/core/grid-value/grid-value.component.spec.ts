@@ -31,6 +31,20 @@ describe('GridValueComponent', () => {
         expect(spectator.query('.grid-value')).toHaveClass(('grid-value--selected'));
     });
 
+    it('Does show value as peer', () => {
+        spectator.setInput('isPeer', true);
+        spectator.detectChanges();
+        expect(spectator.query('.grid-value')).toHaveClass(('grid-value--peer'));
+    });
+
+    it('Does not mark the selected cell as a peer', () => {
+        spectator.setInput('isPeer', true);
+        spectator.setInput('isSelected', true);
+        spectator.detectChanges();
+        expect(spectator.query('.grid-value')).not.toHaveClass(('grid-value--peer'));
+        expect(spectator.query('.grid-value')).toHaveClass(('grid-value--selected'));
+    });
+
     it('Does show value as error', () => {
         spectator.setInput('hasError', true);
         spectator.setInput('value', 111);
