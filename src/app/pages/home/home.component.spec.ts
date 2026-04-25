@@ -9,7 +9,7 @@ import {CreationDialogComponent} from '../../core/creation-dialog/creation-dialo
 import {FinishDialogComponent} from '../../core/finish-dialog/finish-dialog.component';
 import {ScanDialogComponent} from '../../core/scan-dialog/scan-dialog.component';
 import {Difficulty} from '../../core/sudoku-generator/sudoku-generator';
-import {SudokuGrid} from '../../core/grid-helper/types';
+import {SudokuGrid, SudokuValue} from '../../core/grid-helper/types';
 import {getEmptyRow} from '../../core/grid-helper/empty-row';
 
 interface IMockRoute {
@@ -22,7 +22,7 @@ describe('HomeComponent', () => {
         getEmptyRow(),
         getEmptyRow(),
         getEmptyRow(),
-        [null, 4, null, null, 0, null, null, 4, null],
+        [null, 4, null, null, 0 as unknown as SudokuValue, null, null, 4, null],
         getEmptyRow(),
         getEmptyRow(),
         getEmptyRow(),

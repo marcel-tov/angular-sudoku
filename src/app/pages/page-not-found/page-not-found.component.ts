@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {GridComponent} from '../../core/grid/grid.component';
-import {SudokuGrid} from '../../core/grid-helper/types';
+import {SudokuGrid, SudokuValue} from '../../core/grid-helper/types';
 import {getEmptyRow} from '../../core/grid-helper/empty-row';
 
 @Component({
@@ -19,7 +19,8 @@ export class PageNotFoundComponent {
         getEmptyRow(),
         getEmptyRow(),
         getEmptyRow(),
-        [null, 4, null, null, 0, null, null, 4, null],
+        // Spells "404" using the 4-0-4 cells — not a valid sudoku, decoration only.
+        [null, 4, null, null, 0 as unknown as SudokuValue, null, null, 4, null],
         getEmptyRow(),
         getEmptyRow(),
         getEmptyRow(),

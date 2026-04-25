@@ -1,4 +1,5 @@
-import {SudokuGrid, SudokuValue} from '../grid-helper/types';
+import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
+import {getEmptyGrid} from '../grid-helper/empty-row';
 
 type Difficulty = 'VeryEasy' | 'Easy' | 'Medium' | 'Hard';
 
@@ -68,7 +69,7 @@ function fillSolution(grid: SudokuGrid): boolean {
 
             for (const num of shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9])) {
                 if (canPlace(grid, r, c, num)) {
-                    grid[r][c] = num;
+                    grid[r][c] = num as SudokuValue;
 
                     if (fillSolution(grid)) { return true; }
 
@@ -119,7 +120,7 @@ function countSolutions(grid: SudokuGrid, limit: number = 2): number {
     let count: number = 0;
 
     for (const num of bestCandidates) {
-        grid[bestRow][bestCol] = num;
+        grid[bestRow][bestCol] = num as SudokuValue;
         count += countSolutions(grid, limit);
         grid[bestRow][bestCol] = null;
 
@@ -133,7 +134,7 @@ function countSolutions(grid: SudokuGrid, limit: number = 2): number {
 
 function getSudoku(difficulty: Difficulty = 'VeryEasy'): SudokuGrid {
     // 1. Build a complete random solution
-    const solution: SudokuGrid = Array.from({length: 9}, () => Array(9).fill(null) as Array<SudokuValue>);
+    const solution: SudokuGrid = getEmptyGrid();
     fillSolution(solution);
 
     // 2. Pick a random target number of givens within the difficulty range
@@ -141,7 +142,7 @@ function getSudoku(difficulty: Difficulty = 'VeryEasy'): SudokuGrid {
     const target: number = min + rand(max - min + 1);
 
     // 3. Remove cells in random order, keeping the solution unique
-    const puzzle: SudokuGrid = solution.map((row: Array<SudokuValue>) => [...row]);
+    const puzzle: SudokuGrid = solution.map((row: SudokuRow) => [...row]) as unknown as SudokuGrid;
     let givens: number = 81;
 
     const cells: Array<[number, number]> = Array.from(
@@ -155,7 +156,7 @@ function getSudoku(difficulty: Difficulty = 'VeryEasy'): SudokuGrid {
         const backup: SudokuValue = puzzle[r][c];
         puzzle[r][c] = null;
 
-        if (countSolutions(puzzle.map((row: Array<SudokuValue>) => [...row])) === 1) {
+        if (countSolutions(puzzle.map((row: SudokuRow) => [...row]) as unknown as SudokuGrid) === 1) {
             givens--;
         } else {
             puzzle[r][c] = backup; // Removal broke uniqueness — restore

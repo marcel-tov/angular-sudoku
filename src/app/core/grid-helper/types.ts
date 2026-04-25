@@ -1,6 +1,8 @@
-// TODO: https://stackoverflow.com/questions/41139763/how-to-declare-a-fixed-length-array-in-typescript
-type SudokuGrid = Array<SudokuRow>;
-type SudokuRow = Array<SudokuValue>;
-type SudokuValue = number | null;
+type Tuple<T, N extends number, R extends ReadonlyArray<T> = []> =
+    R['length'] extends N ? R : Tuple<T, N, [...R, T]>;
 
-export {SudokuGrid, SudokuRow, SudokuValue};
+type SudokuValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | null;
+type SudokuRow = Tuple<SudokuValue, 9>;
+type SudokuGrid = Tuple<SudokuRow, 9>;
+
+export {SudokuGrid, SudokuRow, SudokuValue, Tuple};

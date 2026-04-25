@@ -17,7 +17,7 @@ import {
 import {Subscription, timer} from 'rxjs';
 import {GridValueComponent} from '../grid-value/grid-value.component';
 import {SudokuGrid, SudokuRow, SudokuValue} from '../grid-helper/types';
-import {getEmptyRow} from '../grid-helper/empty-row';
+import {getEmptyGrid, getEmptyRow} from '../grid-helper/empty-row';
 import {isValueValid} from '../grid-helper/is-value-valid';
 import {solveSudoku} from '../grid-helper/solve-sudoku';
 import {GridTopNavigationComponent} from '../grid-top-navigation/grid-top-navigation.component';
@@ -52,7 +52,7 @@ class GridComponent {
     public readonly showNominees: WritableSignal<boolean> = signal(false);
 
     // Protected state
-    protected readonly grid: WritableSignal<SudokuGrid> = signal<SudokuGrid>([]);
+    protected readonly grid: WritableSignal<SudokuGrid> = signal<SudokuGrid>(getEmptyGrid());
     protected readonly solvedGrid: Signal<SudokuGrid | null> = computed(() => {
         if (!this.isHelpEnabled()) {
             return null;
@@ -72,7 +72,7 @@ class GridComponent {
     // Internal state
     // baseGrid tracks which cells are read-only (originalGrid snapshot that can be
     // re-committed when the user re-locks after editing in unlocked mode)
-    private readonly baseGrid: WritableSignal<SudokuGrid> = signal<SudokuGrid>([]);
+    private readonly baseGrid: WritableSignal<SudokuGrid> = signal<SudokuGrid>(getEmptyGrid());
     private readonly time: WritableSignal<number> = signal(0);
     private timerSubscription: Subscription | null = null;
     private readonly destroyRef: DestroyRef = inject(DestroyRef);
@@ -237,9 +237,7 @@ class GridComponent {
     }
 
     public clearAllValues(): void {
-        this.grid.set(
-            Array.from({length: 9}, () => Array<SudokuValue>(9).fill(null)),
-        );
+        this.grid.set(getEmptyGrid());
     }
 
     /**
@@ -249,7 +247,7 @@ class GridComponent {
     protected onKeydown(event: KeyboardEvent): void {
         const value: number = Number(event.key);
         if (value > 0 && value <= 9) {
-            this.onSelectValue(value);
+            this.onSelectValue(value as SudokuValue);
         }
 
         if (event.key === 'Backspace' || event.key === 'Delete') {
@@ -279,8 +277,8 @@ class GridComponent {
     private onValueChange(row: number, col: number, value: SudokuValue): void {
         const v: number = Number(value);
         this.grid.update((grid: SudokuGrid) => {
-            const updated: SudokuGrid = grid.map((r: SudokuRow) => [...r]);
-            updated[row][col] = (v > 0 && v <= 9) ? v : null;
+            const updated: SudokuGrid = grid.map((r: SudokuRow) => [...r]) as unknown as SudokuGrid;
+            updated[row][col] = (v > 0 && v <= 9) ? (v as SudokuValue) : null;
 
             return updated;
         });
@@ -294,7 +292,7 @@ class GridComponent {
                 updated[row][col] = getEmptyRow();
             } else {
                 const v: number = Number(value);
-                updated[row][col][v - 1] = updated[row][col][v - 1] === null ? v : null;
+                updated[row][col][v - 1] = updated[row][col][v - 1] === null ? (v as SudokuValue) : null;
             }
 
             return updated;

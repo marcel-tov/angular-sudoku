@@ -67,7 +67,7 @@ describe('getSudoku', () => {
         const grid: SudokuGrid = getSudoku();
         const filledValues: Array<number> = grid
             .flat()
-            .filter((v: SudokuValue): v is number => v !== null);
+            .filter((v: SudokuValue): v is Exclude<SudokuValue, null> => v !== null);
 
         filledValues.forEach((value: number) => {
             expect(value).toBeGreaterThanOrEqual(1);

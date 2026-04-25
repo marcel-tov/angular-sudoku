@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, InputSignal, input} from '@angular/core';
 import {NgClass} from '@angular/common';
-import {SudokuValue} from '../grid-helper/types';
+import {SudokuRow, SudokuValue} from '../grid-helper/types';
 import {getEmptyRow} from '../grid-helper/empty-row';
 
 @Component({
@@ -15,7 +15,7 @@ import {getEmptyRow} from '../grid-helper/empty-row';
 })
 export class GridValueComponent {
     public readonly value: InputSignal<SudokuValue> = input<SudokuValue>(null);
-    public readonly nomineeValues: InputSignal<Array<SudokuValue>> = input<Array<SudokuValue>>(getEmptyRow());
+    public readonly nomineeValues: InputSignal<SudokuRow> = input<SudokuRow>(getEmptyRow());
     public readonly isSelected: InputSignal<boolean> = input(false);
     public readonly isPeer: InputSignal<boolean> = input(false);
     public readonly isReadOnly: InputSignal<boolean> = input(false);
