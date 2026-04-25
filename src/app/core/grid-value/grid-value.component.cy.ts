@@ -40,7 +40,7 @@ describe('GridValueComponent', () => {
             componentProperties: {
                 isReadOnly: false,
                 hasError: true,
-                value: 111,
+                value: 7,
             },
         });
         cy.get('div.grid-value').should('have.class', 'grid-value--error');
@@ -51,7 +51,7 @@ describe('GridValueComponent', () => {
             componentProperties: {
                 isReadOnly: false,
                 hasSuccess: true,
-                value: 111,
+                value: 7,
             },
         });
         cy.get('div.grid-value').should('have.class', 'grid-value--success');
@@ -68,9 +68,9 @@ describe('GridValueComponent', () => {
     });
 
     it('should show value', () => {
-        mount(GridValueComponent, {componentProperties: {value: 111}});
+        mount(GridValueComponent, {componentProperties: {value: 7}});
         cy.get('div.grid-value').should('exist', 'span.grid-value__value');
-        cy.get('span.grid-value__value').should('have.text', '111');
+        cy.get('span.grid-value__value').should('have.text', '7');
     });
 
     it('should show nominees grid', () => {

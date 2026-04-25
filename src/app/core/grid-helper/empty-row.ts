@@ -1,5 +1,21 @@
-import {SudokuValue} from './types';
+import {SudokuGrid, SudokuRow} from './types';
 
-export function getEmptyRow(): Array<SudokuValue> {
+function getEmptyRow(): SudokuRow {
     return [null, null, null, null, null, null, null, null, null];
 }
+
+function getEmptyGrid(): SudokuGrid {
+    return [
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+        getEmptyRow(),
+    ];
+}
+
+export {getEmptyRow, getEmptyGrid};

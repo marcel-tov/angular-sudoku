@@ -185,7 +185,7 @@ class ScanDialogComponent implements OnInit, OnDestroy {
                     return (n >= 1 && n <= 9) ? (n as SudokuValue) : null;
                 },
             ),
-        );
+        ) as unknown as SudokuGrid;
 
         this.dialogRef.close(grid);
     }

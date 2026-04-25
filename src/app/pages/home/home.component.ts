@@ -19,7 +19,7 @@ import {
 import {IShareDialogData, ShareDialogComponent} from '../../core/share-dialog/share-dialog.component';
 import {ScanDialogComponent} from '../../core/scan-dialog/scan-dialog.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
-import {SudokuGrid, SudokuRow} from '../../core/grid-helper/types';
+import {SudokuGrid, SudokuRow, SudokuValue} from '../../core/grid-helper/types';
 
 @Component({
     selector: 'home',
@@ -116,17 +116,18 @@ class HomeComponent implements OnInit {
 }
 
 function urlParamToGrid(gridString: string): SudokuGrid {
-    return gridString
-        .match(/.{1,9}/g)
-        .reduce((list: SudokuGrid, value: string) => {
-            const row: SudokuRow = value
+    const rows: Array<SudokuRow> = (gridString.match(/.{1,9}/g) ?? [])
+        .map((value: string): SudokuRow =>
+            value
                 .split('')
-                .map((item: string) => Number(item) || null);
+                .map((item: string): SudokuValue => {
+                    const n: number = Number(item);
 
-            list.push(row);
+                    return (n >= 1 && n <= 9) ? (n as SudokuValue) : null;
+                }) as unknown as SudokuRow,
+        );
 
-            return list;
-        }, []);
+    return rows as unknown as SudokuGrid;
 }
 
 export {HomeComponent};

@@ -1,9 +1,9 @@
 import {GridComponent} from './grid.component';
 import {mount} from 'cypress/angular';
 import {SudokuGrid} from '../grid-helper/types';
-import {getEmptyRow} from '../grid-helper/empty-row';
+import {getEmptyGrid} from '../grid-helper/empty-row';
 
-const emptyGrid: SudokuGrid = Array.from({length: 9}, () => getEmptyRow());
+const emptyGrid: SudokuGrid = getEmptyGrid();
 
 describe('GridComponent', () => {
     it('should be created', () => {
