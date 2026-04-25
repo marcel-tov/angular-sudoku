@@ -47,14 +47,14 @@ describe('GridValueComponent', () => {
 
     it('Does show value as error', () => {
         spectator.setInput('hasError', true);
-        spectator.setInput('value', 111);
+        spectator.setInput('value', 7);
         spectator.detectChanges();
         expect(spectator.query('.grid-value')).toHaveClass(('grid-value--error'));
     });
 
     it('Does show value with status success', () => {
         spectator.setInput('hasSuccess', true);
-        spectator.setInput('value', 111);
+        spectator.setInput('value', 7);
         spectator.detectChanges();
         expect(spectator.query('.grid-value')).toHaveClass(('grid-value--success'));
     });
@@ -77,8 +77,8 @@ describe('GridValueComponent', () => {
     });
 
     it('Does show grid value', () => {
-        spectator.setInput('value', 111);
+        spectator.setInput('value', 7);
         spectator.detectChanges();
-        expect(spectator.query('.grid-value__value')).toHaveExactText('111');
+        expect(spectator.query('.grid-value__value')).toHaveExactText('7');
     });
 });
