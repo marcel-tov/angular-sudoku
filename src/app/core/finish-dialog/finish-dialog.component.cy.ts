@@ -1,7 +1,6 @@
 import {FinishDialogComponent, IFinishDialogData} from './finish-dialog.component';
 import {mount} from 'cypress/angular';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 describe('FinishDialogComponent', () => {
     beforeEach(() => {
@@ -11,9 +10,6 @@ describe('FinishDialogComponent', () => {
             description: 'test-description',
         };
         mount(FinishDialogComponent, {
-            imports: [
-                NoopAnimationsModule,
-            ],
             providers: [
                 {provide: MatDialogRef, useValue: {}},
                 {provide: MAT_DIALOG_DATA, useValue: data},
