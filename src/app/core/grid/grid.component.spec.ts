@@ -130,8 +130,9 @@ describe('GridComponent', () => {
 
         it('should return solved grid when isHelpEnabled is true', () => {
             spectator = createComponent({props: {originalGrid: grid}});
-            (spectator.component as any).isHelpEnabled.set(true);
+            // First CD flushes the constructor effect that copies originalGrid → baseGrid
             spectator.detectChanges();
+            (spectator.component as any).isHelpEnabled.set(true);
             const solved: SudokuGrid | null = (spectator.component as any).solvedGrid();
             expect(solved).not.toBeNull();
             // Check that it's a valid grid structure
