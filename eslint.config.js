@@ -6,7 +6,6 @@ const tsParser = require('@typescript-eslint/parser');
 const angularPlugin = require('@angular-eslint/eslint-plugin');
 const angularTemplatePlugin = require('@angular-eslint/eslint-plugin-template');
 const angularTemplateParser = require('@angular-eslint/template-parser');
-const importPlugin = require('eslint-plugin-import');
 const jestPlugin = require('eslint-plugin-jest');
 const cypress = require('eslint-plugin-cypress');
 const globals = require('globals');
@@ -25,8 +24,6 @@ const jsRules = {
     'guard-for-in': 'error',
     'id-denylist': ['error', 'any', 'number', 'string', 'Boolean', 'boolean'],
     'id-match': 'error',
-    'import/exports-last': 'error',
-    'import/group-exports': 'error',
     'indent': ['error', 4, {
         FunctionDeclaration: {parameters: 'first'},
         FunctionExpression: {parameters: 'first'},
@@ -192,7 +189,6 @@ module.exports = [
         plugins: {
             '@typescript-eslint': tsPlugin,
             '@angular-eslint': angularPlugin,
-            'import': importPlugin,
         },
         languageOptions: {
             parser: tsParser,
@@ -235,7 +231,6 @@ module.exports = [
         ignores: ['src/**/*.ts'],
         plugins: {
             '@typescript-eslint': tsPlugin,
-            'import': importPlugin,
         },
         languageOptions: {
             parser: tsParser,
@@ -256,7 +251,6 @@ module.exports = [
     {
         files: ['**/*.js'],
         ignores: ['src/**/*.js'],
-        plugins: {import: importPlugin},
         languageOptions: {
             ecmaVersion: 2020,
             globals: {...globals.node, ...globals.commonjs},
