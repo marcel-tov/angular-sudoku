@@ -42,11 +42,9 @@ class HomeComponent implements OnInit {
 
     public ngOnInit(): void {
         // Load sudoku by share link
-        if (this.route.snapshot.paramMap.has('grid')) {
-            const gridString: string = this.route.snapshot.paramMap.get('grid');
-            if (gridString.length === this.lengthOfGridParameter) {
-                this.sudokuGrid.set(urlParamToGrid(gridString));
-            }
+        const gridString: string | null = this.route.snapshot.paramMap.get('grid');
+        if (gridString !== null && gridString.length === this.lengthOfGridParameter) {
+            this.sudokuGrid.set(urlParamToGrid(gridString));
         }
     }
 
