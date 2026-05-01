@@ -1,6 +1,6 @@
 {
   "name": "angular-sudoku",
-  "version": "1.13.0",
+  "version": "1.13.1",
   "scripts": {
     "ng": "ng",
     "set-firebase-config": "node scripts/set-firebase-config.mjs",

@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/marcel-tov/angular-sudoku/compare/v1.13.0...v1.13.1) (2026-05-01)
+
+
+### Bug Fixes
+
+* align game icon ([#103](https://github.com/marcel-tov/angular-sudoku/issues/103)) ([917525f](https://github.com/marcel-tov/angular-sudoku/commit/917525f83334b8dd1ab9464f84bdbd6405133f0d))
+
 # [1.13.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.12.0...v1.13.0) (2026-05-01)
 
 
