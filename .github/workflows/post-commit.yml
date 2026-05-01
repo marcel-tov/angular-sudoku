@@ -42,8 +42,11 @@ jobs:
       with:
         path: node_modules
         key: node-modules-${{ hashFiles('package-lock.json') }}
-    - name: lint
-      run: npm run lint
+    - name: eslint
+      run: npm run eslint -- --quiet
+    - name: stylelint
+      if: always()
+      run: npm run stylelint
   jest:
     runs-on: ubuntu-latest
     needs: setup
