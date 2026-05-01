@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.11.0...v1.12.0) (2026-05-01)
+
+
+### Features
+
+* change angular material m2 to m3 ([#97](https://github.com/marcel-tov/angular-sudoku/issues/97)) ([b38cfb1](https://github.com/marcel-tov/angular-sudoku/commit/b38cfb1c7e97b65c12efda1160174d3ab2596b51))
+
 # [1.11.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.10.0...v1.11.0) (2026-04-22)
 
 
