@@ -3,7 +3,7 @@ import {getEmptyRow} from './empty-row';
 import {findEmptyCell} from './find-empty-cell';
 
 describe('findEmptyCell', () => {
-    test.each([
+    test.each<{firstRow: SudokuRow; expectedCell: [number, number]}>([
         {firstRow: [null, null, null, null, null, null, null, null, null], expectedCell: [0, 0]},
         {firstRow: [1, null, null, null, null, null, null, null, null], expectedCell: [0, 1]},
         {firstRow: [1, 2, null, null, null, null, null, null, null], expectedCell: [0, 2]},

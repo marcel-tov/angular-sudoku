@@ -1,6 +1,7 @@
 import {GridFooterNavigationComponent} from './grid-footer-navigation.component';
 import {DOMSelector} from '@ngneat/spectator';
-import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
+import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/vitest';
+import {type MockInstance} from 'vitest';
 
 describe('GridFooterNavigationComponent', () => {
     let spectator: Spectator<GridFooterNavigationComponent>;
@@ -30,7 +31,7 @@ describe('GridFooterNavigationComponent', () => {
 
     it('Does emit deleteValue on delete button click', () => {
         spectator = createComponent({props: {hasSelectedValue: true, showNominees: false, isHelpEnabled: false}});
-        const deleteSpy: jest.SpyInstance = jest.spyOn(spectator.component.deleteValue, 'emit');
+        const deleteSpy: MockInstance = vi.spyOn(spectator.component.deleteValue, 'emit');
         spectator.detectChanges();
         const selector: DOMSelector = byTextContent('Delete number', {selector: 'button'});
         spectator.click(selector);
@@ -39,7 +40,7 @@ describe('GridFooterNavigationComponent', () => {
 
     it('Does emit nomineeToggle on nominees button click', () => {
         spectator = createComponent({props: {hasSelectedValue: false, showNominees: false, isHelpEnabled: false}});
-        const nomineeSpy: jest.SpyInstance = jest.spyOn(spectator.component.nomineeToggle, 'emit');
+        const nomineeSpy: MockInstance = vi.spyOn(spectator.component.nomineeToggle, 'emit');
         spectator.detectChanges();
         const selector: DOMSelector = byTextContent('Nominees', {selector: 'button'});
         spectator.click(selector);

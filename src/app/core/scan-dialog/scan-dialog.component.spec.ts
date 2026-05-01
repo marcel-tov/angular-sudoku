@@ -1,13 +1,14 @@
 import {ScanDialogComponent} from './scan-dialog.component';
-import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
+import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/vitest';
 import {MatDialogRef} from '@angular/material/dialog';
 import {SudokuGrid} from '../grid-helper/types';
+import {type Mock} from 'vitest';
 
 // Stub getUserMedia so tests work in jsdom (no real camera)
 Object.defineProperty(global.navigator, 'mediaDevices', {
     value: {
-        getUserMedia: jest.fn().mockResolvedValue({
-            getTracks: (): Array<{stop: jest.Mock}> => [{stop: jest.fn()}],
+        getUserMedia: vi.fn().mockResolvedValue({
+            getTracks: (): Array<{stop: Mock}> => [{stop: vi.fn()}],
         } as unknown as MediaStream),
     },
     writable: true,
@@ -26,9 +27,9 @@ describe('ScanDialogComponent', () => {
     });
 
     beforeEach(() => {
-        jest.clearAllMocks();
-        (navigator.mediaDevices.getUserMedia as jest.Mock).mockResolvedValue({
-            getTracks: (): Array<{stop: jest.Mock}> => [{stop: jest.fn()}],
+        vi.clearAllMocks();
+        (navigator.mediaDevices.getUserMedia as Mock).mockResolvedValue({
+            getTracks: (): Array<{stop: Mock}> => [{stop: vi.fn()}],
         } as unknown as MediaStream);
         spectator = createComponent();
     });
@@ -122,7 +123,7 @@ describe('ScanDialogComponent', () => {
 
     it('should set permission-denied error when getUserMedia throws NotAllowedError', async () => {
         const err: DOMException = new DOMException('denied', 'NotAllowedError');
-        (navigator.mediaDevices.getUserMedia as jest.Mock).mockRejectedValueOnce(err);
+        (navigator.mediaDevices.getUserMedia as Mock).mockRejectedValueOnce(err);
         await spectator.component.ngOnInit();
         expect(spectator.component.cameraError()).toContain('permission');
     });
@@ -130,14 +131,14 @@ describe('ScanDialogComponent', () => {
     it('should fall back and set no-camera error when all constraints are overcontrained', async () => {
         // Both constraints throw OverconstrainedError (not a permission error)
         const err: DOMException = new DOMException('overconstrained', 'OverconstrainedError');
-        (navigator.mediaDevices.getUserMedia as jest.Mock).mockRejectedValue(err);
+        (navigator.mediaDevices.getUserMedia as Mock).mockRejectedValue(err);
         await spectator.component.ngOnInit();
         expect(spectator.component.cameraError()).toContain('No camera');
     });
 
     it('should set HTTPS error when isSecureContext returns false', async () => {
         // isSecureContext is extracted for testability so we don't need to redefine window.location
-        jest.spyOn(spectator.component as any, 'isSecureContext').mockReturnValue(false);
+        vi.spyOn(spectator.component as any, 'isSecureContext').mockReturnValue(false);
         await spectator.component.ngOnInit();
         expect(spectator.component.cameraError()).toContain('HTTPS');
     });

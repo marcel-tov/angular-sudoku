@@ -1,6 +1,6 @@
 
 import {INotificationData, NotificationComponent} from './notification.component';
-import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
+import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/vitest';
 import {MAT_SNACK_BAR_DATA} from '@angular/material/snack-bar';
 
 describe('NotificationComponent', () => {

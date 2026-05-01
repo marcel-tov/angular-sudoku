@@ -1,7 +1,7 @@
 
 import {IShareDialogData, ShareDialogComponent} from './share-dialog.component';
 import {DOMSelector} from '@ngneat/spectator';
-import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
+import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/vitest';
 import {
     MatDialogModule,
     MatDialogRef,

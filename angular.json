@@ -106,6 +106,38 @@
             "buildTarget": "angular-sudoku:build"
           }
         },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "buildTarget": "angular-sudoku:build:development",
+            "tsConfig": "tsconfig.spec.json",
+            "runner": "vitest",
+            "setupFiles": ["src/test-setup.ts"],
+            "providersFile": "src/test-providers.ts",
+            "include": ["src/**/*.spec.ts"],
+            "coverage": true,
+            "coverageReporters": ["lcov", "text-summary", "html"],
+            "coverageInclude": ["src/**/*.ts"],
+            "coverageExclude": [
+              "src/**/*.spec.ts",
+              "src/**/*.cy.ts",
+              "src/main.ts",
+              "src/environments/**",
+              "src/app/core/scan-dialog/**"
+            ],
+            "coverageThresholds": {
+              "branches": 90,
+              "functions": 100,
+              "lines": 93,
+              "statements": 93
+            }
+          },
+          "configurations": {
+            "ci": {
+              "watch": false
+            }
+          }
+        },
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {

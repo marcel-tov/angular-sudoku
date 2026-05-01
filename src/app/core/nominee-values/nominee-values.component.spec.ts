@@ -1,5 +1,6 @@
 import {NomineeValuesComponent} from './nominee-values.component';
-import {byTextContent, createComponentFactory, Spectator, SpectatorFactory} from '@ngneat/spectator/jest';
+import {byTextContent, createComponentFactory, Spectator, SpectatorFactory} from '@ngneat/spectator/vitest';
+import {type MockInstance} from 'vitest';
 
 describe('NomineeValuesComponent', () => {
     let spectator: Spectator<NomineeValuesComponent>;
@@ -23,7 +24,7 @@ describe('NomineeValuesComponent', () => {
         {value: 8},
         {value: 9},
     ])('Does correctly return nominee value for $value', ({value}: {value: number}) => {
-        const onSelectValueSpy: jest.SpyInstance = jest.spyOn(spectator.component.onSelectValue, 'emit');
+        const onSelectValueSpy: MockInstance = vi.spyOn(spectator.component.onSelectValue, 'emit');
         spectator.detectChanges();
         spectator.click(byTextContent(value, {selector: 'button.nominee-value'}));
         expect(onSelectValueSpy).toHaveBeenCalledWith(value);
