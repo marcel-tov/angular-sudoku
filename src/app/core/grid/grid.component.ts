@@ -129,12 +129,11 @@ class GridComponent {
      * column, or 3×3 block with it (but is not the selected cell itself).
      */
     public isValuePeer(row: number, col: number): boolean {
-        if (!this.hasSelectedValue()) {
+        const selRow: number | null = this.selectedRowIndex();
+        const selCol: number | null = this.selectedColIndex();
+        if (selRow === null || selCol === null) {
             return false;
         }
-
-        const selRow: number = this.selectedRowIndex();
-        const selCol: number = this.selectedColIndex();
 
         if (selRow === row && selCol === col) {
             return false;
@@ -173,14 +172,16 @@ class GridComponent {
     }
 
     public deleteSelectedValue(): void {
-        if (!this.hasSelectedValue()) {
+        const selRow: number | null = this.selectedRowIndex();
+        const selCol: number | null = this.selectedColIndex();
+        if (selRow === null || selCol === null) {
             return;
         }
 
         if (this.showNominees()) {
-            this.toggleNomineeValue(this.selectedRowIndex(), this.selectedColIndex(), null);
+            this.toggleNomineeValue(selRow, selCol, null);
         } else {
-            this.onValueChange(this.selectedRowIndex(), this.selectedColIndex(), null);
+            this.onValueChange(selRow, selCol, null);
         }
     }
 
@@ -194,16 +195,18 @@ class GridComponent {
     }
 
     public onSelectValue(value: SudokuValue): void {
-        if (!this.hasSelectedValue()) {
+        const selRow: number | null = this.selectedRowIndex();
+        const selCol: number | null = this.selectedColIndex();
+        if (selRow === null || selCol === null) {
             return;
         }
 
         if (this.showNominees()) {
-            this.toggleNomineeValue(this.selectedRowIndex(), this.selectedColIndex(), value);
+            this.toggleNomineeValue(selRow, selCol, value);
         } else {
-            this.onValueChange(this.selectedRowIndex(), this.selectedColIndex(), value);
+            this.onValueChange(selRow, selCol, value);
 
-            if (value > 0) {
+            if (value !== null && value > 0) {
                 this.updateAffectedNomineeValue(value);
             }
 
@@ -300,12 +303,12 @@ class GridComponent {
     }
 
     private updateAffectedNomineeValue(value: SudokuValue): void {
-        if (!this.hasSelectedValue()) {
+        const selRow: number | null = this.selectedRowIndex();
+        const selCol: number | null = this.selectedColIndex();
+        if (selRow === null || selCol === null) {
             return;
         }
 
-        const selRow: number = this.selectedRowIndex();
-        const selCol: number = this.selectedColIndex();
         const v: number = Number(value);
 
         this.gridNomineeValues.update((nominees: Array<Array<Array<SudokuValue>>>) => {
