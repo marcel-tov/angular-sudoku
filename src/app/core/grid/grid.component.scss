@@ -1,4 +1,4 @@
-@import "mixins.scss";
+@use 'mixins' as *;
 
 .grid {
   &__grid-wrapper {

@@ -1,0 +1,9 @@
+{
+  "extends": "stylelint-config-recommended-scss",
+  "ignoreFiles": [
+    "dist/**/*",
+    "coverage/**/*",
+    "node_modules/**/*",
+    "src/styles/_theme-colors.scss"
+  ]
+}
