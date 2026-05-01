@@ -1,7 +1,3 @@
-vi.mock('../scan-dialog/firebase-status', () => ({
-    isFirebaseConfigured: true,
-}));
-
 import {GridComponent, IOnFinishGridEvent} from './grid.component';
 import {DOMSelector} from '@ngneat/spectator';
 import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/vitest';
@@ -12,6 +8,7 @@ import {
 import {SudokuGrid} from '../grid-helper/types';
 import {getEmptyRow} from '../grid-helper/empty-row';
 import {type MockInstance} from 'vitest';
+import {FIREBASE_CONFIGURED} from '../scan-dialog/firebase-status';
 
 describe('GridComponent', () => {
     const grid: SudokuGrid = [
@@ -33,6 +30,9 @@ describe('GridComponent', () => {
         ],
         mocks: [
             MatDialogRef,
+        ],
+        providers: [
+            {provide: FIREBASE_CONFIGURED, useValue: true},
         ],
         declareComponent: false,
         detectChanges: false,
