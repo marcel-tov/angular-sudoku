@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.12.0...v1.13.0) (2026-05-01)
+
+
+### Features
+
+* add stylelint ([#98](https://github.com/marcel-tov/angular-sudoku/issues/98)) ([cc28e70](https://github.com/marcel-tov/angular-sudoku/commit/cc28e70f14f98f94c5b4ea20550a688845d32603))
+
 # [1.12.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.11.0...v1.12.0) (2026-05-01)
 
 
