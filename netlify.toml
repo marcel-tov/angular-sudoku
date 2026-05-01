@@ -1,0 +1,12 @@
+# Netlify build configuration.
+# Settings here override the matching fields in the Netlify UI for builds
+# that come from this branch. Node version is read from `.nvmrc` automatically.
+
+[build]
+    command = "npm run lint && npm run test:ci && npm run build"
+    publish = "dist/browser"
+
+[build.environment]
+    # Match the install flag used by the GitHub Actions workflow
+    # (some peer-dep ranges in this project don't satisfy strict resolution).
+    NPM_FLAGS = "--legacy-peer-deps"
