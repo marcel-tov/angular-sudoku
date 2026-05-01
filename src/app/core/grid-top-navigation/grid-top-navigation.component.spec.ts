@@ -1,14 +1,8 @@
-let mockedIsFirebaseConfigured: boolean = true;
-
-jest.mock('../scan-dialog/firebase-status', () => ({
-    get isFirebaseConfigured(): boolean {
-        return mockedIsFirebaseConfigured;
-    },
-}));
-
 import {GridTopNavigationComponent} from './grid-top-navigation.component';
 import {DOMSelector} from '@ngneat/spectator';
-import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
+import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/vitest';
+import {type MockInstance} from 'vitest';
+import {FIREBASE_CONFIGURED} from '../scan-dialog/firebase-status';
 
 describe('GridTopNavigationComponent', () => {
     let spectator: Spectator<GridTopNavigationComponent>;
@@ -16,10 +10,9 @@ describe('GridTopNavigationComponent', () => {
         component: GridTopNavigationComponent,
         detectChanges: false,
         shallow: true,
-    });
-
-    beforeEach(() => {
-        mockedIsFirebaseConfigured = true;
+        providers: [
+            {provide: FIREBASE_CONFIGURED, useValue: true},
+        ],
     });
 
     it('Does show container', () => {
@@ -36,7 +29,7 @@ describe('GridTopNavigationComponent', () => {
 
     it('Does emit share on share button click', () => {
         spectator = createComponent({props: {lockValues: true, time: '00:00:00'}});
-        const shareSpy: jest.SpyInstance = jest.spyOn(spectator.component.share, 'emit');
+        const shareSpy: MockInstance = vi.spyOn(spectator.component.share, 'emit');
         spectator.detectChanges();
         const selector: DOMSelector = byTextContent('share', {selector: 'button'});
         spectator.click(selector);
@@ -45,7 +38,7 @@ describe('GridTopNavigationComponent', () => {
 
     it('Does emit create on create button click', () => {
         spectator = createComponent({props: {lockValues: true, time: '00:00:00'}});
-        const createSpy: jest.SpyInstance = jest.spyOn(spectator.component.create, 'emit');
+        const createSpy: MockInstance = vi.spyOn(spectator.component.create, 'emit');
         spectator.detectChanges();
         const selector: DOMSelector = byTextContent('autorenew', {selector: 'button'});
         spectator.click(selector);
@@ -66,7 +59,7 @@ describe('GridTopNavigationComponent', () => {
 
     it('Does emit clearAll on clear all button click', () => {
         spectator = createComponent({props: {lockValues: false, time: '00:00:00'}});
-        const clearAllSpy: jest.SpyInstance = jest.spyOn(spectator.component.clearAll, 'emit');
+        const clearAllSpy: MockInstance = vi.spyOn(spectator.component.clearAll, 'emit');
         spectator.detectChanges();
         const selector: DOMSelector = byTextContent('clear_all', {selector: 'button'});
         spectator.click(selector);
@@ -87,7 +80,7 @@ describe('GridTopNavigationComponent', () => {
 
     it('Does emit lockValuesChange on lock button click', () => {
         spectator = createComponent({props: {lockValues: true, time: '00:00:00'}});
-        const lockSpy: jest.SpyInstance = jest.spyOn(spectator.component.lockValuesChange, 'emit');
+        const lockSpy: MockInstance = vi.spyOn(spectator.component.lockValuesChange, 'emit');
         spectator.detectChanges();
         spectator.click('button[aria-label="Make locked fields editable"]');
         expect(lockSpy).toHaveBeenCalledWith();
@@ -95,23 +88,23 @@ describe('GridTopNavigationComponent', () => {
 
     describe('scan button', () => {
         it('Does show scan button when Firebase is configured', () => {
-            mockedIsFirebaseConfigured = true;
             spectator = createComponent({props: {lockValues: true, time: '00:00:00'}});
             spectator.detectChanges();
             expect(spectator.query('button[aria-label="Scan sudoku from camera"]')).not.toBeNull();
         });
 
         it('Does hide scan button when Firebase is not configured', () => {
-            mockedIsFirebaseConfigured = false;
-            spectator = createComponent({props: {lockValues: true, time: '00:00:00'}});
+            spectator = createComponent({
+                props: {lockValues: true, time: '00:00:00'},
+                providers: [{provide: FIREBASE_CONFIGURED, useValue: false}],
+            });
             spectator.detectChanges();
             expect(spectator.query('button[aria-label="Scan sudoku from camera"]')).toBeNull();
         });
 
         it('Does emit scan on scan button click when Firebase is configured', () => {
-            mockedIsFirebaseConfigured = true;
             spectator = createComponent({props: {lockValues: true, time: '00:00:00'}});
-            const scanSpy: jest.SpyInstance = jest.spyOn(spectator.component.scan, 'emit');
+            const scanSpy: MockInstance = vi.spyOn(spectator.component.scan, 'emit');
             spectator.detectChanges();
             const selector: DOMSelector = byTextContent('photo_camera', {selector: 'button'});
             spectator.click(selector);

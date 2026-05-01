@@ -3,13 +3,14 @@ import {
     Component,
     InputSignal,
     OutputEmitterRef,
+    inject,
     input,
     output,
 } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {isFirebaseConfigured} from '../scan-dialog/firebase-status';
+import {FIREBASE_CONFIGURED} from '../scan-dialog/firebase-status';
 
 @Component({
     selector: 'grid-top-navigation',
@@ -33,7 +34,7 @@ class GridTopNavigationComponent {
     public readonly lockValuesChange: OutputEmitterRef<void> = output<void>();
     public readonly scan: OutputEmitterRef<void> = output<void>();
 
-    protected readonly isScanAvailable: boolean = isFirebaseConfigured;
+    protected readonly isScanAvailable: boolean = inject(FIREBASE_CONFIGURED);
 }
 
 export {GridTopNavigationComponent};

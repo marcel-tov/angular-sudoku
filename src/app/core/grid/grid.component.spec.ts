@@ -1,16 +1,14 @@
-jest.mock('../scan-dialog/firebase-status', () => ({
-    isFirebaseConfigured: true,
-}));
-
 import {GridComponent, IOnFinishGridEvent} from './grid.component';
 import {DOMSelector} from '@ngneat/spectator';
-import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/jest';
+import {Spectator, createComponentFactory, SpectatorFactory, byTextContent} from '@ngneat/spectator/vitest';
 import {
     MatDialogModule,
     MatDialogRef,
 } from '@angular/material/dialog';
 import {SudokuGrid} from '../grid-helper/types';
 import {getEmptyRow} from '../grid-helper/empty-row';
+import {type MockInstance} from 'vitest';
+import {FIREBASE_CONFIGURED} from '../scan-dialog/firebase-status';
 
 describe('GridComponent', () => {
     const grid: SudokuGrid = [
@@ -33,19 +31,20 @@ describe('GridComponent', () => {
         mocks: [
             MatDialogRef,
         ],
+        providers: [
+            {provide: FIREBASE_CONFIGURED, useValue: true},
+        ],
         declareComponent: false,
         detectChanges: false,
         shallow: true,
     });
 
     beforeEach(() => {
-        jest.useFakeTimers({
-            legacyFakeTimers: true,
-        });
+        vi.useFakeTimers();
     });
 
     afterEach(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
     it('Does show grid container', () => {
@@ -76,7 +75,7 @@ describe('GridComponent', () => {
 
     it('On share button does share grid', () => {
         spectator = createComponent({props: {originalGrid: grid}});
-        const shareSpy: jest.SpyInstance = jest.spyOn(spectator.component.share, 'emit');
+        const shareSpy: MockInstance = vi.spyOn(spectator.component.share, 'emit');
         spectator.detectChanges();
         const selector: DOMSelector = byTextContent('share', {selector: 'button'});
         spectator.click(selector);
@@ -85,7 +84,7 @@ describe('GridComponent', () => {
 
     it('On create button does create grid', () => {
         spectator = createComponent({props: {originalGrid: grid}});
-        const createSpy: jest.SpyInstance = jest.spyOn(spectator.component.create, 'emit');
+        const createSpy: MockInstance = vi.spyOn(spectator.component.create, 'emit');
         spectator.detectChanges();
         const selector: DOMSelector = byTextContent('autorenew', {selector: 'button'});
         spectator.click(selector);
@@ -94,7 +93,7 @@ describe('GridComponent', () => {
 
     it('On scan button does emit scan event', () => {
         spectator = createComponent({props: {originalGrid: grid}});
-        const scanSpy: jest.SpyInstance = jest.spyOn(spectator.component.scan, 'emit');
+        const scanSpy: MockInstance = vi.spyOn(spectator.component.scan, 'emit');
         spectator.detectChanges();
         const selector: DOMSelector = byTextContent('photo_camera', {selector: 'button'});
         spectator.click(selector);
@@ -350,7 +349,7 @@ describe('GridComponent', () => {
             ];
             spectator = createComponent({props: {originalGrid: almostCompleteGrid}});
             spectator.detectChanges();
-            const finishSpy: jest.SpyInstance = jest.spyOn(spectator.component.finish, 'emit');
+            const finishSpy: MockInstance = vi.spyOn(spectator.component.finish, 'emit');
             spectator.component.toogleSelectedValue(8, 8);
             spectator.component.onSelectValue(9);
             expect(finishSpy).toHaveBeenCalled();
@@ -446,7 +445,7 @@ describe('GridComponent', () => {
         });
 
         it('should call time.update in timer callback (line 245)', async () => {
-            jest.useRealTimers();
+            vi.useRealTimers();
             spectator = createComponent({props: {originalGrid: grid}});
             spectator.detectChanges();
             const initialTime: number = (spectator.component as any).time();
@@ -455,7 +454,7 @@ describe('GridComponent', () => {
                 setTimeout(() => {
                     const finalTime: number = (spectator.component as any).time();
                     expect(finalTime).toBeGreaterThan(initialTime);
-                    jest.useFakeTimers({legacyFakeTimers: true});
+                    vi.useFakeTimers();
                     resolve();
                 }, 1100);
             });

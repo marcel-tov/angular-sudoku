@@ -6,7 +6,7 @@ const tsParser = require('@typescript-eslint/parser');
 const angularPlugin = require('@angular-eslint/eslint-plugin');
 const angularTemplatePlugin = require('@angular-eslint/eslint-plugin-template');
 const angularTemplateParser = require('@angular-eslint/template-parser');
-const jestPlugin = require('eslint-plugin-jest');
+const vitestPlugin = require('@vitest/eslint-plugin');
 const cypress = require('eslint-plugin-cypress');
 const globals = require('globals');
 
@@ -81,7 +81,7 @@ const jsRules = {
     'semi': ['error', 'always'],
     'space-in-parens': ['error', 'never'],
     'space-before-function-paren': ['error', {anonymous: 'never', named: 'never', asyncArrow: 'always'}],
-    'spaced-comment': 'error',
+    'spaced-comment': ['error', 'always', {markers: ['/']}],
     'use-isnan': 'error',
     'valid-typeof': 'off',
     'yoda': 'error',
@@ -203,19 +203,18 @@ module.exports = [
         },
     },
 
-    // 3. Jest spec files
+    // 3. Vitest spec files
     {
         files: ['src/**/*.spec.ts'],
-        plugins: {jest: jestPlugin},
+        plugins: {vitest: vitestPlugin},
         languageOptions: {
-            globals: jestPlugin.configs['flat/recommended'].languageOptions.globals,
+            globals: {...vitestPlugin.environments.env.globals},
         },
         rules: {
-            ...jestPlugin.configs['flat/recommended'].rules,
-            ...jestPlugin.configs['flat/style'].rules,
-            'jest/require-top-level-describe': 'error',
-            'jest/no-duplicate-hooks': 'warn',
-            'jest/no-test-return-statement': 'error',
+            ...vitestPlugin.configs.recommended.rules,
+            'vitest/require-top-level-describe': 'error',
+            'vitest/no-duplicate-hooks': 'warn',
+            'vitest/no-test-return-statement': 'error',
         },
     },
 
@@ -247,7 +246,7 @@ module.exports = [
         },
     },
 
-    // 6. Root JavaScript config files (jest.config.js, commitlint.config.js etc.)
+    // 6. Root JavaScript config files (commitlint.config.js etc.)
     {
         files: ['**/*.js'],
         ignores: ['src/**/*.js'],

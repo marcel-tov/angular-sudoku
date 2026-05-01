@@ -5,10 +5,11 @@ A Sudoku game built with Angular and Angular Material.
 ## Tech Stack
 
 - **Angular 21** — framework
-- **Angular Material** — UI components
-- **Jest** — unit & component testing
+- **Angular Material** — UI components (Material Design 3 theming)
+- **Vitest** — unit & component testing (via the `@angular/build:unit-test` builder)
 - **Cypress** — end-to-end & component testing
-- **ESLint** — linting (with Angular, TypeScript, RxJS, and import plugins)
+- **ESLint** — linting (with Angular, TypeScript, Vitest, and Cypress plugins)
+- **stylelint** — SCSS linting
 - **semantic-release** — automated versioning and changelog generation
 
 ## Prerequisites
@@ -42,13 +43,15 @@ Build artifacts are output to the `dist/` directory.
 
 ## Testing
 
-### Unit tests (Jest)
+### Unit tests (Vitest)
 
 ```bash
-npm run jest          # run all tests with verbose output
-npm run jest:watch    # watch mode — re-runs tests on file changes
-npm run jest:ci       # CI mode — runs tests serially (--runInBand)
+npm run test          # run all tests once (watch auto-detected from TTY)
+npm run test:watch    # watch mode — re-runs tests on file changes
+npm run test:ci       # CI mode — runs tests once with coverage and no watch
 ```
+
+Tests run in jsdom via the Angular CLI's `@angular/build:unit-test` builder. Coverage is collected with `@vitest/coverage-v8` and reported as `lcov`, `text-summary`, and `html` under `coverage/`.
 
 ### End-to-end tests (Cypress)
 
@@ -70,11 +73,13 @@ npm run cypress:component      # run Cypress component tests
 ## Linting & Formatting
 
 ```bash
-npm run lint    # lint all JS, TS and HTML files (errors only)
-npm run fmt     # auto-fix lint issues
+npm run lint        # run eslint + stylelint (errors only)
+npm run fmt         # auto-fix eslint and stylelint issues
+npm run eslint      # eslint on JS/TS/HTML files
+npm run stylelint   # stylelint on SCSS files
 ```
 
-The project uses ESLint with plugins for Angular, TypeScript, RxJS, imports, Jest, and Cypress.
+ESLint runs with plugins for Angular, TypeScript, Vitest, and Cypress. Stylelint extends `stylelint-config-recommended-scss`. Both are wired into CI as separate jobs.
 
 ## Releasing
 

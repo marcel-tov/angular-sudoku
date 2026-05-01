@@ -2,9 +2,13 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "module": "CommonJS",
-    "moduleResolution": "node16",
-    "types": ["jest"]
+    "types": ["node"]
   },
-  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts",
+    "src/test-setup.ts",
+    "src/test-providers.ts",
+    "src/vitest-env.d.ts"
+  ]
 }

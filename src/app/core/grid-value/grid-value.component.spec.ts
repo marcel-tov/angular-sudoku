@@ -1,6 +1,6 @@
 
 import {GridValueComponent} from './grid-value.component';
-import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/jest';
+import {Spectator, createComponentFactory, SpectatorFactory} from '@ngneat/spectator/vitest';
 
 describe('GridValueComponent', () => {
     let spectator: Spectator<GridValueComponent>;

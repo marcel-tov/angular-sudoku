@@ -1,6 +1,6 @@
 
 import {HomeComponent} from './home.component';
-import {Spectator, createComponentFactory, SpectatorFactory, createSpyObject} from '@ngneat/spectator/jest';
+import {Spectator, createComponentFactory, SpectatorFactory, createSpyObject} from '@ngneat/spectator/vitest';
 import {RouterModule} from '@angular/router';
 import {MatDialog, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {of} from 'rxjs';
@@ -11,6 +11,7 @@ import {ScanDialogComponent} from '../../core/scan-dialog/scan-dialog.component'
 import {Difficulty} from '../../core/sudoku-generator/sudoku-generator';
 import {SudokuGrid, SudokuValue} from '../../core/grid-helper/types';
 import {getEmptyRow} from '../../core/grid-helper/empty-row';
+import {type MockInstance} from 'vitest';
 
 interface IMockRoute {
     snapshot: {paramMap: {has: (key: string) => boolean; get: (key: string) => string | null}};
@@ -59,13 +60,11 @@ describe('HomeComponent', () => {
 
     beforeEach(() => {
         spectator = createComponent();
-        jest.useFakeTimers({
-            legacyFakeTimers: true,
-        });
+        vi.useFakeTimers();
     });
 
     afterEach(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
     it('should create component', () => {
@@ -90,7 +89,7 @@ describe('HomeComponent', () => {
 
     it('should open creation dialog', () => {
         const difficulty: Difficulty = 'Easy';
-        const createRandomSudokuSpy: jest.SpyInstance = jest.spyOn(spectator.component, 'createRandomSudoku');
+        const createRandomSudokuSpy: MockInstance = vi.spyOn(spectator.component, 'createRandomSudoku');
         const matDialogRef: MatDialogRef<unknown> = createSpyObject(MatDialogRef, {
             afterClosed: () => of(difficulty),
         });
