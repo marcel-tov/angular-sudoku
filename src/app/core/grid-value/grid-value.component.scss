@@ -62,7 +62,7 @@
 
   &__value {
     display: grid;
-    vertical-align: middle;
+    align-content: center;
     text-align: center;
     font-size: calc(100% + 0.4vw);
   }
