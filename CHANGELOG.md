@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.13.1...v1.14.0) (2026-05-03)
+
+
+### Features
+
+* add resizing ([#125](https://github.com/marcel-tov/angular-sudoku/issues/125)) ([91036cb](https://github.com/marcel-tov/angular-sudoku/commit/91036cb90df2633d77d7e8eec41457c97ff99d04))
+
 ## [1.13.1](https://github.com/marcel-tov/angular-sudoku/compare/v1.13.0...v1.13.1) (2026-05-01)
 
 
