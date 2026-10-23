@@ -7,10 +7,22 @@
 // `_theme-colors.scss`. M3 derives secondary, neutral, neutral-variant
 // and error palettes automatically; there is no separate "accent" the way
 // M2 had — it is replaced by secondary/tertiary tones off the primary.
+
+// `theme-type: color-scheme` emits every color token as `light-dark()`, so the
+// active palette is driven purely by the CSS `color-scheme` property. The
+// ThemeService toggles `.dark-theme` on <html> (see also the inline boot
+// script in index.html, which applies it before Angular starts to avoid a
+// light flash).
 html {
+  color-scheme: light;
+
+  &.dark-theme {
+    color-scheme: dark;
+  }
+
   @include mat.theme((
     color: (
-      theme-type: light,
+      theme-type: color-scheme,
       primary: theme-colors.$primary-palette,
       tertiary: theme-colors.$tertiary-palette,
     ),
@@ -30,17 +42,23 @@ html {
   --secondary-color-light: var(--mat-sys-secondary-container);
   --error-color: var(--mat-sys-error);
   --success-color: #66bb6a;
-  --border-color: var(--mat-sys-outline);
-  --light-border-color: var(--mat-sys-outline-variant);
+  // In dark mode M3's outline-variant has the same tone as surface-variant
+  // (used for prefilled cells), so cell borders vanish between highlighted
+  // cells. Shift both border tokens one step lighter in dark mode only.
+  --border-color: light-dark(var(--mat-sys-outline), var(--mat-sys-on-surface-variant));
+  --light-border-color: light-dark(var(--mat-sys-outline-variant), var(--mat-sys-outline));
   --font-color: var(--mat-sys-on-surface);
   --light-font-color: var(--mat-sys-on-surface-variant);
+  // white in light mode (unchanged look), M3 surface in dark mode
+  --background-color: light-dark(#ffffff, var(--mat-sys-surface));
+  --cell-background-color: var(--background-color);
 }
 
 
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { color: var(--font-color); margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { color: var(--font-color); background-color: var(--background-color); margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .notification-wrapper {
   &--error {
