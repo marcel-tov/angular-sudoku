@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.14.0...v1.15.0) (2026-10-23)
+
+
+### Features
+
+* add dark mode ([#147](https://github.com/marcel-tov/angular-sudoku/issues/147)) ([11a5dd4](https://github.com/marcel-tov/angular-sudoku/commit/11a5dd44610158ccdbdcecae5ef48f6f81f7deb3))
+
 # [1.14.0](https://github.com/marcel-tov/angular-sudoku/compare/v1.13.1...v1.14.0) (2026-05-03)
 
 
