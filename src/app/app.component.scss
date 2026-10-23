@@ -5,9 +5,19 @@
 
     &__footer {
         margin-top: auto;
-        padding: 8px;
-        text-align: center;
+        padding: 0 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
         font-size: 0.75rem;
+    }
+
+    &__version {
         opacity: 0.4;
+    }
+
+    &__theme-toggle {
+        color: var(--light-font-color);
     }
 }

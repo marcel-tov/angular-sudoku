@@ -1,4 +1,17 @@
 <div class="app">
   <router-outlet></router-outlet>
-  <footer class="app__footer">v{{ version }}</footer>
+  <footer class="app__footer">
+    <span class="app__version">v{{ version }}</span>
+    <button
+      class="app__theme-toggle"
+      mat-icon-button
+      type="button"
+      [matTooltip]="theme.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+      [attr.aria-label]="theme.isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+      [attr.aria-pressed]="theme.isDark()"
+      (click)="theme.toggle()"
+    >
+      <mat-icon>{{ theme.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+  </footer>
 </div>
